@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Original Colors -->
+    <color name="grey">#808080</color>
+    <color name="orange">#FFA500</color>
+    <color name="teal_200">#80CBC4</color>
+
+    <!-- Material-Inspired Grays -->
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_900">#212121</color>
+
+    <!-- Additional Teal Shade -->
+    <color name="teal_500">#009688</color>
+
+    <!-- New Highlight Color for Unpaid Units -->
+    <color name="red_500">#F44336</color>
+    <color name="red_300">#E57373</color><!-- Material Red -->
+    <color name="soft_red">#FFCDD2</color> <!-- Light Red for Background -->
+    <color name="dark_red">#D32F2F</color> <!-- Darker Red for Text -->
+
+    <color name="green">#4CAF50</color>  <!-- Green for Paid -->
+    <color name="red">#F44336</color>    <!-- Red for Unpaid -->
+    <color name="teal_700">#00897B</color>
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_dashboard">
+
+    <!-- Dashboard Fragment -->
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.example.apartmentmanageapp.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <!-- Properties Fragment -->
+    <fragment
+        android:id="@+id/nav_properties"
+        android:name="com.example.apartmentmanageapp.ui.properties.PropertiesFragment"
+        android:label="Properties"
+        tools:layout="@layout/fragment_properties" />
+
+    <!-- Tenants Fragment -->
+    <fragment
+        android:id="@+id/nav_tenants"
+        android:name="com.example.apartmentmanageapp.ui.tenants.TenantsFragment"
+        android:label="Tenants"
+        tools:layout="@layout/fragment_tenants" />
+
+    <!-- Maintenance Fragment -->
+    <fragment
+        android:id="@+id/nav_maintenance"
+        android:name="com.example.apartmentmanageapp.ui.maintenance.MaintenanceFragment"
+        android:label="Maintenance"
+        tools:layout="@layout/fragment_maintenance" />
+
+    <!-- Finance Fragment -->
+    <fragment
+        android:id="@+id/nav_finance"
+        android:name="com.example.apartmentmanageapp.ui.finance.FinanceFragment"
+        android:label="Finance"
+        tools:layout="@layout/fragment_finance" />
+</navigation>

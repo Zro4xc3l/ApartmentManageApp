@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_50"
+    android:padding="16dp">
+
+    <!-- Top Bar: Title + Profile Icon -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_apartment_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apartment Manager"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/gray_900"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="Profile Icon"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <!-- Grid: 2 columns x 3 rows, 5 cards total -->
+    <GridLayout
+        android:id="@+id/grid_stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:useDefaultMargins="true"
+        android:alignmentMode="alignMargins">
+
+        <!-- Unpaid Tenants Card (Soft Red) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_unpaid_units"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            android:background="@color/soft_red"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_unpaid_units_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:id="@+id/tv_unpaid_units_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unpaid Tenants"
+                    android:textSize="14sp"
+                    android:textColor="@color/dark_red"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Occupancy Rate Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_occupancy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_occupancy_rate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="75%"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_500" />
+
+                <TextView
+                    android:id="@+id/tv_occupancy_rate_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Occupancy Rate"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_900"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Vacancy Rate Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_vacancy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_vacancy_rate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25%"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_500" />
+
+                <TextView
+                    android:id="@+id/tv_vacancy_rate_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vacancy Rate"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_900"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Total Units Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_total_units"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_total_units_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_500" />
+
+                <TextView
+                    android:id="@+id/tv_total_units_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Units"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_900"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+    <!-- Quick Actions -->
+    <Button
+        android:id="@+id/btn_add_tenant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Tenant 🏠"
+        android:backgroundTint="@color/teal_500"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btn_add_property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Property"
+        android:backgroundTint="@color/gray_900"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"/>
+
+    <Button
+        android:id="@+id/btn_request_maintenance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request Maintenance"
+        android:backgroundTint="@color/orange"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"/>
+</LinearLayout>

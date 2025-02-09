@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/ic_home"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/nav_properties"
+        android:icon="@drawable/ic_building"
+        android:title="Properties" />
+
+    <item
+        android:id="@+id/nav_tenants"
+        android:icon="@drawable/ic_people"
+        android:title="Tenants" />
+
+    <item
+        android:id="@+id/nav_maintenance"
+        android:icon="@drawable/ic_tools"
+        android:title="Maintenance" />
+
+    <item
+        android:id="@+id/nav_finance"
+        android:icon="@drawable/ic_finance"
+        android:title="Finance" />
+
+</menu>

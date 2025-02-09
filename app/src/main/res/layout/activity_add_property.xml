@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F9F9F9">
+
+    <!-- Property Name Input -->
+    <EditText
+        android:id="@+id/edit_property_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Property Name"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Property Address Input -->
+    <EditText
+        android:id="@+id/edit_property_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Property Address"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Unit Count Input -->
+    <EditText
+        android:id="@+id/edit_unit_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Number of Units"
+        android:inputType="number"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Save and Cancel Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/teal_500"
+            android:elevation="4dp"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/darker_gray"
+            android:elevation="4dp"
+            android:layout_marginStart="8dp"
+            android:padding="12dp"/>
+    </LinearLayout>
+
+</LinearLayout>
