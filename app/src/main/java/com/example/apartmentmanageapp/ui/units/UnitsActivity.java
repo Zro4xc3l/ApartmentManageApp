@@ -2,7 +2,9 @@ package com.example.apartmentmanageapp.ui.units;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,6 +30,8 @@ public class UnitsActivity extends AppCompatActivity {
     private String propertyId;
     private static final int ADD_UNIT_REQUEST = 102;
 
+    private ImageButton btnBack, btnRefresh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,8 @@ public class UnitsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.unit_recycler_view);
         FloatingActionButton addUnitButton = findViewById(R.id.add_unit_button);
+        btnBack = findViewById(R.id.btnBack);
+        btnRefresh = findViewById(R.id.btnRefresh);
         db = FirebaseFirestore.getInstance();
 
         // Get propertyId from Intent
@@ -42,7 +48,7 @@ public class UnitsActivity extends AppCompatActivity {
         unitList = new ArrayList<>();
         loadUnits();
 
-        adapter = new UnitAdapter(this,unitList);
+        adapter = new UnitAdapter(this, unitList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -52,6 +58,18 @@ public class UnitsActivity extends AppCompatActivity {
                 Intent intent = new Intent(UnitsActivity.this, AddUnitActivity.class);
                 intent.putExtra("propertyId", propertyId);
                 startActivityForResult(intent, ADD_UNIT_REQUEST);
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadUnits();
             }
         });
     }
@@ -74,6 +92,8 @@ public class UnitsActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Unit unit = document.toObject(Unit.class);
                             unitList.add(unit);
+
+                            Log.d("UnitsActivity", "Loaded Unit: " + unit.getUnitNumber());
                         }
                         adapter.notifyDataSetChanged();
                     } else {

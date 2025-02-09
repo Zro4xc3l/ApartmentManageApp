@@ -36,4 +36,9 @@ public class Property {
     public int getUnitCount() {
         return unitCount;
     }
+
+    // Add this setter method for unitCount
+    public void setUnitCount(int unitCount) {
+        this.unitCount = unitCount;
+    }
 }

@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddPropertyActivity extends AppCompatActivity {
 
-    private EditText propertyName, propertyAddress, unitCount;
+    private EditText propertyName, propertyAddress;
     private Button saveButton, cancelButton;
     private FirebaseFirestore db;
 
@@ -26,29 +26,25 @@ public class AddPropertyActivity extends AppCompatActivity {
 
         propertyName = findViewById(R.id.edit_property_name);
         propertyAddress = findViewById(R.id.edit_property_address);
-        unitCount = findViewById(R.id.edit_unit_count);
         saveButton = findViewById(R.id.button_save);
         cancelButton = findViewById(R.id.button_cancel);
 
         db = FirebaseFirestore.getInstance();
 
         saveButton.setOnClickListener(v -> saveProperty());
-
         cancelButton.setOnClickListener(v -> finish());
     }
 
     private void saveProperty() {
         String name = propertyName.getText().toString().trim();
         String address = propertyAddress.getText().toString().trim();
-        String unitCountStr = unitCount.getText().toString().trim();
 
-        if (name.isEmpty() || address.isEmpty() || unitCountStr.isEmpty()) {
+        if (name.isEmpty() || address.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int unitCount = Integer.parseInt(unitCountStr);
-        Property property = new Property(name, address, unitCount);
+        Property property = new Property(name, address, 0); // Default unit count to 0
 
         db.collection("properties").add(property)
                 .addOnSuccessListener(documentReference -> {

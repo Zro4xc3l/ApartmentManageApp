@@ -47,8 +47,6 @@ public class PropertiesFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         propertyList = new ArrayList<>();
 
-        loadProperties();
-
         adapter = new PropertyAdapter(requireActivity(), propertyList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -58,23 +56,9 @@ public class PropertiesFragment extends Fragment {
             startActivityForResult(intent, ADD_PROPERTY_REQUEST);
         });
 
+        loadProperties();
+
         return view;
-    }
-
-    // ✅ FIX: Open `UnitsActivity` instead of `UnitsFragment`
-    private void openUnitsPage(Property property) {
-        Intent intent = new Intent(getActivity(), UnitsActivity.class);
-        intent.putExtra("propertyId", property.getId()); // Pass Property ID
-        startActivity(intent);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ADD_PROPERTY_REQUEST && resultCode == getActivity().RESULT_OK) {
-            loadProperties();
-        }
     }
 
     private void loadProperties() {
@@ -85,10 +69,41 @@ public class PropertiesFragment extends Fragment {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Property property = document.toObject(Property.class);
                     property.setId(document.getId());
-                    propertyList.add(property);
+
+                    // Fetch unit count for each property
+                    fetchUnitCount(property);
                 }
-                adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void fetchUnitCount(Property property) {
+        db.collection("units")
+                .whereEqualTo("propertyId", property.getId())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        int unitCount = task.getResult().size();
+                        property.setUnitCount(unitCount);
+
+                        propertyList.add(property);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+    private void openUnitsPage(Property property) {
+        Intent intent = new Intent(getActivity(), UnitsActivity.class);
+        intent.putExtra("propertyId", property.getId());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_PROPERTY_REQUEST && resultCode == getActivity().RESULT_OK) {
+            loadProperties();
+        }
     }
 }

@@ -7,7 +7,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray_50"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:fitsSystemWindows="true">
+
+    <!-- Header Text -->
+    <TextView
+        android:id="@+id/header_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dashboard Overview"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/teal_500"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
 
     <!-- Top Bar: Title + Profile Icon -->
     <RelativeLayout
@@ -42,9 +55,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
-        android:rowCount="3"
         android:useDefaultMargins="true"
-        android:alignmentMode="alignMargins">
+        android:alignmentMode="alignMargins"
+        android:layout_marginTop="16dp">
 
         <!-- Unpaid Tenants Card (Soft Red) -->
         <androidx.cardview.widget.CardView
@@ -53,8 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
             android:background="@color/soft_red"
             android:foreground="?attr/selectableItemBackgroundBorderless">
@@ -93,8 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
@@ -132,8 +145,8 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
@@ -171,8 +184,8 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
@@ -232,4 +245,5 @@
         android:backgroundTint="@color/orange"
         android:textColor="@color/white"
         android:layout_marginTop="12dp"/>
+
 </LinearLayout>

@@ -31,6 +31,10 @@
         <activity android:name=".ui.tenants.AddTenantActivity" />
         <activity android:name=".ui.properties.AddPropertyActivity" />
         <activity android:name=".ui.units.AddUnitActivity" />
+        <activity android:name=".ui.units.RoomDetailActivity" android:exported="true" />
+        <activity android:name=".ui.units.EditRoomActivity" android:exported="false" />
+
+
     </application>
 
 </manifest>
