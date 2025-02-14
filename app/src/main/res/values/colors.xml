@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Basic Colors -->
+    <!-- ⚫ Basic Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Original Colors -->
-    <color name="grey">#808080</color>
-    <color name="orange">#FFA500</color>
+    <!-- ⚪ Neutral & Gray Shades (Material Design Inspired) -->
+    <color name="gray_50">#FAFAFA</color>   <!-- Very Light Gray -->
+    <color name="gray_100">#F5F5F5</color>  <!-- Light Gray -->
+    <color name="gray_200">#EEEEEE</color>  <!-- Soft Gray -->
+    <color name="gray_300">#E0E0E0</color>  <!-- Mid Gray -->
+    <color name="gray_500">#9E9E9E</color>  <!-- Standard Gray -->
+    <color name="gray_700">#616161</color>  <!-- Dark Gray -->
+    <color name="gray_900">#212121</color>  <!-- Almost Black -->
+    <color name="gray_dark">#666666</color> <!-- Custom Dark Gray for Text -->
+
+    <!-- 🔵 Primary Colors -->
+    <color name="colorPrimary">#007AFF</color> <!-- Primary Blue -->
+    <color name="colorPrimaryDark">#005ECF</color> <!-- Darker Blue -->
+    <color name="colorAccent">#FFA500</color> <!-- Accent Orange -->
+
+    <!-- 🔹 Secondary Colors -->
     <color name="teal_200">#80CBC4</color>
-
-    <!-- Material-Inspired Grays -->
-    <color name="gray_50">#FAFAFA</color>
-    <color name="gray_200">#EEEEEE</color>
-    <color name="gray_500">#9E9E9E</color>
-    <color name="gray_900">#212121</color>
-
-    <!-- Additional Teal Shade -->
     <color name="teal_500">#009688</color>
-
-    <!-- New Highlight Color for Unpaid Units -->
-    <color name="red_500">#F44336</color>
-    <color name="red_300">#E57373</color><!-- Material Red -->
-    <color name="soft_red">#FFCDD2</color> <!-- Light Red for Background -->
-    <color name="dark_red">#D32F2F</color> <!-- Darker Red for Text -->
-
-    <color name="green">#4CAF50</color>  <!-- Green for Paid -->
-    <color name="red">#F44336</color>    <!-- Red for Unpaid -->
     <color name="teal_700">#00897B</color>
+    <color name="purple_500">#9C27B0</color> <!-- Material Purple -->
+    <color name="orange_500">#FF9800</color> <!-- Orange (General Use) -->
+    <color name="orange_700">#F57C00</color> <!-- Darker Orange -->
+
+    <!-- 🔴 Status & Alert Colors -->
+    <color name="green_500">#4CAF50</color>  <!-- Green for Paid -->
+    <color name="red_500">#F44336</color>    <!-- Red for Unpaid -->
+    <color name="red_300">#E57373</color>    <!-- Material Red Light -->
+    <color name="soft_red">#FFCDD2</color>   <!-- Light Red for Background -->
+    <color name="dark_red">#D32F2F</color>   <!-- Darker Red for Text -->
+    <color name="yellow_500">#FFEB3B</color> <!-- Warning Yellow -->
+    <color name="blue_300">#64B5F6</color>   <!-- Lighter Blue -->
+    <color name="blue_500">#2196F3</color>   <!-- Info Blue -->
+    <color name="blue_700">#1976D2</color>   <!-- Darker Blue -->
+
+    <!-- 📝 Text Colors -->
+    <color name="textPrimary">#212121</color> <!-- Dark Text -->
+    <color name="textSecondary">#424242</color> <!-- Lighter but readable -->
+
+    <!-- 🎨 Background Colors -->
+    <color name="backgroundLight">#F9F9F9</color> <!-- Light Background -->
+    <color name="backgroundDark">#121212</color> <!-- Dark Background (For Dark Mode) -->
+
+    <color name="green">#4CAF50</color> <!-- Adjust the hex code as needed -->
+    <color name="red">#F44336</color>
+    <color name="orange">#FF9800</color>
+    <color name="gray">#9E9E9E</color>
+
 
 </resources>

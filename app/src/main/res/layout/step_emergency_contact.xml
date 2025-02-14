@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/step_emergency_contact_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Section Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Step 4: Emergency Contact"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="8dp"/>
+
+    <!-- Emergency Contact Name -->
+    <EditText
+        android:id="@+id/edit_emergency_contact_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/emergency_contact_name"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Emergency Contact Relationship -->
+    <EditText
+        android:id="@+id/edit_emergency_contact_relationship"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/emergency_contact_relationship"
+        android:inputType="text"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Emergency Contact Phone -->
+    <EditText
+        android:id="@+id/edit_emergency_contact_phone"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/emergency_contact_phone"
+        android:inputType="phone"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+</LinearLayout>

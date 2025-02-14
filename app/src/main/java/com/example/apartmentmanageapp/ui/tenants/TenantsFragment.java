@@ -2,12 +2,12 @@ package com.example.apartmentmanageapp.ui.tenants;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,27 +19,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.apartmentmanageapp.R;
 import com.example.apartmentmanageapp.adapters.TenantAdapter;
 import com.example.apartmentmanageapp.model.Tenant;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TenantsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TenantAdapter adapter;
     private List<Tenant> tenantList;
-    private List<Tenant> filteredList;
-    private EditText searchBar;
     private FirebaseFirestore db;
+    private Spinner propertySelector;
+    private String selectedPropertyId;
     private static final int ADD_TENANT_REQUEST = 100;
 
     public TenantsFragment() {
@@ -48,64 +43,77 @@ public class TenantsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tenants, container, false);
 
-        recyclerView = view.findViewById(R.id.tenant_recycler_view);
-        searchBar = view.findViewById(R.id.search_bar);
-        FloatingActionButton addTenantButton = view.findViewById(R.id.add_tenant_button);
+        // Initialize the RecyclerView, Spinner, and FAB from the inflated layout
+        recyclerView = view.findViewById(R.id.unit_recycler_view);
+        propertySelector = view.findViewById(R.id.property_selector);
+        FloatingActionButton addTenantButton = view.findViewById(R.id.add_unit_button);
 
         db = FirebaseFirestore.getInstance();
         tenantList = new ArrayList<>();
-        filteredList = new ArrayList<>();
 
-        // Load tenants from Firestore
-        loadTenants();
+        // Load properties to populate the selector
+        loadProperties();
 
-        adapter = new TenantAdapter(requireContext(), filteredList);
+        adapter = new TenantAdapter(requireContext(), tenantList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
 
-        // Search functionality
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterTenants(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        // Open AddTenantActivity when FAB is clicked
+        // Set FAB click listener to open AddTenantActivity
         addTenantButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddTenantActivity.class);
-            startActivityForResult(intent, ADD_TENANT_REQUEST);
+            if (selectedPropertyId != null) {
+                Intent intent = new Intent(getActivity(), AddTenantActivity.class);
+                intent.putExtra("propertyId", selectedPropertyId);
+                startActivityForResult(intent, ADD_TENANT_REQUEST);
+            } else {
+                Toast.makeText(getContext(), "Please select a property first", Toast.LENGTH_SHORT).show();
+            }
         });
 
         return view;
     }
 
-    private void loadTenants() {
-        CollectionReference tenantsRef = db.collection("tenants");
-        tenantsRef.get().addOnCompleteListener(task -> {
+    private void loadProperties() {
+        CollectionReference propertiesRef = db.collection("properties");
+        propertiesRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                tenantList.clear();
-                filteredList.clear();
+                List<String> propertyNames = new ArrayList<>();
+                List<String> propertyIds = new ArrayList<>();
+
+                propertyNames.add("Select Property"); // Default option
+                propertyIds.add(null);
+
                 for (DocumentSnapshot document : task.getResult()) {
-                    Tenant tenant = new Tenant(
-                            document.getString("name"),
-                            document.getString("unit"),
-                            document.getString("status"),
-                            document.getString("phone")
-                    );
-                    tenantList.add(tenant);
+                    String propertyName = document.getString("name");
+                    String propertyId = document.getId();
+                    propertyNames.add(propertyName);
+                    propertyIds.add(propertyId);
                 }
-                filteredList.addAll(tenantList);
-                adapter.notifyDataSetChanged();
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, propertyNames);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                propertySelector.setAdapter(adapter);
+
+                propertySelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        selectedPropertyId = propertyIds.get(position);
+                        loadTenants();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        selectedPropertyId = null;
+                        tenantList.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            } else {
+                Toast.makeText(getContext(), "Failed to load properties", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -113,44 +121,36 @@ public class TenantsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == ADD_TENANT_REQUEST && resultCode == getActivity().RESULT_OK && data != null) {
-            String name = data.getStringExtra("name");
-            String unit = data.getStringExtra("unit");
-            String status = data.getStringExtra("status");
-            String phone = data.getStringExtra("phone");
-
-            // Save to Firestore
-            saveTenantToFirestore(name, unit, status, phone);
+            loadTenants();
         }
     }
 
-    private void saveTenantToFirestore(String name, String unit, String status, String phone) {
-        Map<String, Object> tenant = new HashMap<>();
-        tenant.put("name", name);
-        tenant.put("unit", unit);
-        tenant.put("status", status);
-        tenant.put("phone", phone);
+    private void loadTenants() {
+        if (selectedPropertyId == null) {
+            tenantList.clear();
+            adapter.notifyDataSetChanged();
+            return;
+        }
 
-        db.collection("tenants").add(tenant)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(getContext(), "Tenant added", Toast.LENGTH_SHORT).show();
-                    loadTenants(); // Refresh tenant list
-                })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to add tenant", Toast.LENGTH_SHORT).show());
-    }
-
-    private void filterTenants(String query) {
-        filteredList.clear();
-        if (query.isEmpty()) {
-            filteredList.addAll(tenantList);
-        } else {
-            for (Tenant tenant : tenantList) {
-                if (tenant.getName().toLowerCase().contains(query.toLowerCase())) {
-                    filteredList.add(tenant);
+        CollectionReference tenantsRef = db.collection("tenants");
+        tenantsRef.whereEqualTo("propertyId", selectedPropertyId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                tenantList.clear();
+                for (DocumentSnapshot document : task.getResult()) {
+                    Tenant tenant = new Tenant(
+                            document.getString("firstName"),
+                            document.getString("lastName"),
+                            document.getString("roomNumber"),
+                            document.getString("rentStatus"),
+                            document.getString("phoneNumber")
+                    );
+                    tenantList.add(tenant);
                 }
+                adapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getContext(), "Failed to load tenants", Toast.LENGTH_SHORT).show();
             }
-        }
-        adapter.notifyDataSetChanged();
+        });
     }
 }

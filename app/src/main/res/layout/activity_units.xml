@@ -10,61 +10,61 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.units.UnitsActivity">
 
-    <!-- Back Button on the left -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
+    <!-- Header Section -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back"
-        android:contentDescription="Back"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_margin="8dp"
-        android:padding="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp">
 
-    <!-- Refresh Button on the right -->
-    <ImageButton
-        android:id="@+id/btnRefresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_refresh"
-        android:contentDescription="Refresh"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_margin="8dp"
-        android:padding="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"/>
 
-    <!-- Header TextView centered between the back and refresh buttons -->
-    <TextView
-        android:id="@+id/header_units"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Manage Units"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/teal_700"
-        android:gravity="center"
-        android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/btnBack"
-        app:layout_constraintStart_toEndOf="@id/btnBack"
-        app:layout_constraintEnd_toStartOf="@id/btnRefresh" />
+        <!-- Header Title -->
+        <TextView
+            android:id="@+id/header_units"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Manage Units"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/teal_700"
+            android:gravity="center"
+            android:layout_weight="1"/>
 
-    <!-- RecyclerView for Units -->
+        <!-- Refresh Button -->
+        <ImageButton
+            android:id="@+id/btnRefresh"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_refresh"
+            android:contentDescription="Refresh"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"/>
+    </LinearLayout>
+
+    <!-- RecyclerView for displaying units -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/unit_recycler_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="8dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/header_units"
+        app:layout_constraintTop_toBottomOf="@id/header_layout"
         app:layout_constraintBottom_toTopOf="@id/add_unit_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Empty State TextView (Visible when no units exist) -->
+    <!-- Empty State Message -->
     <TextView
         android:id="@+id/empty_state_text"
         android:layout_width="wrap_content"
@@ -73,11 +73,12 @@
         android:textSize="16sp"
         android:textColor="#666666"
         android:gravity="center"
+        android:padding="16dp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/unit_recycler_view"
         app:layout_constraintBottom_toBottomOf="@id/unit_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Floating Action Button to Add Unit -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -87,9 +88,8 @@
         android:src="@drawable/ic_add"
         android:contentDescription="Add Unit"
         app:backgroundTint="@color/teal_700"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

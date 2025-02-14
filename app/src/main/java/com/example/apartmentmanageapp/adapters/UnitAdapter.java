@@ -1,7 +1,6 @@
 package com.example.apartmentmanageapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apartmentmanageapp.R;
 import com.example.apartmentmanageapp.model.Unit;
-import com.example.apartmentmanageapp.ui.units.RoomDetailActivity;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
     private List<Unit> unitList;
     private Context context;
+    private int expandedPosition = -1; // Tracks which unit is expanded
 
     public UnitAdapter(Context context, List<Unit> unitList) {
         this.context = context;
@@ -37,31 +37,43 @@ public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Unit unit = unitList.get(position);
-        holder.unitNumber.setText("Unit " + (unit.getUnitNumber() != null ? unit.getUnitNumber() : "N/A"));
-        holder.tenantName.setText(unit.isOccupied() ? unit.getTenantName() : "No Tenant");
-        holder.rentStatus.setText(unit.isOccupied() ? unit.getRentStatus() : "N/A");
 
-        // Change color based on rent status
-        if ("Paid".equalsIgnoreCase(unit.getRentStatus())) {
-            holder.rentStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
+        // Use getUnitId() instead of getUnitNumber()
+        String unitNumberText = (unit.getUnitId() != null) ? unit.getUnitId() : "N/A";
+        holder.unitNumber.setText("Unit " + unitNumberText);
+
+        // Use getRentAmount() instead of getRentRate()
+        String rentRateText = String.format("%.2f THB", unit.getRentAmount());
+        holder.rentRate.setText("Rent: " + rentRateText);
+
+        // Display Floor Level
+        String floorLevelText = (unit.getFloorLevel() != null) ? unit.getFloorLevel() : "Unknown";
+        holder.floorLevel.setText("Floor: " + floorLevelText);
+
+        // Convert `amenities` from List<String> to a comma-separated string
+        String amenitiesText = (unit.getAmenities() != null && !unit.getAmenities().isEmpty())
+                ? String.join(", ", unit.getAmenities())
+                : "No Amenities";
+        holder.amenities.setText("Amenities: " + amenitiesText);
+
+        // Display Occupancy Status with color
+        if (unit.isOccupied()) {
+            holder.occupancyStatus.setText("Occupied");
+            holder.occupancyStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red_500));
+            holder.tenantName.setText("Tenant: " + unit.getTenantName());
         } else {
-            holder.rentStatus.setTextColor(ContextCompat.getColor(context, R.color.red));
+            holder.occupancyStatus.setText("Available");
+            holder.occupancyStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green_500));
+            holder.tenantName.setText("Tenant: None");
         }
 
-        // Set OnClickListener directly on CardView to open RoomDetailActivity
-        holder.cardView.setOnClickListener(v -> {
-            Log.d("UnitAdapter", "Unit clicked: " + unit.getUnitNumber());
-            Intent intent = new Intent(context, RoomDetailActivity.class);
-            intent.putExtra("unitId", unit.getId());
-            intent.putExtra("unitNumber", unit.getUnitNumber() != null ? unit.getUnitNumber() : "N/A");
-            intent.putExtra("tenantName", unit.isOccupied() ? unit.getTenantName() : "No Tenant");
-            intent.putExtra("rentStatus", unit.isOccupied() ? unit.getRentStatus() : "N/A");
-            intent.putExtra("roomSize", unit.getRoomSize() != null ? unit.getRoomSize() : "Unknown");
-            intent.putExtra("floorLevel", unit.getFloorLevel() != null ? unit.getFloorLevel() : "Unknown");
-            intent.putExtra("rentAmount", unit.getRentAmount());
-            intent.putExtra("availabilityStatus", unit.isOccupied() ? "Occupied" : "Vacant");
-            intent.putExtra("amenities", unit.getAmenities() != null ? unit.getAmenities() : "None");
-            context.startActivity(intent);
+        // Handle Expand/Collapse
+        final boolean isExpanded = position == expandedPosition;
+        holder.expandedDetails.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+        holder.itemView.setOnClickListener(v -> {
+            expandedPosition = isExpanded ? -1 : position; // Toggle expansion
+            notifyDataSetChanged();
         });
     }
 
@@ -71,15 +83,18 @@ public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView unitNumber, tenantName, rentStatus;
-        View cardView;
+        TextView unitNumber, rentRate, floorLevel, amenities, occupancyStatus, tenantName;
+        View expandedDetails;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             unitNumber = itemView.findViewById(R.id.unit_number);
-            tenantName = itemView.findViewById(R.id.tenant_name);
-            rentStatus = itemView.findViewById(R.id.rent_status);
-            cardView = itemView;  // Reference CardView for click listener
+            rentRate = itemView.findViewById(R.id.unit_rent_rate);
+            floorLevel = itemView.findViewById(R.id.unit_floor_level);
+            amenities = itemView.findViewById(R.id.unit_amenities);
+            occupancyStatus = itemView.findViewById(R.id.unit_availability_status);
+            tenantName = itemView.findViewById(R.id.unit_tenant_name);
+            expandedDetails = itemView.findViewById(R.id.unit_expanded_details);
         }
     }
 }

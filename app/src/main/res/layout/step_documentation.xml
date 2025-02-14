@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/step_documentation_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Section Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Step 2: Documentation"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="8dp"/>
+
+    <!-- Citizen ID Input -->
+    <EditText
+        android:id="@+id/edit_citizen_id"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/citizen_id"
+        android:inputType="number"
+        android:maxLength="13"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Citizen Card Issued Date -->
+    <EditText
+        android:id="@+id/edit_citizen_issued_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/citizen_issued_date"
+        android:inputType="none"
+        android:clickable="true"
+        android:focusable="false"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Citizen Card Expiry Date -->
+    <EditText
+        android:id="@+id/edit_citizen_expiry_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/citizen_expiry_date"
+        android:inputType="none"
+        android:clickable="true"
+        android:focusable="false"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Address on Citizen Card -->
+    <EditText
+        android:id="@+id/edit_address_on_citizen_card"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/address_on_citizen_card"
+        android:inputType="textPostalAddress"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp" />
+
+</LinearLayout>

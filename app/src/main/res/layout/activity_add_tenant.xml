@@ -1,92 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#F9F9F9"
+    android:fitsSystemWindows="true">
 
-    <!-- Tenant Name Input -->
-    <EditText
-        android:id="@+id/edit_tenant_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tenant Name"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"/>
-
-    <!-- Unit Number Input -->
-    <EditText
-        android:id="@+id/edit_unit_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Unit Number"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"
-        android:layout_marginTop="8dp"/>
-
-    <!-- Phone Number Input -->
-    <EditText
-        android:id="@+id/edit_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"
-        android:layout_marginTop="8dp"/>
-
-    <!-- Rent Status Selection -->
-    <RadioGroup
-        android:id="@+id/rent_status_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
-
-        <RadioButton
-            android:id="@+id/rent_status_paid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Paid"
-            android:checked="true"/>
-
-        <RadioButton
-            android:id="@+id/rent_status_unpaid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unpaid"
-            android:layout_marginStart="16dp"/>
-    </RadioGroup>
-
-    <!-- Save and Cancel Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp">
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="0dp"
+        <!-- Header with Cancel Button and Title -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Save"
-            android:textColor="@android:color/white"
-            android:background="@color/teal_500"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
 
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="0dp"
+            <!-- Cancel Button on Top Left -->
+            <ImageButton
+                android:id="@+id/btnCancel"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:contentDescription="Cancel" />
+
+            <!-- Title and Subtitle Container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add New Tenant"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary" />
+
+                <TextView
+                    android:id="@+id/header_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter tenant details using the steps below."
+                    android:textSize="14sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Steps Container -->
+        <FrameLayout
+            android:id="@+id/steps_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Step 1: Personal Info (visible by default) -->
+            <include
+                android:id="@+id/step_personal_info"
+                layout="@layout/step_personal_info"/>
+
+            <!-- Step 2: Documentation (hidden initially) -->
+            <include
+                android:id="@+id/step_documentation"
+                layout="@layout/step_documentation"
+                android:visibility="gone"/>
+
+            <!-- Step 3: Lease Details (hidden initially) -->
+            <include
+                android:id="@+id/step_lease_details"
+                layout="@layout/step_lease_details"
+                android:visibility="gone"/>
+
+            <!-- Step 4: Emergency Contact (hidden initially) -->
+            <include
+                android:id="@+id/step_emergency_contact"
+                layout="@layout/step_emergency_contact"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <!-- Navigation Buttons (Placed in activity_add_tenant.xml) -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:textColor="@android:color/white"
-            android:background="@android:color/darker_gray"
-            android:layout_marginStart="8dp"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="16dp">
+
+            <Button
+                android:id="@+id/button_previous"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Previous"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@android:color/darker_gray"
+                android:padding="12dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="4dp"
+                android:visibility="gone"/> <!-- Hidden on Step 1 -->
+
+            <Button
+                android:id="@+id/button_next"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Next"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="12dp"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"/>
+
+            <Button
+                android:id="@+id/button_submit"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Submit"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="12dp"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"
+                android:visibility="gone"/> <!-- Only visible in Step 4 -->
+        </LinearLayout>
+
+
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

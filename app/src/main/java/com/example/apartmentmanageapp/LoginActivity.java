@@ -1,109 +1,117 @@
 package com.example.apartmentmanageapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
-    private Button loginButton, skipButton;
-    private SQLiteDatabase database;
+    private Button loginButton, registerButton, skipButton;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check if user is already logged in
-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        if (sharedPreferences.contains("user_id")) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+        // ✅ Ensure Firebase is initialized
+        FirebaseApp.initializeApp(this);
 
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         emailEditText = findViewById(R.id.editTextEmail);
         passwordEditText = findViewById(R.id.editTextPassword);
         loginButton = findViewById(R.id.buttonLogin);
+        registerButton = findViewById(R.id.buttonRegister);
         skipButton = findViewById(R.id.buttonSkip);
+        progressBar = findViewById(R.id.progressBar);
 
-        // Initialize database
-        database = openOrCreateDatabase("AptManageDB", MODE_PRIVATE, null);
-        createTablesIfNotExists();
+        loginButton.setOnClickListener(v -> loginUser());
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailEditText.getText().toString().trim();
-                String password = passwordEditText.getText().toString().trim();
-
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    authenticateUser(email, password);
-                }
-            }
+        registerButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        skipButton.setOnClickListener(v -> authenticateUser("admin@mail.com", "junior081"));
+    }
+
+    private void loginUser() {
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);
+
+        authenticateUser(email, password);
     }
 
     private void authenticateUser(String email, String password) {
-        Cursor cursor = database.rawQuery("SELECT * FROM Users WHERE email = ? AND password = ?", new String[]{email, password});
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
+                    loginButton.setEnabled(true);
 
-        if (cursor.moveToFirst()) {
-            String userId = cursor.getString(cursor.getColumnIndex("user_id"));
-            String role = cursor.getString(cursor.getColumnIndex("role"));
-
-            SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("user_id", userId);
-            editor.putString("role", role);
-            editor.apply();
-
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-        }
-        cursor.close();
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            fetchUserRoleAndRedirect(user.getUid());
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    private void createTablesIfNotExists() {
-        database.execSQL("CREATE TABLE IF NOT EXISTS Users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, role TEXT);");
-        // Insert dummy data if table is empty
-        Cursor cursor = database.rawQuery("SELECT COUNT(*) FROM Users", null);
-        if (cursor.moveToFirst() && cursor.getInt(0) == 0) {
-            database.execSQL("INSERT INTO Users (email, password, role) VALUES ('owner@example.com', 'password', 'Owner');");
-            database.execSQL("INSERT INTO Users (email, password, role) VALUES ('tenant@example.com', 'password', 'Tenant');");
-        }
-        cursor.close();
+    private void fetchUserRoleAndRedirect(String userId) {
+        db.collection("users").document(userId).get()
+                .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
+                    loginButton.setEnabled(true);
+
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        DocumentSnapshot document = task.getResult();
+                        String role = document.getString("role");
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("role", role);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
-    protected void onDestroy() {
-        if (database != null && database.isOpen()) {
-            database.close();
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            fetchUserRoleAndRedirect(currentUser.getUid());
         }
-        super.onDestroy();
     }
 }

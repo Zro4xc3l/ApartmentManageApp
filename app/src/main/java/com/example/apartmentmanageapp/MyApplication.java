@@ -12,9 +12,9 @@ public class MyApplication extends Application {
         // Initialize Firebase
         if (!FirebaseApp.getApps(this).isEmpty()) {
             FirebaseApp.initializeApp(this);
-            Log.d("MyApplication", "Firebase Initialized Successfully");
+            Log.d("FirebaseInit", "Firebase initialized successfully.");
         } else {
-            Log.e("MyApplication", "Firebase Initialization Failed");
+            Log.e("FirebaseInit", "Firebase initialization failed!");
         }
     }
 }

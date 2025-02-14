@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,27 +44,37 @@ public class TenantAdapter extends RecyclerView.Adapter<TenantAdapter.ViewHolder
         // Bind tenant data to views
         holder.tenantName.setText(tenant.getName());
         holder.unitNumber.setText("Unit " + tenant.getUnitNumber());
-        holder.rentStatus.setText(tenant.getRentStatus());
+        holder.rentStatus.setText(tenant.getRentStatus() != null ? tenant.getRentStatus() : "Unknown");
 
         // Set rent status color
-        if (tenant.getRentStatus().equalsIgnoreCase("Paid")) {
+        if ("Paid".equalsIgnoreCase(tenant.getRentStatus())) {
             holder.rentStatus.setTextColor(context.getResources().getColor(R.color.green));
-        } else {
+        } else if ("Unpaid".equalsIgnoreCase(tenant.getRentStatus())) {
             holder.rentStatus.setTextColor(context.getResources().getColor(R.color.red));
+        } else {
+            holder.rentStatus.setTextColor(context.getResources().getColor(R.color.gray));
         }
 
         // Call button click event
         holder.callButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + tenant.getPhoneNumber()));
-            context.startActivity(intent);
+            if (tenant.getPhoneNumber() != null && !tenant.getPhoneNumber().isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + tenant.getPhoneNumber()));
+                context.startActivity(intent);
+            } else {
+                Toast.makeText(context, "Phone number not available", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Text button click event
         holder.textButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("sms:" + tenant.getPhoneNumber()));
-            context.startActivity(intent);
+            if (tenant.getPhoneNumber() != null && !tenant.getPhoneNumber().isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("sms:" + tenant.getPhoneNumber()));
+                context.startActivity(intent);
+            } else {
+                Toast.makeText(context, "Phone number not available", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

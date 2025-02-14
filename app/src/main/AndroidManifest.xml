@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -14,27 +19,54 @@
         android:theme="@style/Theme.ApartmentManageApp"
         tools:targetApi="31">
 
-        <!-- Ensure LoginActivity is the launcher activity -->
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true"> <!-- Make sure it's exported to be launchable -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+    <!-- Ensure LoginActivity is the launcher activity -->
+    <activity
+        android:name=".LoginActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
-        <!-- Other activities -->
-        <activity android:name=".ui.units.UnitsActivity" android:exported="false" />
-        <activity android:name=".bottom_nav_menu" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="true" />
-        <activity android:name=".ui.tenants.AddTenantActivity" />
-        <activity android:name=".ui.properties.AddPropertyActivity" />
-        <activity android:name=".ui.units.AddUnitActivity" />
-        <activity android:name=".ui.units.RoomDetailActivity" android:exported="true" />
-        <activity android:name=".ui.units.EditRoomActivity" android:exported="false" />
+    <!-- Main App Entry After Login -->
+    <activity
+        android:name=".MainActivity"
+        android:exported="true" />
 
+    <!-- Finance / Billing -->
+    <activity
+        android:name=".ui.finance.MonthlyBill"
+        android:exported="false" />
 
-    </application>
+    <!-- Registration & Authentication -->
+    <activity
+        android:name=".RegisterActivity"
+        android:exported="false" />
 
-</manifest>
+    <!-- Property Management -->
+    <activity
+        android:name=".ui.properties.AddPropertyActivity"
+        android:exported="false" />
+
+    <!-- Tenant Management -->
+    <activity
+        android:name=".ui.tenants.AddTenantActivity"
+        android:exported="false" />
+
+    <!-- Unit Management -->
+    <activity
+        android:name=".ui.units.UnitsActivity"
+        android:exported="false" />
+    <activity
+        android:name=".ui.units.AddUnitActivity"
+        android:exported="false" />
+    <activity
+        android:name=".ui.units.RoomDetailActivity"
+        android:exported="true" />
+    <activity
+        android:name=".ui.units.EditRoomActivity"
+        android:exported="false" />
+
+</application>
+    </manifest>

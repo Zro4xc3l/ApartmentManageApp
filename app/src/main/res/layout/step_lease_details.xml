@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/step_lease_details_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Section Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Step 3: Lease Details"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="8dp"/>
+
+    <!-- Property Selection -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_property"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="4dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_property_select"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Unit Selection -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_unit"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="4dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_unit_select"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Move-In Date Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Move-In Information"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/edit_move_in_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/move_in_date"
+        android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meter Readings"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/edit_electric_meter_reading"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/electric_meter_reading"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edit_water_meter_reading"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/water_meter_reading"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Lease Agreement Details -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lease Agreement Details"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:paddingBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/edit_lease_start_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/lease_start_date"
+        android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edit_lease_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/lease_end_date"
+        android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edit_monthly_rent"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/monthly_rent"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edit_deposit_amount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/deposit_amount"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edit_key_amount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/key_amount"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edit_keycard_amount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/keycard_amount"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/text_amenities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amenities will load here..."
+        android:textSize="14sp"
+        android:textColor="@color/textSecondary"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="12dp"/>
+
+
+
+
+</LinearLayout>
