@@ -136,5 +136,23 @@
     <string name="deposit_amount">Security Deposit Amount*</string>
     <string name="email_address">Email Address*</string>
 
+    <!-- Maintenance Requests -->
+    <string name="title_maintenance">Maintenance Requests</string>
+    <string name="subtitle_maintenance">Manage and track maintenance issues</string>
+    <string name="section_maintenance_list">Active Maintenance Requests</string>
+
+    <!-- Maintenance Request Fields -->
+    <string name="request_title">Maintenance Request</string>
+    <string name="request_description">Describe the issue...</string>
+    <string name="status_pending">Status: Pending</string>
+    <string name="created_date">Created on: </string>
+    <string name="property_name">Property:</string>
+    <string name="unit_id">Unit:</string>
+    <string name="expand_request_details">Expand Request Details</string>
+    <string name="mark_as_complete">Mark as Complete</string>
+    <string name="request_image_preview">Maintenance Request Image</string>
+    <!-- Additional Details String -->
+    <string name="additional_details">Additional Details</string>
+
 
 </resources>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="8dp"
+    android:layout_margin="8dp"
+    android:elevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Header: Title, Property Name, Unit ID in a Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start">
+
+            <!-- Maintenance Title (Left Side) -->
+            <TextView
+                android:id="@+id/tv_request_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/request_title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"/>
+
+            <!-- Property and Unit (Right Side) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/tv_property_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/property_name"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:id="@+id/tv_unit_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_id"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorOnSurface"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Maintenance Status -->
+        <TextView
+            android:id="@+id/tv_request_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_pending"
+            android:textSize="14sp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Maintenance Description -->
+        <TextView
+            android:id="@+id/tv_request_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/request_description"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Created Date -->
+        <TextView
+            android:id="@+id/tv_request_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/created_date"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Expand/Collapse Button -->
+        <ImageButton
+            android:id="@+id/expand_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/arrow_down_float"
+            android:contentDescription="@string/expand_request_details"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="end"/>
+
+        <!-- Expandable Section (Hidden by Default) -->
+        <LinearLayout
+            android:id="@+id/expanded_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/additional_details"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Maintenance Image Preview -->
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="@string/request_image_preview"
+                android:background="?attr/colorSurface"
+                android:layout_marginBottom="6dp"/>
+
+            <!-- Select Checkbox -->
+            <CheckBox
+                android:id="@+id/checkbox_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Request"
+                android:layout_marginTop="6dp"
+                android:layout_gravity="end"/>
+
+            <!-- Mark as Complete Button -->
+            <Button
+                android:id="@+id/button_mark_complete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mark_as_complete"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="?attr/colorPrimary"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
