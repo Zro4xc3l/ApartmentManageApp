@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center">
+
+        <!-- Page Header -->
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Tenant Details"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/textPrimary"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/header_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📋 View full details of this tenant."
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/textSecondary"
+            android:paddingBottom="16dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="12dp"/>
+
+        <!-- Personal Information Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Personal Information"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_tenant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Full Name: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_citizen_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🆔 Citizen ID: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📞 Phone: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"
+            android:autoLink="phone"/>
+
+        <TextView
+            android:id="@+id/text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📧 Email: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="12dp"/>
+
+        <!-- Property & Unit Details -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🏠 Property &amp; Unit Details"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_property_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🏢 Property: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_unit_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚪 Unit: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <!-- Lease Information -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📜 Lease Information"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_move_in_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📅 Move-in Date: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_lease_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📆 Lease Start Date: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_lease_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏳ Lease End Date: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_rent_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💰 Rent Amount: -"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/text_deposit_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💵 Deposit: -"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/text_key_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔑 Key Amount: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_keycard_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💳 Keycard Amount: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <!-- Emergency Contact -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚨 Emergency Contact"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_emergency_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Contact Name: -"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <TextView
+            android:id="@+id/text_emergency_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📞 Contact Phone: -"
+            android:textSize="16sp"
+            android:textColor="@color/primary"
+            android:paddingBottom="12dp"
+            android:autoLink="phone"/>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="16dp">
+
+            <Button
+                android:id="@+id/button_edit_tenant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="✏️ Edit"
+                android:backgroundTint="@android:color/holo_blue_dark"/>
+
+            <Button
+                android:id="@+id/button_delete_tenant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🗑 Delete"
+                android:backgroundTint="@android:color/holo_red_dark"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

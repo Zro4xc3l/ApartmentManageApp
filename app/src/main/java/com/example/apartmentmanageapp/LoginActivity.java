@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
@@ -28,10 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // ✅ Ensure Firebase is initialized
+        // Initialize Firebase
         FirebaseApp.initializeApp(this);
-
+        // Set the layout first so that UI elements are not null
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
@@ -45,13 +43,21 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         loginButton.setOnClickListener(v -> loginUser());
-
         registerButton.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
-
         skipButton.setOnClickListener(v -> authenticateUser("admin@mail.com", "junior081"));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check if the user is already logged in after UI is set up
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            fetchUserRoleAndRedirect(currentUser.getUid());
+        }
     }
 
     private void loginUser() {
@@ -87,9 +93,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void fetchUserRoleAndRedirect(String userId) {
-        db.collection("users").document(userId).get()
+        db.collection("users").document(userId)
+                .get()
                 .addOnCompleteListener(task -> {
-                    progressBar.setVisibility(View.GONE);
+                    // Check if progressBar exists before using it
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.GONE);
+                    }
                     loginButton.setEnabled(true);
 
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -104,14 +114,5 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            fetchUserRoleAndRedirect(currentUser.getUid());
-        }
     }
 }

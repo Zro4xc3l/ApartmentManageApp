@@ -129,12 +129,12 @@
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
 
-        <!-- Fix for missing string resources -->
-        <string name="hint_service_fee">Service Fee (THB)</string>
-        <string name="electric_meter_reading">Electric Meter Reading*</string>
-        <string name="water_meter_reading">Water Meter Reading*</string>
-        <string name="deposit_amount">Security Deposit Amount*</string>
-        <string name="email_address">Email Address*</string>
+    <!-- Fix for missing string resources -->
+    <string name="hint_service_fee">Service Fee (THB)</string>
+    <string name="electric_meter_reading">Electric Meter Reading*</string>
+    <string name="water_meter_reading">Water Meter Reading*</string>
+    <string name="deposit_amount">Security Deposit Amount*</string>
+    <string name="email_address">Email Address*</string>
 
 
 </resources>

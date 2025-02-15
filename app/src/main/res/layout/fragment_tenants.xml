@@ -8,20 +8,43 @@
     android:padding="8dp"
     android:fitsSystemWindows="true">
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/header_text"
+    <!-- Header Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Manage Tenants"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/teal_700"
-        android:gravity="center"
-        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Header Text -->
+        <TextView
+            android:id="@+id/header_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Manage Tenants"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/teal_700"
+            android:gravity="center"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Remove Tenant Button -->
+        <ImageButton
+            android:id="@+id/remove_tenant_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_remove"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Remove Tenant"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Property Selector Spinner -->
     <Spinner
@@ -31,23 +54,23 @@
         android:padding="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/btn_dropdown"
-        app:layout_constraintTop_toBottomOf="@id/header_text"
+        app:layout_constraintTop_toBottomOf="@id/header_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/unit_recycler_view" />
+        app:layout_constraintBottom_toTopOf="@id/tenant_recycler_view" />
 
     <!-- RecyclerView for Tenants -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/unit_recycler_view"
+        android:id="@+id/tenant_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@id/property_selector"
-        app:layout_constraintBottom_toTopOf="@id/add_unit_button"
+        app:layout_constraintBottom_toTopOf="@id/add_tenant_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Empty State TextView -->
+    <!-- Empty State TextView (When No Tenants Exist) -->
     <TextView
         android:id="@+id/empty_state_text"
         android:layout_width="wrap_content"
@@ -57,14 +80,14 @@
         android:textColor="#666666"
         android:gravity="center"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/unit_recycler_view"
-        app:layout_constraintBottom_toBottomOf="@id/unit_recycler_view"
+        app:layout_constraintTop_toTopOf="@id/tenant_recycler_view"
+        app:layout_constraintBottom_toBottomOf="@id/tenant_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Add Tenant Button -->
+    <!-- Add Tenant FloatingActionButton -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_unit_button"
+        android:id="@+id/add_tenant_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"

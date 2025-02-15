@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Permissions -->
@@ -19,54 +20,60 @@
         android:theme="@style/Theme.ApartmentManageApp"
         tools:targetApi="31">
 
-    <!-- Ensure LoginActivity is the launcher activity -->
-    <activity
-        android:name=".LoginActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        <!-- SplashActivity is now the launcher -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-    <!-- Main App Entry After Login -->
-    <activity
-        android:name=".MainActivity"
-        android:exported="true" />
+        <!-- Edit Tenant Activity -->
+        <activity
+            android:name=".ui.tenants.EditTenantActivity"
+            android:exported="false" />
 
-    <!-- Finance / Billing -->
-    <activity
-        android:name=".ui.finance.MonthlyBill"
-        android:exported="false" />
+        <!-- Login Activity (launched from SplashActivity if user is not authenticated) -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
 
-    <!-- Registration & Authentication -->
-    <activity
-        android:name=".RegisterActivity"
-        android:exported="false" />
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
 
-    <!-- Property Management -->
-    <activity
-        android:name=".ui.properties.AddPropertyActivity"
-        android:exported="false" />
+        <!-- Register Activity -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
 
-    <!-- Tenant Management -->
-    <activity
-        android:name=".ui.tenants.AddTenantActivity"
-        android:exported="false" />
+        <!-- Add Property Activity -->
+        <activity
+            android:name=".ui.properties.AddPropertyActivity"
+            android:exported="false" />
 
-    <!-- Unit Management -->
-    <activity
-        android:name=".ui.units.UnitsActivity"
-        android:exported="false" />
-    <activity
-        android:name=".ui.units.AddUnitActivity"
-        android:exported="false" />
-    <activity
-        android:name=".ui.units.RoomDetailActivity"
-        android:exported="true" />
-    <activity
-        android:name=".ui.units.EditRoomActivity"
-        android:exported="false" />
+        <!-- Add Tenant Activity -->
+        <activity
+            android:name=".ui.tenants.AddTenantActivity"
+            android:exported="false" />
 
-</application>
-    </manifest>
+        <!-- Units Activity -->
+        <activity
+            android:name=".ui.units.UnitsActivity"
+            android:exported="false" />
+
+        <!-- Add Unit Activity -->
+        <activity
+            android:name=".ui.units.AddUnitActivity"
+            android:exported="false" />
+
+        <!-- Tenant Detail Activity -->
+        <activity
+            android:name=".ui.tenants.TenantDetailActivity"
+            android:exported="true" />
+
+    </application>
+</manifest>

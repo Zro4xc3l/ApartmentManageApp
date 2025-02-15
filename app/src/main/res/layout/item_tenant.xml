@@ -1,98 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- Tenant Name and Unit Number in a Row -->
+        <!-- Main Content -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tenant_name"
-                android:layout_width="0dp"
+            <!-- Header: Always visible summary -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tenant Name"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_weight="1"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp">
 
-            <TextView
-                android:id="@+id/unit_number"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tenant_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Tenant Name"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/unit_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unit 101"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_700"
+                    android:gravity="end"/>
+            </LinearLayout>
+
+            <!-- Details container: Initially hidden -->
+            <LinearLayout
+                android:id="@+id/details_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Unit 101"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_blue_dark"
-                android:gravity="end"/>
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Tenant Contact Info -->
+                <TextView
+                    android:id="@+id/tenant_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone: 0000000000"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tenant_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email: example@mail.com"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"/>
+
+                <!-- Lease Information -->
+                <TextView
+                    android:id="@+id/lease_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lease: 2025-02-15 to 2025-04-25"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"/>
+
+                <!-- Emergency Contact -->
+                <TextView
+                    android:id="@+id/emergency_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Emergency Contact: John Doe (0000000000)"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:paddingBottom="8dp"/>
+            </LinearLayout>
+
+            <!-- Contact Actions (optional, always visible) -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <Button
+                    android:id="@+id/call_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Call"
+                    android:textColor="@color/teal_700"
+                    android:drawableLeft="@drawable/ic_phone"
+                    android:background="?android:attr/selectableItemBackground"/>
+
+                <Button
+                    android:id="@+id/message_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Text"
+                    android:textColor="@color/teal_700"
+                    android:drawableLeft="@drawable/ic_message"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Rent Status -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+        <!-- Overlay CheckBox for selection mode -->
+        <CheckBox
+            android:id="@+id/selection_checkbox"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start|center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rent Status:"
-                android:textSize="14sp"
-                android:textColor="@android:color/black"/>
-
-            <TextView
-                android:id="@+id/rent_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Paid"
-                android:textSize="14sp"
-                android:textColor="@android:color/holo_green_dark"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-
-        <!-- Contact Actions -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
-
-            <Button
-                android:id="@+id/call_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Call"
-                android:textColor="@android:color/holo_blue_dark"
-                android:drawableLeft="@drawable/ic_phone"
-                android:background="?android:attr/selectableItemBackground"/>
-
-            <Button
-                android:id="@+id/message_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Text"
-                android:textColor="@android:color/holo_blue_dark"
-                android:drawableLeft="@drawable/ic_message"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:visibility="gone" />
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

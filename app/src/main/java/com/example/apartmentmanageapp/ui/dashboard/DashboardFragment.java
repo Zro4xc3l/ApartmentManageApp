@@ -2,6 +2,7 @@ package com.example.apartmentmanageapp.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import com.example.apartmentmanageapp.ui.properties.AddPropertyActivity;
 import com.example.apartmentmanageapp.ui.tenants.AddTenantActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DashboardFragment extends Fragment {
@@ -123,11 +126,11 @@ public class DashboardFragment extends Fragment {
         }
 
         String userId = currentUser.getUid();
-        AtomicInteger totalUnits = new AtomicInteger(0);
-        AtomicInteger unpaidUnits = new AtomicInteger(0);
-        AtomicInteger occupiedUnits = new AtomicInteger(0);
+        AtomicInteger totalUnits = new AtomicInteger(0);      // Total units count
+        AtomicInteger unpaidUnits = new AtomicInteger(0);     // Count of units with unpaid rent
+        AtomicInteger occupiedUnits = new AtomicInteger(0);   // Count of occupied units
 
-        // Step 1: Fetch all properties owned by the user
+        // Step 1: Fetch all properties owned by the user.
         db.collection("properties")
                 .whereEqualTo("ownerId", userId)
                 .get()
@@ -137,38 +140,55 @@ public class DashboardFragment extends Fragment {
                         return;
                     }
 
-                    // Step 2: Sum the unitCount for all properties
+                    // Build a list of property IDs and sum up unit counts.
+                    List<String> propertyIdList = new ArrayList<>();
                     for (QueryDocumentSnapshot propertyDoc : propertiesSnapshot) {
-                        Long unitCount = propertyDoc.getLong("unitCount"); // Get total units in this property
+                        Long unitCount = propertyDoc.getLong("unitCount");
                         if (unitCount != null) {
                             totalUnits.addAndGet(unitCount.intValue());
                         }
+                        propertyIdList.add(propertyDoc.getId());
                     }
 
-                    // Step 3: Fetch ALL units for these properties to check occupancy & rent status
-                    db.collectionGroup("units") // Fetch units from all subcollections
+                    if (propertyIdList.isEmpty()) {
+                        showErrorState();
+                        return;
+                    }
+
+                    // Step 2: Fetch all units for these properties using whereIn.
+                    // (whereIn supports up to 10 values.)
+                    db.collectionGroup("units")
+                            .whereIn("propertyId", propertyIdList)
                             .get()
                             .addOnSuccessListener(unitsSnapshot -> {
                                 for (QueryDocumentSnapshot unitDoc : unitsSnapshot) {
                                     String rentStatus = unitDoc.getString("rentStatus");
                                     Boolean occupied = unitDoc.getBoolean("occupied");
 
+                                    // Count unpaid units.
                                     if ("Unpaid".equalsIgnoreCase(rentStatus)) {
                                         unpaidUnits.incrementAndGet();
                                     }
+                                    // Count occupied units.
                                     if (occupied != null && occupied) {
                                         occupiedUnits.incrementAndGet();
                                     }
                                 }
-
-                                // Step 4: Update UI with the fetched data
+                                // Step 3: Update UI with the fetched data.
                                 updateDashboardUI(totalUnits.get(), occupiedUnits.get(), unpaidUnits.get());
                             })
-                            .addOnFailureListener(e -> showErrorState());
+                            .addOnFailureListener(e -> {
+                                Log.e("Dashboard", "Error fetching units: ", e);
+                                showErrorState();
+                            });
 
                 })
-                .addOnFailureListener(e -> showErrorState());
+                .addOnFailureListener(e -> {
+                    Log.e("Dashboard", "Error fetching properties: ", e);
+                    showErrorState();
+                });
     }
+
 
     /**
      * Updates the UI with dashboard data
@@ -177,7 +197,7 @@ public class DashboardFragment extends Fragment {
         totalUnitsValue.setText(String.valueOf(totalUnits));
         unpaidUnitsValue.setText(String.valueOf(unpaidUnits));
 
-        // Calculate and display occupancy/vacancy rates
+        // Calculate occupancy and vacancy rates
         int occupancyRate = (totalUnits > 0) ? (occupiedUnits * 100) / totalUnits : 0;
         int vacancyRate = 100 - occupancyRate;
 
