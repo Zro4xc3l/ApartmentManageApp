@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center">
+
+        <!-- Reusable Header -->
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_add_property"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/textPrimary"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/header_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/subtitle_add_property"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/textSecondary"
+            android:paddingBottom="16dp"/>
+
+        <!-- Section: General Information -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/section_general_info"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <EditText
+            android:id="@+id/edit_property_name"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_property_name"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="name"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/edit_property_address"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_property_address"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="postalAddress"
+            android:inputType="textMultiLine"/>
+
+        <!-- Section: Utility Rates -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/section_utility_rates"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <EditText
+            android:id="@+id/edit_electricity_rate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_electricity_rate"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="electricityBill"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/edit_min_electricity_price"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_min_electricity_price"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="electricityBill"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/edit_water_rate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_water_rate"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="waterBill"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/edit_min_water_price"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_min_water_price"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="waterBill"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/edit_service_fee"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_service_fee"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="paymentAmount"
+            android:inputType="numberDecimal"/>
+
+        <!-- Save and Cancel Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/button_cancel"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_cancel"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@android:color/darker_gray"
+                android:padding="12dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="4dp"/>
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/button_save"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_save"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="12dp"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

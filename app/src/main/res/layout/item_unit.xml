@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:layout_margin="8dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Unit Number and Occupancy Status -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <!-- Unit Number -->
+            <TextView
+                android:id="@+id/unit_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Unit 101"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_weight="1"/>
+
+            <!-- Occupancy Status (Colored) -->
+            <TextView
+                android:id="@+id/unit_availability_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Occupied"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/status_background"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <!-- Rent Rate -->
+        <TextView
+            android:id="@+id/unit_rent_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rent: 5,000 THB"
+            android:textSize="14sp"
+            android:textColor="@color/textPrimary"
+            android:paddingBottom="4dp"/>
+
+        <!-- Expandable Section (Initially Hidden) -->
+        <LinearLayout
+            android:id="@+id/unit_expanded_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="8dp">
+
+            <!-- Floor Level -->
+            <TextView
+                android:id="@+id/unit_floor_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Floor: 2"
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary"
+                android:paddingBottom="4dp"/>
+
+            <!-- Amenities -->
+            <TextView
+                android:id="@+id/unit_amenities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amenities: Aircon, WiFi"
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary"
+                android:paddingBottom="4dp"/>
+
+            <!-- Tenant Name (If Occupied) -->
+            <TextView
+                android:id="@+id/unit_tenant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tenant: John Doe"
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

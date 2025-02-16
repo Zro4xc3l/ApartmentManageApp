@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <!-- Step 1 Indicator -->
+    <View
+        android:id="@+id/stepIndicator1"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/step_indicator_active"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- Step 2 Indicator -->
+    <View
+        android:id="@+id/stepIndicator2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/step_indicator_inactive"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- Step 3 Indicator -->
+    <View
+        android:id="@+id/stepIndicator3"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/step_indicator_inactive"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- Step 4 Indicator -->
+    <View
+        android:id="@+id/stepIndicator4"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/step_indicator_inactive"/>
+</LinearLayout>

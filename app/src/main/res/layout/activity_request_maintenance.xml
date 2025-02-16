@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header Section with Close Button -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/button_close"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:contentDescription="Close"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:id="@+id/header_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Maintenance Request"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#000000" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/header_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log a new maintenance issue"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#666666"
+            android:paddingBottom="20dp" />
+
+        <!-- Issue Title -->
+        <EditText
+            android:id="@+id/edit_issue_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Issue Title"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="#000000"
+            android:textColorHint="#666666"
+            android:inputType="text"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Property Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Property"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinner_property"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Unit Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Unit"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinner_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Issue Description -->
+        <EditText
+            android:id="@+id/edit_issue_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Describe the issue (e.g., 'Leaking pipe in Unit 203')"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="#000000"
+            android:textColorHint="#666666"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:maxLines="6"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Urgency Selection (NEW) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Urgency Level"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"/>
+
+        <RadioGroup
+            android:id="@+id/radio_urgency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/radio_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Low"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radio_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium"/>
+
+            <RadioButton
+                android:id="@+id/radio_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="High"/>
+        </RadioGroup>
+
+        <!-- Expected Completion Date -->
+        <EditText
+            android:id="@+id/edit_expected_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Expected Completion Date (YYYY-MM-DD)"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="#000000"
+            android:textColorHint="#666666"
+            android:inputType="none"
+            android:layout_marginBottom="12dp"
+            android:focusable="false"
+            android:clickable="true"/>
+
+        <!-- Cost Tracking -->
+        <EditText
+            android:id="@+id/edit_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Estimated Maintenance Cost (Optional)"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="#000000"
+            android:textColorHint="#666666"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Upload Photo Button -->
+        <Button
+            android:id="@+id/button_upload_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Photo (Optional)"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Image Preview -->
+        <ImageView
+            android:id="@+id/image_preview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Submit Request Button -->
+        <Button
+            android:id="@+id/button_save_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Request"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+</ScrollView>

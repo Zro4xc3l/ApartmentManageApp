@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ⚫ Basic Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ⚪ Neutral & Gray Shades (Material Design Inspired) -->
+    <color name="gray_50">#FAFAFA</color>   <!-- Very Light Gray -->
+    <color name="gray_100">#F5F5F5</color>  <!-- Light Gray -->
+    <color name="gray_200">#EEEEEE</color>  <!-- Soft Gray -->
+    <color name="gray_300">#E0E0E0</color>  <!-- Mid Gray -->
+    <color name="gray_500">#9E9E9E</color>  <!-- Standard Gray -->
+    <color name="gray_700">#616161</color>  <!-- Dark Gray -->
+    <color name="gray_900">#212121</color>  <!-- Almost Black -->
+    <color name="gray_dark">#555555</color> <!-- Updated Custom Dark Gray for Text -->
+
+    <!-- 🔵 Primary Colors -->
+    <color name="colorPrimary">#0066CC</color> <!-- Updated Primary Blue -->
+    <color name="colorPrimaryDark">#004C99</color> <!-- Updated Darker Blue -->
+    <color name="colorAccent">#FF9900</color> <!-- Updated Accent Orange -->
+
+    <!-- 🔹 Secondary Colors -->
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_500">#009688</color>
+    <color name="teal_700">#00796B</color> <!-- Slightly Darker Teal -->
+    <color name="purple_500">#8E24AA</color> <!-- Updated Material Purple -->
+    <color name="orange_500">#FF9800</color> <!-- Orange (General Use) -->
+    <color name="orange_700">#E65100</color> <!-- Updated Darker Orange -->
+
+    <!-- 🔴 Status & Alert Colors -->
+    <color name="green_500">#388E3C</color>  <!-- Updated Green for Paid -->
+    <color name="red_500">#D32F2F</color>    <!-- Updated Red for Unpaid -->
+    <color name="red_300">#E57373</color>    <!-- Material Red Light -->
+    <color name="soft_red">#FFCDD2</color>   <!-- Light Red for Background -->
+    <color name="dark_red">#B71C1C</color>   <!-- Updated Darker Red for Text -->
+    <color name="yellow_500">#FBC02D</color> <!-- Updated Warning Yellow -->
+    <color name="blue_300">#64B5F6</color>   <!-- Lighter Blue -->
+    <color name="blue_500">#1E88E5</color>   <!-- Updated Info Blue -->
+    <color name="blue_700">#1565C0</color>   <!-- Updated Darker Blue -->
+
+    <!-- 📝 Text Colors -->
+    <color name="textPrimary">#212121</color> <!-- Dark Text -->
+    <color name="textSecondary">#424242</color> <!-- Lighter but readable -->
+
+    <!-- 🎨 Background Colors -->
+    <color name="backgroundLight">#F9F9F9</color> <!-- Light Background -->
+    <color name="backgroundDark">#121212</color> <!-- Dark Background (For Dark Mode) -->
+
+    <color name="green">#388E3C</color> <!-- Updated Green Shade -->
+    <color name="red">#D32F2F</color> <!-- Updated Red Shade -->
+    <color name="orange">#F57C00</color> <!-- Updated Orange Shade -->
+    <color name="gray">#757575</color> <!-- Updated Gray Shade -->
+
+    <color name="primary">#1565C0</color> <!-- Updated Primary Blue -->
+
+    <color name="colorComplete">#4CAF50</color> <!-- Green -->
+    <color name="colorPending">#F44336</color>  <!-- Red -->
+    <color name="colorDefault">#000000</color>  <!-- Black or any default color -->
+
+</resources>

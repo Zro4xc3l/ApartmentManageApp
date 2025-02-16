@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1088767816794",
+    "project_id": "aptmanage-10cbc",
+    "storage_bucket": "aptmanage-10cbc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088767816794:android:601b2280f0cec000185463",
+        "android_client_info": {
+          "package_name": "com.example.apartmentmanageapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOj8ogq-1nmnnByx49kL-Q2pXuVrlqF6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

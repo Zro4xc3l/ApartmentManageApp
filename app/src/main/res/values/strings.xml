@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App Name -->
+    <string name="app_name">Apartment Manage App</string>
+
+    <!-- Navigation Buttons -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="submit">Submit</string>
+    <string name="exit">Exit</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    <!-- Monthly Bill Wizard Strings -->
+    <string name="create_monthly_bill">Create Monthly Bill</string>
+    <string name="electric">Electric</string>
+    <string name="water">Water</string>
+    <string name="excess">Excess</string>
+    <string name="summary">Summary</string>
+
+    <!-- Step Indicator Numbers -->
+    <string name="step_one_number">1</string>
+    <string name="step_two_number">2</string>
+    <string name="step_three_number">3</string>
+    <string name="step_four_number">4</string>
+
+    <!-- Monthly Bill Step Titles -->
+    <string name="electric_meter_readings">Electric Meter Readings</string>
+    <string name="water_meter_readings">Water Meter Readings</string>
+    <string name="input_excess">Input Excess</string>
+    <string name="bill_summary">Bill Summary</string>
+
+    <!-- Labels and Hints for Meter Readings -->
+    <string name="prev_electric_reading">Previous: </string>
+    <string name="prev_water_reading">Previous: </string>
+    <string name="current">Current</string>
+    <string name="unit_101">Unit 101</string>
+
+    <!-- Excess Step -->
+    <string name="enter_excess_value">Enter Excess Value</string>
+    <string name="no_excess">No Excess</string>
+    <string name="summary_details_here">Summary details here...</string>
+
+    <!-- Add New Tenant Steps -->
+    <string name="add_new_tenant">Add New Tenant</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="documentation">Documentation</string>
+    <string name="lease_details">Lease Details</string>
+    <string name="emergency_contact">Emergency Contact</string>
+
+    <!-- Step Indicators -->
+    <string name="step_one">Step 1</string>
+    <string name="step_two">Step 2</string>
+    <string name="step_three">Step 3</string>
+    <string name="step_four">Step 4</string>
+
+    <!-- Input Fields -->
+    <string name="first_name">First Name*</string>
+    <string name="last_name">Last Name*</string>
+    <string name="email">Email*</string>
+    <string name="phone_number">Phone Number*</string>
+
+    <!-- Documentation Fields -->
+    <string name="citizen_id">Citizen ID*</string>
+    <string name="citizen_issued_date">Citizen Card Issued Date*</string>
+    <string name="citizen_expiry_date">Citizen Card Expiry Date*</string>
+    <string name="address_on_citizen_card">Address on Citizen Card*</string>
+
+    <!-- Lease Details Fields -->
+    <string name="select_property">Select Property*</string>
+    <string name="select_unit">Select Unit*</string>
+    <string name="lease_start_date">Lease Start Date*</string>
+    <string name="lease_end_date">Lease End Date*</string>
+    <string name="monthly_rent">Monthly Rent (THB)*</string>
+    <string name="deposit">Security Deposit (THB)*</string>
+    <string name="electric_meter_start">Electric Meter Start*</string>
+    <string name="water_meter_start">Water Meter Start*</string>
+    <string name="keycard_amount">Number of Keycards*</string>
+    <string name="key_amount">Number of Keys*</string>
+
+    <!-- Workplace Details -->
+    <string name="workplace_name">Workplace Name</string>
+    <string name="workplace_address">Workplace Address</string>
+    <string name="workplace_phone">Workplace Phone</string>
+
+    <!-- Move-In/Move-Out Dates -->
+    <string name="move_in_date">Move-In Date*</string>
+    <string name="move_out_date">Move-Out Date</string>
+
+    <!-- Emergency Contact Fields -->
+    <string name="emergency_contact_name">Emergency Contact Name*</string>
+    <string name="emergency_contact_relationship">Relationship*</string>
+    <string name="emergency_contact_phone">Emergency Contact Phone*</string>
+
+    <!-- Profile Picture -->
+    <string name="upload_profile_picture">Upload Profile Picture</string>
+
+    <!-- Placeholder for Fragments -->
+    <string name="hello_blank_fragment">Welcome to the Apartment Manager</string>
+
+    <!-- Emergency Contact Relationship List -->
+    <string-array name="relationship_list">
+        <item>Parent</item>
+        <item>Sibling</item>
+        <item>Spouse</item>
+        <item>Friend</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Add Property Headers -->
+    <string name="title_add_property">Add New Property</string>
+    <string name="subtitle_add_property">Fill in the details below to add a new property.</string>
+
+    <!-- Section Titles -->
+    <string name="section_general_info">General Information</string>
+    <string name="section_utility_rates">Utility Rates</string>
+
+    <!-- Property Input Fields -->
+    <string name="hint_property_name">Property Name*</string>
+    <string name="hint_property_address">Property Address*</string>
+    <string name="hint_electricity_rate">Electricity Rate (THB/unit)*</string>
+    <string name="hint_water_rate">Water Rate (THB/unit)*</string>
+    <string name="hint_min_electricity_price">Minimum Electricity Charge (THB)*</string>
+    <string name="hint_min_water_price">Minimum Water Charge (THB)*</string>
+
+    <!-- Buttons -->
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- Fix for missing string resources -->
+    <string name="hint_service_fee">Service Fee (THB)</string>
+    <string name="electric_meter_reading">Electric Meter Reading*</string>
+    <string name="water_meter_reading">Water Meter Reading*</string>
+    <string name="deposit_amount">Security Deposit Amount*</string>
+    <string name="email_address">Email Address*</string>
+
+    <!-- Maintenance Requests -->
+    <string name="title_maintenance">Maintenance Requests</string>
+    <string name="subtitle_maintenance">Manage and track maintenance issues</string>
+    <string name="section_maintenance_list">Active Maintenance Requests</string>
+
+    <!-- Maintenance Request Fields -->
+    <string name="request_title">Maintenance Request</string>
+    <string name="request_description">Describe the issue...</string>
+    <string name="status_pending">Status: Pending</string>
+    <string name="created_date">Created on: </string>
+    <string name="property_name">Property:</string>
+    <string name="unit_id">Unit:</string>
+    <string name="expand_request_details">Expand Request Details</string>
+    <string name="mark_as_complete">Mark as Complete</string>
+    <string name="request_image_preview">Maintenance Request Image</string>
+    <!-- Additional Details String -->
+    <string name="additional_details">Additional Details</string>
+
+
+</resources>
