@@ -14,10 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.apartmentmanageapp.R;
 import com.example.apartmentmanageapp.adapters.PropertySpinnerAdapter;
 import com.example.apartmentmanageapp.adapters.UnitSpinnerAdapter;
@@ -27,7 +25,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -88,20 +85,42 @@ public class AddTenantActivity extends AppCompatActivity {
         ImageButton btnCancel = findViewById(R.id.btnCancel);
 
         // Set button click listeners
-        buttonPrevious.setOnClickListener(v -> navigateSteps(false));
-        buttonNext.setOnClickListener(v -> navigateSteps(true));
-        buttonSubmit.setOnClickListener(v -> submitTenantForm());
+        buttonPrevious.setOnClickListener(v -> {
+            currentStep--;
+            updateStepVisibility();
+        });
+        buttonNext.setOnClickListener(v -> {
+            if (validateCurrentStep()) {
+                currentStep++;
+                updateStepVisibility();
+            }
+        });
+        buttonSubmit.setOnClickListener(v -> {
+            if (validateCurrentStep()) {
+                submitTenantForm();
+            }
+        });
         btnCancel.setOnClickListener(v -> finish());
 
         // Initialize step visibility
         updateStepVisibility();
 
-        // Set up date pickers for relevant EditText fields with improved formatting
+        // Set up date pickers for date fields
         setupDatePicker((EditText) findViewById(R.id.edit_citizen_issued_date));
         setupDatePicker((EditText) findViewById(R.id.edit_citizen_expiry_date));
         setupDatePicker((EditText) findViewById(R.id.edit_move_in_date));
         setupDatePicker((EditText) findViewById(R.id.edit_lease_start_date));
         setupDatePicker((EditText) findViewById(R.id.edit_lease_end_date));
+
+        // Documentation layout should include:
+        //   - edit_citizen_id, edit_citizen_issued_date, edit_citizen_expiry_date,
+        //   - edit_address_on_citizen_card (for citizen card address)
+        //
+        // Lease details layout should include:
+        //   - spinner_property_select, spinner_unit_select,
+        //   - edit_move_in_date, edit_electric_meter_reading, edit_water_meter_reading,
+        //   - edit_lease_start_date, edit_lease_end_date,
+        //   - edit_monthly_rent, edit_deposit_amount, edit_key_amount, edit_keycard_amount
 
         // Initialize spinners
         Spinner propertySpinner = findViewById(R.id.spinner_property_select);
@@ -109,23 +128,27 @@ public class AddTenantActivity extends AppCompatActivity {
         Spinner relationshipSpinner = findViewById(R.id.spinner_emergency_contact_relationship);
 
         // Load relationship options from resources
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        ArrayAdapter<CharSequence> relationshipAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.relationship_list,
                 android.R.layout.simple_spinner_item
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        relationshipSpinner.setAdapter(adapter);
+        relationshipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        relationshipSpinner.setAdapter(relationshipAdapter);
 
-        // Fetch properties owned by the current user and populate the property spinner
+        // Fetch properties owned by the current user
         fetchProperties(propertySpinner);
 
-        // When a property is selected, fetch its units (only those not occupied)
+        // When a property is selected, fetch its available units.
+        // If the property selection is default ("Select Property"), update the unit spinner with "Select Unit".
         propertySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (propertyIds.isEmpty() || position >= propertyIds.size() || propertyIds.get(position) == null) {
-                    Log.e("Properties", "Invalid selection or propertyIds not populated yet. Skipping fetchUnits.");
+                if (propertyIds == null || propertyIds.size() <= position || propertyIds.get(position) == null) {
+                    ArrayList<String> defaultUnitList = new ArrayList<>();
+                    defaultUnitList.add("Select Unit");
+                    UnitSpinnerAdapter adapter = new UnitSpinnerAdapter(AddTenantActivity.this, defaultUnitList);
+                    unitSpinner.setAdapter(adapter);
                     return;
                 }
                 String selectedPropertyId = propertyIds.get(position);
@@ -139,18 +162,22 @@ public class AddTenantActivity extends AppCompatActivity {
             }
         });
 
-        // When a unit is selected, fetch its amenities and rent amount
+        // When a unit is selected, fetch its amenities and rent amount (for display)
         unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (unitIds.isEmpty() || position >= unitIds.size() || unitIds.get(position) == null) {
-                    Log.e("Units", "Invalid selection or unitIds not populated yet. Skipping fetchAmenities and rent amount.");
+                if (unitIds == null || unitIds.size() <= position) {
+                    Log.e("Units", "unitIds list is empty or position out of bounds.");
                     return;
                 }
-                String selectedUnitId = unitIds.get(position);
-                Log.d("Units", "Selected unit ID: " + selectedUnitId);
-                fetchAmenities(selectedUnitId);
-                fetchRentAmount(selectedUnitId);
+                String selectedUnit = unitIds.get(position);
+                if (selectedUnit.equals("Select Unit")) {
+                    Log.d("Units", "Default unit selected, skipping amenities and rent fetch.");
+                    return;
+                }
+                Log.d("Units", "Selected unit ID: " + selectedUnit);
+                fetchAmenities(selectedUnit);
+                fetchRentAmount(selectedUnit);
             }
 
             @Override
@@ -160,29 +187,24 @@ public class AddTenantActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Fetch properties that belong only to the currently logged-in user.
-     */
+    // -----------------------------
+    // Firestore Data Fetching Methods
+    // -----------------------------
+
     private void fetchProperties(Spinner propertySpinner) {
         String userId = currentUser.getUid();
-
-        // Query Firestore for properties where "ownerId" equals the current user's UID
         propertiesRef.whereEqualTo("ownerId", userId)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     propertyNames.clear();
                     propertyIds.clear();
-
                     // Add default "Select Property" entry
                     propertyNames.add("Select Property");
                     propertyIds.add(null);
-
                     if (queryDocumentSnapshots.isEmpty()) {
                         Log.d("Properties", "No properties found for user: " + userId);
                         return;
                     }
-
-                    // Loop through each property document and add it to the list
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         String propertyName = document.getString("name");
                         String propertyId = document.getId();
@@ -192,7 +214,6 @@ public class AddTenantActivity extends AppCompatActivity {
                             Log.d("Properties", "Fetched property: " + propertyName + " (ID: " + propertyId + ")");
                         }
                     }
-
                     PropertySpinnerAdapter adapter = new PropertySpinnerAdapter(AddTenantActivity.this, propertyNames);
                     propertySpinner.setAdapter(adapter);
                 })
@@ -202,27 +223,19 @@ public class AddTenantActivity extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Fetch available units for the selected property.
-     */
     private void fetchUnits(String selectedProperty, Spinner unitSpinner) {
         if (selectedProperty == null || selectedProperty.isEmpty()) {
             Log.d("Units", "No property selected, skipping unit fetch.");
             return;
         }
-
         Log.d("Units", "Fetching units for property ID: " + selectedProperty);
-        // Set the collection reference for the selected property's units
         unitsRef = propertiesRef.document(selectedProperty).collection("units");
         unitIds.clear();
-
-        // Add default "Select Unit" entry represented by a null value
-        unitIds.add(null);
-
+        // Add default "Select Unit" entry directly
+        unitIds.add("Select Unit");
         unitsRef.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        // Only add the unit if it is not occupied
                         Boolean isOccupied = document.getBoolean("occupied");
                         if (isOccupied != null && isOccupied) {
                             Log.d("Units", "Skipping occupied unit: " + document.getId());
@@ -244,16 +257,12 @@ public class AddTenantActivity extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Fetch the rent amount for the selected unit.
-     */
     private void fetchRentAmount(String unitId) {
-        if (unitId == null || unitId.isEmpty()) {
-            Log.d("Rent", "No unit selected, skipping rent fetch.");
+        if (unitId == null || unitId.isEmpty() || unitId.equals("Select Unit")) {
+            Log.d("Rent", "No valid unit selected, skipping rent fetch.");
             return;
         }
         Log.d("Rent", "Fetching rent amount for unit ID: " + unitId);
-        // Get the rent amount from the current unit document
         unitsRef.document(unitId).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists() && documentSnapshot.contains("rentAmount")) {
@@ -273,12 +282,9 @@ public class AddTenantActivity extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Fetch the amenities for the selected unit.
-     */
     private void fetchAmenities(String unitId) {
-        if (unitId == null || unitId.isEmpty()) {
-            Log.d("Amenities", "No unit selected, skipping amenities fetch.");
+        if (unitId == null || unitId.isEmpty() || unitId.equals("Select Unit")) {
+            Log.d("Amenities", "No valid unit selected, skipping amenities fetch.");
             return;
         }
         Log.d("Amenities", "Fetching amenities for unit ID: " + unitId);
@@ -301,9 +307,10 @@ public class AddTenantActivity extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Navigate between form steps.
-     */
+    // -----------------------------
+    // Navigation and Validation Methods
+    // -----------------------------
+
     private void navigateSteps(boolean isNext) {
         if (isNext) {
             if (!validateCurrentStep()) return;
@@ -314,9 +321,6 @@ public class AddTenantActivity extends AppCompatActivity {
         updateStepVisibility();
     }
 
-    /**
-     * Update the visibility of form steps and navigation buttons.
-     */
     private void updateStepVisibility() {
         stepPersonalInfo.setVisibility(currentStep == 1 ? View.VISIBLE : View.GONE);
         stepDocumentation.setVisibility(currentStep == 2 ? View.VISIBLE : View.GONE);
@@ -328,9 +332,6 @@ public class AddTenantActivity extends AppCompatActivity {
         buttonSubmit.setVisibility(currentStep == 4 ? View.VISIBLE : View.GONE);
     }
 
-    /**
-     * Validate the current step before proceeding.
-     */
     private boolean validateCurrentStep() {
         switch (currentStep) {
             case 1:
@@ -346,6 +347,7 @@ public class AddTenantActivity extends AppCompatActivity {
     }
 
     private boolean validatePersonalInfo() {
+        boolean valid = true;
         EditText firstName = findViewById(R.id.edit_first_name);
         EditText lastName = findViewById(R.id.edit_last_name);
         EditText email = findViewById(R.id.edit_email);
@@ -353,102 +355,157 @@ public class AddTenantActivity extends AppCompatActivity {
 
         if (firstName.getText().toString().trim().isEmpty()) {
             firstName.setError("First name is required");
-            return false;
+            valid = false;
         }
         if (lastName.getText().toString().trim().isEmpty()) {
             lastName.setError("Last name is required");
-            return false;
+            valid = false;
         }
         if (email.getText().toString().trim().isEmpty()) {
             email.setError("Email is required");
-            return false;
+            valid = false;
         }
         if (phoneNumber.getText().toString().trim().isEmpty()) {
             phoneNumber.setError("Phone number is required");
-            return false;
+            valid = false;
         }
-        return true;
+        return valid;
     }
 
     private boolean validateDocumentation() {
+        boolean valid = true;
         EditText citizenId = findViewById(R.id.edit_citizen_id);
         if (citizenId.getText().toString().trim().length() != 13) {
             citizenId.setError("Citizen ID must be 13 digits");
-            return false;
+            valid = false;
         }
-        return true;
+        EditText citizenIssuedDate = findViewById(R.id.edit_citizen_issued_date);
+        EditText citizenExpiryDate = findViewById(R.id.edit_citizen_expiry_date);
+        EditText address = findViewById(R.id.edit_address_on_citizen_card);
+        if (citizenIssuedDate.getText().toString().trim().isEmpty()) {
+            citizenIssuedDate.setError("Citizen card issue date is required");
+            valid = false;
+        }
+        if (citizenExpiryDate.getText().toString().trim().isEmpty()) {
+            citizenExpiryDate.setError("Citizen card expiry date is required");
+            valid = false;
+        }
+        if (address.getText().toString().trim().isEmpty()) {
+            address.setError("Citizen card address is required");
+            valid = false;
+        }
+        return valid;
     }
 
     private boolean validateLeaseDetails() {
+        boolean valid = true;
         Spinner propertySpinner = findViewById(R.id.spinner_property_select);
         Spinner unitSpinner = findViewById(R.id.spinner_unit_select);
         EditText moveInDate = findViewById(R.id.edit_move_in_date);
         EditText leaseStartDate = findViewById(R.id.edit_lease_start_date);
         EditText leaseEndDate = findViewById(R.id.edit_lease_end_date);
+        EditText electricMeterReading = findViewById(R.id.edit_electric_meter_reading);
+        EditText waterMeterReading = findViewById(R.id.edit_water_meter_reading);
+        EditText depositAmount = findViewById(R.id.edit_deposit_amount);
+        EditText keyAmount = findViewById(R.id.edit_key_amount);
+        EditText keycardAmount = findViewById(R.id.edit_keycard_amount);
 
-        if (propertySpinner.getSelectedItem() == null) {
-            Toast.makeText(this, "Select a property", Toast.LENGTH_SHORT).show();
-            return false;
+        String selectedProperty = propertySpinner.getSelectedItem() != null ? propertySpinner.getSelectedItem().toString() : "";
+        if (selectedProperty.equals("Select Property")) {
+            Toast.makeText(this, "Please select a property", Toast.LENGTH_SHORT).show();
+            valid = false;
         }
-        if (unitSpinner.getSelectedItem() == null) {
-            Toast.makeText(this, "Select a unit", Toast.LENGTH_SHORT).show();
-            return false;
+        String selectedUnit = unitSpinner.getSelectedItem() != null ? unitSpinner.getSelectedItem().toString() : "";
+        if (selectedUnit.equals("Select Unit")) {
+            Toast.makeText(this, "Please select a unit", Toast.LENGTH_SHORT).show();
+            valid = false;
         }
         if (moveInDate.getText().toString().trim().isEmpty()) {
             moveInDate.setError("Move-in date is required");
-            return false;
+            valid = false;
         }
         if (leaseStartDate.getText().toString().trim().isEmpty()) {
             leaseStartDate.setError("Lease start date is required");
-            return false;
+            valid = false;
         }
         if (leaseEndDate.getText().toString().trim().isEmpty()) {
             leaseEndDate.setError("Lease end date is required");
-            return false;
+            valid = false;
         }
-        return true;
+        if (electricMeterReading.getText().toString().trim().isEmpty()) {
+            electricMeterReading.setError("Electric meter reading is required");
+            valid = false;
+        }
+        if (waterMeterReading.getText().toString().trim().isEmpty()) {
+            waterMeterReading.setError("Water meter reading is required");
+            valid = false;
+        }
+        // New required fields:
+        if (depositAmount.getText().toString().trim().isEmpty()) {
+            depositAmount.setError("Security deposit is required");
+            valid = false;
+        }
+        if (keyAmount.getText().toString().trim().isEmpty()) {
+            keyAmount.setError("Number of keys is required");
+            valid = false;
+        }
+        if (keycardAmount.getText().toString().trim().isEmpty()) {
+            keycardAmount.setError("Number of keycards is required");
+            valid = false;
+        }
+        return valid;
     }
 
     private boolean validateEmergencyContact() {
+        boolean valid = true;
         EditText contactName = findViewById(R.id.edit_emergency_contact_name);
         EditText contactPhone = findViewById(R.id.edit_emergency_contact_phone);
-
         if (contactName.getText().toString().trim().isEmpty()) {
             contactName.setError("Emergency contact name is required");
-            return false;
+            valid = false;
         }
         if (contactPhone.getText().toString().trim().isEmpty()) {
             contactPhone.setError("Emergency contact phone is required");
-            return false;
+            valid = false;
         }
-        return true;
+        return valid;
     }
 
-    /**
-     * Submit the tenant form after gathering all input data.
-     */
+    // -----------------------------
+    // Form Submission
+    // -----------------------------
+
     private void submitTenantForm() {
         if (!validateEmergencyContact()) return;
 
-        // Gather data from the form
+        // Personal Info
         String firstName = ((EditText) findViewById(R.id.edit_first_name)).getText().toString().trim();
         String lastName = ((EditText) findViewById(R.id.edit_last_name)).getText().toString().trim();
         String email = ((EditText) findViewById(R.id.edit_email)).getText().toString().trim();
         String phoneNumber = ((EditText) findViewById(R.id.edit_phone_number)).getText().toString().trim();
         String citizenId = ((EditText) findViewById(R.id.edit_citizen_id)).getText().toString().trim();
+
+        // Documentation Step
+        String citizenIssuedDate = ((EditText) findViewById(R.id.edit_citizen_issued_date)).getText().toString().trim();
+        String citizenExpiryDate = ((EditText) findViewById(R.id.edit_citizen_expiry_date)).getText().toString().trim();
+        String address = ((EditText) findViewById(R.id.edit_address_on_citizen_card)).getText().toString().trim();
+
+        // Lease Details Step
         String moveInDate = ((EditText) findViewById(R.id.edit_move_in_date)).getText().toString().trim();
         String leaseStartDate = ((EditText) findViewById(R.id.edit_lease_start_date)).getText().toString().trim();
         String leaseEndDate = ((EditText) findViewById(R.id.edit_lease_end_date)).getText().toString().trim();
-        String emergencyContact = ((EditText) findViewById(R.id.edit_emergency_contact_name)).getText().toString().trim();
-        String emergencyPhone = ((EditText) findViewById(R.id.edit_emergency_contact_phone)).getText().toString().trim();
-
-        // Retrieve additional fields from the form
+        String electricMeterReading = ((EditText) findViewById(R.id.edit_electric_meter_reading)).getText().toString().trim();
+        String waterMeterReading = ((EditText) findViewById(R.id.edit_water_meter_reading)).getText().toString().trim();
         String monthlyRent = ((EditText) findViewById(R.id.edit_monthly_rent)).getText().toString().trim();
         String depositAmount = ((EditText) findViewById(R.id.edit_deposit_amount)).getText().toString().trim();
         String keyAmount = ((EditText) findViewById(R.id.edit_key_amount)).getText().toString().trim();
         String keycardAmount = ((EditText) findViewById(R.id.edit_keycard_amount)).getText().toString().trim();
 
-        // Retrieve the selected property document ID and unit ID
+        // Emergency Contact
+        String emergencyContact = ((EditText) findViewById(R.id.edit_emergency_contact_name)).getText().toString().trim();
+        String emergencyPhone = ((EditText) findViewById(R.id.edit_emergency_contact_phone)).getText().toString().trim();
+
+        // Retrieve selected property and unit IDs
         Spinner propertySpinner = findViewById(R.id.spinner_property_select);
         int selectedPropertyPosition = propertySpinner.getSelectedItemPosition();
         String propertyId = propertyIds.get(selectedPropertyPosition);
@@ -457,13 +514,18 @@ public class AddTenantActivity extends AppCompatActivity {
         int selectedUnitPosition = unitSpinner.getSelectedItemPosition();
         String unitId = unitIds.get(selectedUnitPosition);
 
-        // Create a map of tenant data
+        // Prepare tenant data map
         Map<String, Object> tenantData = new HashMap<>();
         tenantData.put("first_name", firstName);
         tenantData.put("last_name", lastName);
         tenantData.put("email", email);
         tenantData.put("phone_number", phoneNumber);
         tenantData.put("citizen_id", citizenId);
+        tenantData.put("citizen_issued_date", citizenIssuedDate);
+        tenantData.put("citizen_expiry_date", citizenExpiryDate);
+        tenantData.put("address", address);
+        tenantData.put("electric_meter_reading", electricMeterReading);
+        tenantData.put("water_meter_reading", waterMeterReading);
         tenantData.put("property", propertyId);
         tenantData.put("unit", unitId);
         tenantData.put("move_in_date", moveInDate);
@@ -471,17 +533,13 @@ public class AddTenantActivity extends AppCompatActivity {
         tenantData.put("lease_end_date", leaseEndDate);
         tenantData.put("emergency_contact_name", emergencyContact);
         tenantData.put("emergency_contact_phone", emergencyPhone);
-
-        // Add the additional fields
         tenantData.put("rentAmount", monthlyRent);
-        tenantData.put("depositAmount", depositAmount);
+        tenantData.put("dopost", depositAmount);
         tenantData.put("keyAmount", keyAmount);
         tenantData.put("keycardAmount", keycardAmount);
 
-        // Save tenant data to Firestore
         tenantsRef.add(tenantData)
                 .addOnSuccessListener(documentReference -> {
-                    // After successfully adding the tenant, update the unit's occupied status and tenant name
                     updateUnitDetails(propertyId, unitId, firstName + " " + lastName);
                     Toast.makeText(AddTenantActivity.this, "Tenant registered successfully", Toast.LENGTH_LONG).show();
                     finish();
@@ -492,9 +550,6 @@ public class AddTenantActivity extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Update the unit document to mark it as occupied and assign the tenant name.
-     */
     private void updateUnitDetails(String propertyId, String unitId, String tenantName) {
         DocumentReference unitRef = db.collection("properties")
                 .document(propertyId)
@@ -514,9 +569,6 @@ public class AddTenantActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e("Update", "Error fetching unit document", e));
     }
 
-    /**
-     * Set up a DatePicker for the provided EditText field.
-     */
     private void setupDatePicker(EditText editText) {
         editText.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -525,17 +577,16 @@ public class AddTenantActivity extends AppCompatActivity {
             int year = calendar.get(Calendar.YEAR);
             DatePickerDialog datePicker = new DatePickerDialog(AddTenantActivity.this,
                     (DatePicker view, int selectedYear, int selectedMonth, int selectedDay) -> {
-                        // Format date as yyyy-MM-dd with zero-padding
                         String formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
                         editText.setText(formattedDate);
+                        // Clear the error once a date is selected.
+                        editText.setError(null);
                     }, year, month, day);
             datePicker.show();
         });
     }
 
-    /**
-     * Update the UI with the list of amenities.
-     */
+
     private void updateAmenitiesUI(List<String> amenities) {
         TextView amenitiesTextView = findViewById(R.id.text_amenities);
         if (amenities.isEmpty()) {
@@ -549,9 +600,6 @@ public class AddTenantActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Update the UI with the rent amount.
-     */
     private void updateRentUI(Long rentAmount) {
         EditText rentEditText = findViewById(R.id.edit_monthly_rent);
         rentEditText.setText(String.valueOf(rentAmount));

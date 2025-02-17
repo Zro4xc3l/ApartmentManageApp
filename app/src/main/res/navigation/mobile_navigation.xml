@@ -36,7 +36,7 @@
     <!-- Finance Fragment -->
     <fragment
         android:id="@+id/nav_finance"
-        android:name="com.example.apartmentmanageapp.ui.bills.bills"
+        android:name="com.example.apartmentmanageapp.ui.bills.BillsFragment"
         android:label="Finance"
         tools:layout="@layout/fragment_bills_payments" />
 </navigation>

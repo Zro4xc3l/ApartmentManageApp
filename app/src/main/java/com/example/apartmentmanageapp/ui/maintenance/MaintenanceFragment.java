@@ -116,7 +116,7 @@ public class MaintenanceFragment extends Fragment {
     private void loadMaintenanceRequests() {
         // Filter maintenance requests by the current user's UID (assumed stored in "ownerId")
         db.collection("maintenanceRequests")
-                .whereEqualTo("ownerId", currentUser.getUid())
+                .whereEqualTo("userId", currentUser.getUid())
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

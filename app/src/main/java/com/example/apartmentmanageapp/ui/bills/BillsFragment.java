@@ -2,6 +2,7 @@ package com.example.apartmentmanageapp.ui.bills;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.apartmentmanageapp.R;
 import com.example.apartmentmanageapp.adapters.BillsAdapter;
 import com.example.apartmentmanageapp.model.Bill;
-import com.example.apartmentmanageapp.ui.bills.CreateNewBillActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +32,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillsPaymentsFragment extends Fragment {
+public class BillsFragment extends Fragment {
+
+    private static final String TAG = "BillsFragment";
 
     private TextView billsSummary;
     private Spinner filterSpinner;
@@ -44,15 +46,15 @@ public class BillsPaymentsFragment extends Fragment {
     private List<Bill> billsList;
     private BillsAdapter adapter;
     private DatabaseReference billsRef;
+    private ValueEventListener billsListener;
 
-    public BillsPaymentsFragment() {
+    public BillsFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment layout (ensure you have fragment_bills_payments.xml)
         return inflater.inflate(R.layout.fragment_bills_payments, container, false);
     }
 
@@ -60,62 +62,65 @@ public class BillsPaymentsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Bind views using the inflated view
+        // Initialize Views
+        initViews(view);
+
+        // Initialize Firebase Database reference
+        billsRef = FirebaseDatabase.getInstance().getReference("bills");
+
+        // Initialize RecyclerView
+        initRecyclerView();
+
+        // Setup Filter Spinner
+        setupFilterSpinner();
+
+        // Setup Click Listeners
+        setupClickListeners();
+
+        // Load Bills Data from Firebase
+        loadBillsData();
+    }
+
+    private void initViews(View view) {
         billsSummary = view.findViewById(R.id.bills_summary);
         filterSpinner = view.findViewById(R.id.filter_spinner);
         billsRecyclerView = view.findViewById(R.id.bills_recycler_view);
         exportPdfButton = view.findViewById(R.id.export_pdf);
         addBillButton = view.findViewById(R.id.add_bill_button);
         refreshButton = view.findViewById(R.id.refresh_button);
+    }
 
-        // Initialize Firebase Database reference for "bills"
-        billsRef = FirebaseDatabase.getInstance().getReference("bills");
-
-        // Initialize list and adapter
+    private void initRecyclerView() {
         billsList = new ArrayList<>();
         adapter = new BillsAdapter(billsList);
         billsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         billsRecyclerView.setAdapter(adapter);
+    }
 
-        // Set up the filter spinner with sample options
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),
+    private void setupFilterSpinner() {
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item,
                 new String[]{"All", "Paid", "Unpaid", "Overdue"});
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(spinnerAdapter);
+    }
 
-        // Set click listener for Export PDF button
-        exportPdfButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exportBillsToPdf();
-            }
-        });
+    private void setupClickListeners() {
+        exportPdfButton.setOnClickListener(view -> exportBillsToPdf());
+        addBillButton.setOnClickListener(view -> openCreateNewBillActivity());
+        refreshButton.setOnClickListener(view -> refreshBillsList());
+    }
 
-        // Set click listener for the Floating Action Button (Create New Bill)
-        addBillButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCreateNewBillActivity();
-            }
-        });
-
-        // Set click listener for the Refresh button
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                refreshBillsList();
-            }
-        });
-
-        // Listen for changes in the "bills" node
-        billsRef.addValueEventListener(new ValueEventListener() {
+    private void loadBillsData() {
+        billsListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 billsList.clear();
                 for (DataSnapshot billSnapshot : snapshot.getChildren()) {
                     Bill bill = billSnapshot.getValue(Bill.class);
-                    billsList.add(bill);
+                    if (bill != null) {
+                        billsList.add(bill);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 updateBillsSummary();
@@ -123,18 +128,20 @@ public class BillsPaymentsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Failed to load bills: " + error.getMessage());
                 Toast.makeText(getContext(), "Failed to load bills.", Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+
+        // Attach the Firebase listener
+        billsRef.addValueEventListener(billsListener);
     }
 
-    /**
-     * Updates the summary TextView based on the retrieved bill data.
-     */
     private void updateBillsSummary() {
         int totalBills = billsList.size();
         double paidTotal = 0;
         double overdueTotal = 0;
+
         for (Bill bill : billsList) {
             if ("Paid".equalsIgnoreCase(bill.getStatus())) {
                 paidTotal += bill.getAmount();
@@ -142,37 +149,33 @@ public class BillsPaymentsFragment extends Fragment {
                 overdueTotal += bill.getAmount();
             }
         }
-        billsSummary.setText("Total Bills: " + totalBills +
-                " | Paid: $" + paidTotal +
-                " | Overdue: $" + overdueTotal);
+
+        billsSummary.setText(String.format("Total Bills: %d | Paid: ฿%.2f | Overdue: ฿%.2f", totalBills, paidTotal, overdueTotal));
     }
 
-    /**
-     * Initiates the export of bills data to a PDF.
-     * (Implement your PDF generation logic here.)
-     */
     private void exportBillsToPdf() {
         Toast.makeText(getContext(), "Exporting bills to PDF...", Toast.LENGTH_SHORT).show();
-        // TODO: Add your PDF generation code.
+        // TODO: Implement PDF export logic
     }
 
-    /**
-     * Opens an activity for creating a new bill.
-     * You can also open a fragment if desired.
-     */
     private void openCreateNewBillActivity() {
-        // If you have an Activity for creating a new bill:
         Intent intent = new Intent(getContext(), CreateNewBillActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * Refreshes the bills list.
-     * (Firebase listeners automatically update the list,
-     * but you can add additional refresh logic if needed.)
-     */
     private void refreshBillsList() {
         Toast.makeText(getContext(), "Refreshing bills list...", Toast.LENGTH_SHORT).show();
-        // Optionally force a refresh or clear cache here.
+        if (billsRef != null) {
+            billsRef.removeEventListener(billsListener);
+        }
+        loadBillsData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (billsRef != null && billsListener != null) {
+            billsRef.removeEventListener(billsListener);
+        }
     }
 }

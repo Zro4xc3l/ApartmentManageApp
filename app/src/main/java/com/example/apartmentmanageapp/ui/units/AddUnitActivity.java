@@ -75,17 +75,22 @@ public class AddUnitActivity extends AppCompatActivity {
         String electricMeterStr = electricMeterInput.getText().toString().trim();
         String waterMeterStr = waterMeterInput.getText().toString().trim();
 
-        // Validate required fields
-        if (unitNumber.isEmpty() || rentAmountStr.isEmpty()) {
-            Toast.makeText(this, "Unit number and rent amount are required!", Toast.LENGTH_SHORT).show();
+        // Validate required fields (all fields are required except amenities)
+        if (unitNumber.isEmpty() ||
+                rentAmountStr.isEmpty() ||
+                roomSize.isEmpty() ||
+                floorLevel.isEmpty() ||
+                electricMeterStr.isEmpty() ||
+                waterMeterStr.isEmpty()) {
+            Toast.makeText(this, "All fields are required except amenities!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         double rentAmount, electricMeter, waterMeter;
         try {
             rentAmount = Double.parseDouble(rentAmountStr);
-            electricMeter = electricMeterStr.isEmpty() ? 0.0 : Double.parseDouble(electricMeterStr);
-            waterMeter = waterMeterStr.isEmpty() ? 0.0 : Double.parseDouble(waterMeterStr);
+            electricMeter = Double.parseDouble(electricMeterStr);
+            waterMeter = Double.parseDouble(waterMeterStr);
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Invalid numeric input!", Toast.LENGTH_SHORT).show();
             return;
@@ -96,7 +101,7 @@ public class AddUnitActivity extends AppCompatActivity {
             return;
         }
 
-        // Convert amenities input into a List<String>
+        // Convert amenities input into a List<String> (amenities is optional)
         List<String> amenitiesList = amenitiesStr.isEmpty() ? new ArrayList<>() : Arrays.asList(amenitiesStr.split("\\s*,\\s*")); // Trim spaces
 
         // Debugging log before saving to Firestore
@@ -110,9 +115,9 @@ public class AddUnitActivity extends AppCompatActivity {
                 false,            // isOccupied (default: false)
                 "No Tenant",      // Default tenant name
                 "Unpaid",         // Default rent status
-                roomSize.isEmpty() ? "Unknown" : roomSize,
-                floorLevel.isEmpty() ? "Unknown" : floorLevel,
-                amenitiesList,    // List of amenities
+                roomSize,
+                floorLevel,
+                amenitiesList,    // List of amenities (optional)
                 electricMeter,    // Initial Electricity Meter
                 waterMeter        // Initial Water Meter
         );
@@ -123,7 +128,7 @@ public class AddUnitActivity extends AppCompatActivity {
                 .set(newUnit)
                 .addOnSuccessListener(aVoid -> {
                     Log.d("AddUnitActivity", "Unit saved successfully: " + unitNumber);
-                    // ✅ Increment unitCount in the properties collection
+                    // Increment unitCount in the properties collection
                     incrementUnitCount(propertyRef);
                 })
                 .addOnFailureListener(e -> {
@@ -133,27 +138,27 @@ public class AddUnitActivity extends AppCompatActivity {
     }
 
     /**
-     * ✅ Method to Increment `unitCount` in the Property Document
+     * Method to increment `unitCount` in the property document.
      */
     private void incrementUnitCount(DocumentReference propertyRef) {
-        propertyRef.update("unitCount", FieldValue.increment(1)) // Increments unitCount by 1
+        propertyRef.update("unitCount", FieldValue.increment(1))
                 .addOnSuccessListener(aVoid -> {
                     Log.d("AddUnitActivity", "Unit count updated successfully.");
                     Toast.makeText(this, "Unit added successfully!", Toast.LENGTH_SHORT).show();
-                    navigateToUnitList(); // ✅ Navigate back to unit list
+                    navigateToUnitList(); // Navigate back to unit list
                 })
                 .addOnFailureListener(e ->
                         Toast.makeText(this, "Failed to update unit count", Toast.LENGTH_SHORT).show());
     }
 
     /**
-     * ✅ Method to Navigate Back to Unit List
+     * Method to navigate back to the unit list.
      */
     private void navigateToUnitList() {
         Intent intent = new Intent(this, UnitsActivity.class);
         intent.putExtra("propertyId", propertyId);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Clears previous activities
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish(); // Closes current activity
+        finish();
     }
 }

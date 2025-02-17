@@ -124,6 +124,17 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"/>
 
+        <!-- Urgency Error Message (initially hidden) -->
+        <TextView
+            android:id="@+id/text_urgency_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please select an urgency level"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
         <RadioGroup
             android:id="@+id/radio_urgency"
             android:layout_width="match_parent"
@@ -135,8 +146,7 @@
                 android:id="@+id/radio_low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Low"
-                android:checked="true"/>
+                android:text="Low"/>
 
             <RadioButton
                 android:id="@+id/radio_medium"
