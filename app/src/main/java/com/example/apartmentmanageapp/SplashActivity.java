@@ -2,16 +2,20 @@ package com.example.apartmentmanageapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.FirebaseApp;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
+
+    // Duration of splash screen in milliseconds (3 seconds)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Optionally, set a simple splash layout.
         setContentView(R.layout.activity_splash);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

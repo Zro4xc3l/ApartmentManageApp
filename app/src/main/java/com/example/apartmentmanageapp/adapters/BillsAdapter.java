@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apartmentmanageapp.R;
@@ -14,48 +15,48 @@ import java.util.List;
 
 public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillViewHolder> {
 
-    private List<Bill> bills;
+    private List<Bill> billList;
 
-    public BillsAdapter(List<Bill> bills) {
-        this.bills = bills;
+    public BillsAdapter(List<Bill> billList) {
+        this.billList = billList;
     }
 
+    @NonNull
     @Override
-    public BillViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bill, parent, false);
+    public BillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the layout for a single bill item
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_bill, parent, false);
         return new BillViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(BillViewHolder holder, int position) {
-        Bill bill = bills.get(position);
-        holder.bind(bill);
+    public void onBindViewHolder(@NonNull BillViewHolder holder, int position) {
+        Bill bill = billList.get(position);
+
+        // Bind data from the Bill object to the TextViews
+        holder.tvPropertyName.setText(bill.getPropertyName());
+        holder.tvTotalAmount.setText(String.format("฿%.2f", bill.getTotalAmount()));
+        holder.tvBillStatus.setText(bill.getStatus());
     }
 
     @Override
     public int getItemCount() {
-        return bills.size();
+        return billList.size();
     }
 
-    public class BillViewHolder extends RecyclerView.ViewHolder {
-        TextView tenantName;
-        TextView amount;
-        TextView dueDate;
-        TextView status;
+    // ViewHolder class for bill items
+    public static class BillViewHolder extends RecyclerView.ViewHolder {
 
-        public BillViewHolder(View itemView) {
+        TextView tvPropertyName;
+        TextView tvTotalAmount;
+        TextView tvBillStatus;
+
+        public BillViewHolder(@NonNull View itemView) {
             super(itemView);
-            tenantName = itemView.findViewById(R.id.tenant_name);
-            amount = itemView.findViewById(R.id.amount);
-            dueDate = itemView.findViewById(R.id.due_date);
-            status = itemView.findViewById(R.id.status);
-        }
-
-        public void bind(Bill bill) {
-            tenantName.setText(bill.getTenantName());
-            amount.setText("$" + bill.getAmount());
-            dueDate.setText(bill.getDueDate());
-            status.setText(bill.getStatus());
+            tvPropertyName = itemView.findViewById(R.id.tv_bill_property);
+            tvTotalAmount = itemView.findViewById(R.id.tv_bill_amount);
+            tvBillStatus = itemView.findViewById(R.id.tv_bill_status);
         }
     }
 }

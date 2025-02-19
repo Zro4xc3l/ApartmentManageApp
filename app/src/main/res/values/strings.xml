@@ -154,5 +154,7 @@
     <!-- Additional Details String -->
     <string name="additional_details">Additional Details</string>
 
+    <string name="hint_due_date">Enter Bill due date</string>
+    <string name="section_due_date">Bill Due Date</string>
 
 </resources>

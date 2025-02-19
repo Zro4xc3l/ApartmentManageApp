@@ -145,6 +145,28 @@
             android:autofillHints="paymentAmount"
             android:inputType="numberDecimal"/>
 
+        <!-- Section: Due Date -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/section_due_date"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <EditText
+            android:id="@+id/edit_due_date"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_due_date"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="number"/>
+
         <!-- Save and Cancel Buttons -->
         <LinearLayout
             android:layout_width="match_parent"

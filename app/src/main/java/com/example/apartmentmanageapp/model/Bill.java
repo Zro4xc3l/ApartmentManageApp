@@ -1,51 +1,40 @@
 package com.example.apartmentmanageapp.model;
 
 public class Bill {
-    private String id;
-    private String tenantName;
-    private double amount;
-    private String dueDate;
+    private String propertyName;
+    private double totalAmount;
     private String status;
 
-    // Default constructor required for calls to DataSnapshot.getValue(Bill.class)
-    public Bill() {}
+    public Bill() {
+        // Default constructor required for Firebase deserialization
+    }
 
-    public Bill(String id, String tenantName, double amount, String dueDate, String status) {
-        this.id = id;
-        this.tenantName = tenantName;
-        this.amount = amount;
-        this.dueDate = dueDate;
+    public Bill(String propertyName, double totalAmount, String status) {
+        this.propertyName = propertyName;
+        this.totalAmount = totalAmount;
         this.status = status;
     }
 
-    // Getters and setters
-    public String getId() {
-        return id;
+    public String getPropertyName() {
+        return propertyName;
     }
-    public void setId(String id) {
-        this.id = id;
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
-    public String getTenantName() {
-        return tenantName;
+
+    public double getTotalAmount() {
+        return totalAmount;
     }
-    public void setTenantName(String tenantName) {
-        this.tenantName = tenantName;
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
     }
-    public double getAmount() {
-        return amount;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-    public String getDueDate() {
-        return dueDate;
-    }
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
+
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }

@@ -63,6 +63,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")  // Firestore Database
     implementation("com.google.firebase:firebase-storage")    // Cloud Storage
     implementation("com.google.firebase:firebase-database")
+    implementation(libs.recyclerview)
 
     // Testing Dependencies
     testImplementation(libs.junit)
@@ -74,7 +75,7 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-base:18.5.0")
 
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation (libs.glide)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
 }

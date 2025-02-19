@@ -57,4 +57,10 @@
     <color name="colorPending">#F44336</color>  <!-- Red -->
     <color name="colorDefault">#000000</color>  <!-- Black or any default color -->
 
+    <color name="lightGray">#E0E0E0</color>  <!-- Light Gray Background -->
+
+    <color name="primaryDark">#1565C0</color>
+    <color name="accent">#D32F2F</color>
+    <color name="background">#F5F5F5</color>
+
 </resources>
