@@ -15,14 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.apartmentmanageapp.R;
+import com.example.apartmentmanageapp.ui.maintenance.RequestMaintenance;
 import com.example.apartmentmanageapp.ui.properties.AddPropertyActivity;
 import com.example.apartmentmanageapp.ui.tenants.AddTenantActivity;
+import com.example.apartmentmanageapp.ChangePassword;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class DashboardFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private TextView managerNameText, unpaidUnitsValue, occupancyRateValue, vacancyRateValue, totalUnitsValue;
-    private Button btnAddTenant, btnAddProperty, btnRequestMaintenance, btnSignOut;
+    private Button btnAddTenant, btnAddProperty, btnRequestMaintenance, btnSignOut, btnChangePass;
 
     @Nullable
     @Override
@@ -55,15 +56,14 @@ public class DashboardFragment extends Fragment {
         btnAddTenant = view.findViewById(R.id.btn_add_tenant);
         btnAddProperty = view.findViewById(R.id.btn_add_property);
         btnRequestMaintenance = view.findViewById(R.id.btn_request_maintenance);
+        btnChangePass = view.findViewById(R.id.btn_change_password);
         btnSignOut = view.findViewById(R.id.btn_sign_out);
 
         // Set up button listeners
         btnAddTenant.setOnClickListener(v -> openAddTenant());
         btnAddProperty.setOnClickListener(v -> openAddProperty());
-
-        // Disable "Request Maintenance" for now
-        btnRequestMaintenance.setEnabled(false);
-        btnRequestMaintenance.setAlpha(0.5f); // Visually indicate it's disabled
+        btnRequestMaintenance.setOnClickListener(v -> openRequestMaintenance()); // Added Request Maintenance Button
+        btnChangePass.setOnClickListener(v -> openChangePassword());
 
         // Sign Out Button
         btnSignOut.setOnClickListener(v -> signOutUser());
@@ -73,6 +73,22 @@ public class DashboardFragment extends Fragment {
         loadDashboardData();
 
         return view;
+    }
+
+    /**
+     * Opens the Request Maintenance Activity
+     */
+    private void openRequestMaintenance() {
+        Intent intent = new Intent(getActivity(), RequestMaintenance.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Opens the Change Password Activity
+     */
+    private void openChangePassword() {
+        Intent intent = new Intent(getActivity(), ChangePassword.class);
+        startActivity(intent);
     }
 
     /**
@@ -156,7 +172,6 @@ public class DashboardFragment extends Fragment {
                     }
 
                     // Step 2: Fetch all units for these properties using whereIn.
-                    // (whereIn supports up to 10 values.)
                     db.collectionGroup("units")
                             .whereIn("propertyId", propertyIdList)
                             .get()
@@ -189,7 +204,6 @@ public class DashboardFragment extends Fragment {
                 });
     }
 
-
     /**
      * Updates the UI with dashboard data
      */
@@ -217,9 +231,6 @@ public class DashboardFragment extends Fragment {
         startActivity(intent);
     }
 
-    /**
-     * Displays an error state if data fails to load
-     */
     private void showErrorState() {
         totalUnitsValue.setText("N/A");
         unpaidUnitsValue.setText("N/A");

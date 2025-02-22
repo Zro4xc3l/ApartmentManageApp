@@ -521,7 +521,7 @@ public class AddTenantActivity extends AppCompatActivity {
         tenantData.put("emergency_contact_name", emergencyContact);
         tenantData.put("emergency_contact_phone", emergencyPhone);
         tenantData.put("rentAmount", safeDouble(monthlyRentStr));
-        tenantData.put("dopost", safeDouble(depositAmountStr));
+        tenantData.put("depositAmount", safeDouble(depositAmountStr));
         tenantData.put("keyAmount", safeInt(keyAmountStr));
         tenantData.put("keycardAmount", safeInt(keycardAmountStr));
 

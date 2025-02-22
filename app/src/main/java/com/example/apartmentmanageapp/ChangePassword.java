@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.AuthCredential;
@@ -14,7 +13,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ResetPassword extends AppCompatActivity {
+public class ChangePassword extends AppCompatActivity {
 
     private EditText currentPasswordEditText, newPasswordEditText, confirmPasswordEditText;
     private Button resetPasswordButton, cancelButton;
@@ -40,6 +39,7 @@ public class ResetPassword extends AppCompatActivity {
         // Set click listeners
         resetPasswordButton.setOnClickListener(v -> resetPassword());
         cancelButton.setOnClickListener(v -> finish()); // Closes the activity
+
     }
 
     private void resetPassword() {
@@ -74,7 +74,7 @@ public class ResetPassword extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         updatePassword(newPassword);
                     } else {
-                        Toast.makeText(ResetPassword.this, "Incorrect current password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePassword.this, "Incorrect current password", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -83,12 +83,12 @@ public class ResetPassword extends AppCompatActivity {
         currentUser.updatePassword(newPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ResetPassword.this, "Password updated successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ResetPassword.this, LoginActivity.class);
+                        Toast.makeText(ChangePassword.this, "Password updated successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ChangePassword.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(ResetPassword.this, "Failed to update password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePassword.this, "Failed to update password", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

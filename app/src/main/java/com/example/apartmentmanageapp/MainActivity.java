@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle any intent extras to select a specific fragment
         handleIntent(getIntent());
+
+        // Handle openFragment extra inside onCreate
+        String openFragment = getIntent().getStringExtra("openFragment");
+        if (openFragment != null && openFragment.equals("bills")) {
+            navController.navigate(R.id.nav_bills);
+        }
     }
 
     @Override
@@ -58,9 +65,7 @@ public class MainActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra("targetFragment")) {
             String target = intent.getStringExtra("targetFragment");
             if ("BILLS".equalsIgnoreCase(target) && bottomNavView != null) {
-                // Select the BillsFragment by setting the BottomNavigationView's selected item.
                 bottomNavView.setSelectedItemId(R.id.nav_bills);
-                // Optionally, clear the extra if desired:
                 intent.removeExtra("targetFragment");
             }
         }

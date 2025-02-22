@@ -19,7 +19,6 @@ import com.example.apartmentmanageapp.model.Bill;
 import com.example.apartmentmanageapp.model.UnitBill;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.List;
@@ -82,8 +81,10 @@ public class BillsDetailActivity extends AppCompatActivity {
                         bill = documentSnapshot.toObject(Bill.class);
                         if (bill != null) {
                             bill.setId(billId);
+                            Log.d(TAG, "Bill loaded: " + bill.toString());
+
                             populateBillDetails();
-                            loadUnitBills();
+                            loadUnitBills(); // Now correctly retrieving from the main document
                         }
                     } else {
                         Toast.makeText(this, "Bill not found.", Toast.LENGTH_SHORT).show();
@@ -109,6 +110,8 @@ public class BillsDetailActivity extends AppCompatActivity {
         tvDetailGrandTotal.setText("Grand Total: ฿" + String.format("%.2f", bill.getGrandTotal()));
         tvDetailBillStatus.setText("Status: " + bill.getBillStatus());
 
+        rvUnitDetails.setVisibility(View.VISIBLE); // Ensure RecyclerView is visible
+
         // Enable "Mark as Paid" button only if the bill is unpaid
         if ("Unpaid".equalsIgnoreCase(bill.getBillStatus())) {
             btnMarkAsPaid.setVisibility(View.VISIBLE);
@@ -119,19 +122,14 @@ public class BillsDetailActivity extends AppCompatActivity {
     }
 
     private void loadUnitBills() {
-        db.collection("bills").document(billId)
-                .collection("unitBills") // Ensure your Firestore structure has this subcollection
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    List<UnitBill> unitBills = querySnapshot.toObjects(UnitBill.class);
-                    if (!unitBills.isEmpty()) {
-                        setupRecyclerView(unitBills);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error loading unit bills", e);
-                    Toast.makeText(this, "Failed to load unit bills.", Toast.LENGTH_SHORT).show();
-                });
+        if (bill == null || bill.getUnitBills() == null || bill.getUnitBills().isEmpty()) {
+            Log.e(TAG, "No unit bills found for this bill.");
+            return;
+        }
+
+        Log.d(TAG, "Unit Bills: " + bill.getUnitBills()); // Debugging
+
+        setupRecyclerView(bill.getUnitBills());
     }
 
     private void setupRecyclerView(List<UnitBill> unitBills) {

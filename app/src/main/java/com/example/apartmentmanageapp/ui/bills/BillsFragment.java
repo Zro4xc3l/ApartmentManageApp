@@ -1,6 +1,11 @@
 package com.example.apartmentmanageapp.ui.bills;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,12 +35,15 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BillsFragment extends Fragment {
 
     private static final String TAG = "BillsFragment";
+    private static final int CREATE_FILE_REQUEST_CODE = 1001;
 
     private RecyclerView billsRecyclerView;
     private BillsAdapter adapter;
@@ -53,6 +61,9 @@ public class BillsFragment extends Fragment {
 
     private String selectedFilter = "Unpaid"; // Default filter
 
+    // Global PDF document reference to write once the user picks a location.
+    private PdfDocument mPdfDocument;
+
     public BillsFragment() {}
 
     @Override
@@ -63,7 +74,6 @@ public class BillsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Log.d(TAG, "BillsFragment is loaded");
 
         // Initialize Firebase Authentication
@@ -73,7 +83,6 @@ public class BillsFragment extends Fragment {
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
-
         Log.d(TAG, "Current User ID: " + currentUser.getUid());
 
         // Initialize UI components
@@ -83,23 +92,16 @@ public class BillsFragment extends Fragment {
         exportPdfButton = view.findViewById(R.id.export_pdf);
         billsSummary = view.findViewById(R.id.bills_summary);
 
-        // Set up RecyclerView
         billsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         billsList = new ArrayList<>();
-
-        // Pass the listener (this::openBillDetail) when creating the adapter
-        adapter = new BillsAdapter(getContext(), billsList, this::openBillDetail); // Updated to handle clicks
+        adapter = new BillsAdapter(getContext(), billsList, this::openBillDetail);
         billsRecyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
 
-        // Set up Spinner
         setupFilterSpinner();
-
-        // Load bills with default filter "Unpaid"
         loadBillsData(selectedFilter);
 
-        // Set event listeners
         exportPdfButton.setOnClickListener(v -> exportBillsToPdf());
         addBillButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreateBillActivity.class)));
 
@@ -109,7 +111,6 @@ public class BillsFragment extends Fragment {
                 selectedFilter = statusOptions.get(position);
                 loadBillsData(selectedFilter);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -134,39 +135,26 @@ public class BillsFragment extends Fragment {
         String userId = currentUser.getUid();
         Log.d(TAG, "Fetching bills for user ID: " + userId);
 
-        Query query = db.collection("bills").whereEqualTo("ownerId", userId); // Filter by logged-in user
-
+        Query query = db.collection("bills").whereEqualTo("ownerId", userId);
         if (!"All".equals(filter)) {
             query = query.whereEqualTo("billStatus", filter);
         }
-
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 billsList.clear();
                 QuerySnapshot snapshot = task.getResult();
-
                 if (snapshot != null && !snapshot.isEmpty()) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        Log.d(TAG, "Raw Bill Data: " + document.getData());
-
                         Bill bill = document.toObject(Bill.class);
                         bill.setId(document.getId());
-
-                        Log.d(TAG, "Bill Loaded: " + bill.getPropertyName() + " | Status: " + bill.getBillStatus());
-
-                        // Apply filter
                         if ("All".equals(filter) || bill.getBillStatus().equalsIgnoreCase(filter)) {
                             billsList.add(bill);
                         }
                     }
-                } else {
-                    Log.d(TAG, "No bills found for filter: " + filter);
                 }
-
                 adapter.notifyDataSetChanged();
                 updateBillsSummary();
             } else {
-                Log.e(TAG, "Error getting bills", task.getException());
                 Toast.makeText(getContext(), "Failed to load bills.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -176,7 +164,6 @@ public class BillsFragment extends Fragment {
         int totalBills = billsList.size();
         double paidTotal = 0;
         double overdueTotal = 0;
-
         for (Bill bill : billsList) {
             if ("Paid".equalsIgnoreCase(bill.getBillStatus())) {
                 paidTotal += bill.getGrandTotal();
@@ -184,11 +171,8 @@ public class BillsFragment extends Fragment {
                 overdueTotal += bill.getGrandTotal();
             }
         }
-
-        String summaryText = String.format(
-                "Total Bills: %d | Paid: ฿%.2f | Overdue: ฿%.2f",
-                totalBills, paidTotal, overdueTotal
-        );
+        String summaryText = String.format("Total Bills: %d | Paid: ฿%.2f | Overdue: ฿%.2f",
+                totalBills, paidTotal, overdueTotal);
         billsSummary.setText(summaryText);
     }
 
@@ -202,8 +186,150 @@ public class BillsFragment extends Fragment {
         startActivity(intent);
     }
 
+    /**
+     * Generate the PDF document with extra details and then launch an intent to let the user save it.
+     * This implementation uses a landscape page for extra horizontal space.
+     */
     private void exportBillsToPdf() {
         Toast.makeText(getContext(), "Exporting bills to PDF...", Toast.LENGTH_SHORT).show();
-        // TODO: Implement PDF export logic
+
+        // Create a new PdfDocument
+        PdfDocument pdfDocument = new PdfDocument();
+        // Use a landscape page: width = 842, height = 595
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(842, 595, 1).create();
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+
+        // Draw report title
+        paint.setTextSize(14);
+        int marginLeft = 10;
+        int y = 30;
+        String title = "Bills Report";
+        canvas.drawText(title, marginLeft, y, paint);
+        y += 20;
+
+        // Set smaller font for table headers and rows
+        paint.setTextSize(10);
+
+        // Define column positions (x coordinates)
+        int col1 = 10;   // Property
+        int col2 = 110;  // Billing Period
+        int col3 = 210;  // Room(s)
+        int col4 = 310;  // Total Rent
+        int col5 = 390;  // Total Elec
+        int col6 = 470;  // Total Water
+        int col7 = 550;  // Total Additional
+        int col8 = 630;  // Grand Total
+        int col9 = 710;  // Status
+
+        // Draw table header row
+        canvas.drawText("Property", col1, y, paint);
+        canvas.drawText("Period", col2, y, paint);
+        canvas.drawText("Room(s)", col3, y, paint);
+        canvas.drawText("Rent", col4, y, paint);
+        canvas.drawText("Elec", col5, y, paint);
+        canvas.drawText("Water", col6, y, paint);
+        canvas.drawText("Addtl", col7, y, paint);
+        canvas.drawText("Grand", col8, y, paint);
+        canvas.drawText("Status", col9, y, paint);
+        y += 12;
+        // Draw a line below header
+        canvas.drawLine(10, y, pageInfo.getPageWidth() - 10, y, paint);
+        y += 10;
+
+        // Loop through bills and add a row for each
+        for (Bill bill : billsList) {
+            String property = bill.getPropertyName();
+            String period = bill.getBillingPeriod();
+            String rooms = getRoomInfo(bill);
+            String rent = String.format("฿%.2f", bill.getTotalRent());
+            String elec = String.format("฿%.2f", bill.getTotalElectric());
+            String water = String.format("฿%.2f", bill.getTotalWater());
+            String additional = String.format("฿%.2f", bill.getTotalAdditional());
+            String grand = String.format("฿%.2f", bill.getGrandTotal());
+            String status = bill.getBillStatus();
+
+            canvas.drawText(property, col1, y, paint);
+            canvas.drawText(period, col2, y, paint);
+            canvas.drawText(rooms, col3, y, paint);
+            canvas.drawText(rent, col4, y, paint);
+            canvas.drawText(elec, col5, y, paint);
+            canvas.drawText(water, col6, y, paint);
+            canvas.drawText(additional, col7, y, paint);
+            canvas.drawText(grand, col8, y, paint);
+            canvas.drawText(status, col9, y, paint);
+            y += 12;
+
+            // If the y-coordinate exceeds page height, finish current page and start a new one.
+            if (y > pageInfo.getPageHeight() - 20) {
+                pdfDocument.finishPage(page);
+                pageInfo = new PdfDocument.PageInfo.Builder(842, 595, pdfDocument.getPages().size() + 1).create();
+                page = pdfDocument.startPage(pageInfo);
+                canvas = page.getCanvas();
+                y = 30;
+            }
+        }
+        // Finish the last page.
+        pdfDocument.finishPage(page);
+
+        // Save the document via the Storage Access Framework.
+        mPdfDocument = pdfDocument;
+        createFile();
+    }
+
+    /**
+     * Helper method to extract room information from the bill.
+     * It assumes Bill.getUnitBills() returns a list of UnitBill objects (or similar)
+     * where each UnitBill has a getUnitId() method.
+     */
+    private String getRoomInfo(Bill bill) {
+        if (bill.getUnitBills() != null && !bill.getUnitBills().isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bill.getUnitBills().size(); i++) {
+                Object unit = bill.getUnitBills().get(i);
+                // Adjust this depending on your UnitBill implementation.
+                if (unit instanceof com.example.apartmentmanageapp.model.UnitBill) {
+                    sb.append(((com.example.apartmentmanageapp.model.UnitBill) unit).getUnit());
+                } else {
+                    sb.append(unit.toString());
+                }
+                if (i < bill.getUnitBills().size() - 1) {
+                    sb.append(", ");
+                }
+            }
+            return sb.toString();
+        }
+        return "";
+    }
+
+    /**
+     * Launches an intent to create a new document using the Storage Access Framework.
+     */
+    private void createFile() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/pdf");
+        intent.putExtra(Intent.EXTRA_TITLE, "bills_report.pdf");
+        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getData() != null && mPdfDocument != null) {
+                Uri uri = data.getData();
+                try (OutputStream outputStream = requireActivity().getContentResolver().openOutputStream(uri)) {
+                    mPdfDocument.writeTo(outputStream);
+                    mPdfDocument.close();
+                    mPdfDocument = null;
+                    Toast.makeText(getContext(), "PDF saved successfully", Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(getContext(), "Error saving PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

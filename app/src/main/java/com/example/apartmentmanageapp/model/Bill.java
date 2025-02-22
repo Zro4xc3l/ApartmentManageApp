@@ -1,5 +1,6 @@
 package com.example.apartmentmanageapp.model;
 
+import com.google.firebase.firestore.PropertyName;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Bill implements Serializable {
     private double totalElectricUsage;
     private double totalWater;
     private double totalWaterUsage;
-    private double serviceFee; // 🔹 NEW FIELD
+    private double serviceFee; // NEW FIELD
     private double totalAdditional;
     private double grandTotal;
     private String billStatus;
@@ -33,7 +34,7 @@ public class Bill implements Serializable {
                 double totalElectricUsage,
                 double totalWater,
                 double totalWaterUsage,
-                double serviceFee,  // 🔹 ADDED IN CONSTRUCTOR
+                double serviceFee,  // SETTING SERVICE FEE
                 double totalAdditional,
                 double grandTotal,
                 String billStatus,
@@ -49,7 +50,7 @@ public class Bill implements Serializable {
         this.totalElectricUsage = totalElectricUsage;
         this.totalWater = totalWater;
         this.totalWaterUsage = totalWaterUsage;
-        this.serviceFee = serviceFee;  // 🔹 SETTING SERVICE FEE
+        this.serviceFee = serviceFee;
         this.totalAdditional = totalAdditional;
         this.grandTotal = grandTotal;
         this.billStatus = billStatus;
@@ -117,12 +118,30 @@ public class Bill implements Serializable {
         this.totalElectricUsage = totalElectricUsage;
     }
 
+    /**
+     * Getter for totalWater.
+     */
     public double getTotalWater() {
         return totalWater;
     }
 
-    public void setTotalWater(double totalWater) {
-        this.totalWater = totalWater;
+    /**
+     * Custom setter for totalWater that handles both Number and String inputs.
+     * This method is annotated so Firestore calls it during deserialization.
+     */
+    @PropertyName("totalWater")
+    public void setTotalWater(Object value) {
+        if (value instanceof Number) {
+            this.totalWater = ((Number) value).doubleValue();
+        } else if (value instanceof String) {
+            try {
+                this.totalWater = Double.parseDouble((String) value);
+            } catch (NumberFormatException e) {
+                this.totalWater = 0.0;
+            }
+        } else {
+            this.totalWater = 0.0;
+        }
     }
 
     public double getTotalWaterUsage() {
@@ -133,11 +152,14 @@ public class Bill implements Serializable {
         this.totalWaterUsage = totalWaterUsage;
     }
 
-    public double getServiceFee() {  // 🔹 GETTER FOR SERVICE FEE
+    // Update: Map the Firestore field "totalServiceFee" to the serviceFee property
+    @PropertyName("totalServiceFee")
+    public double getServiceFee() {
         return serviceFee;
     }
 
-    public void setServiceFee(double serviceFee) {  // 🔹 SETTER FOR SERVICE FEE
+    @PropertyName("totalServiceFee")
+    public void setServiceFee(double serviceFee) {
         this.serviceFee = serviceFee;
     }
 
@@ -145,8 +167,22 @@ public class Bill implements Serializable {
         return totalAdditional;
     }
 
-    public void setTotalAdditional(double totalAdditional) {
-        this.totalAdditional = totalAdditional;
+    /**
+     * Custom setter for totalAdditional that handles both Number and String inputs.
+     */
+    @PropertyName("totalAdditional")
+    public void setTotalAdditional(Object value) {
+        if (value instanceof Number) {
+            this.totalAdditional = ((Number) value).doubleValue();
+        } else if (value instanceof String) {
+            try {
+                this.totalAdditional = Double.parseDouble((String) value);
+            } catch (NumberFormatException e) {
+                this.totalAdditional = 0.0;
+            }
+        } else {
+            this.totalAdditional = 0.0;
+        }
     }
 
     public double getGrandTotal() {

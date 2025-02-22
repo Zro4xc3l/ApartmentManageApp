@@ -2,7 +2,7 @@
 <resources>
 
     <!-- สำหรับหน้าจอทั่วไป -->
-    <string name="app_name">แอปจัดการอพาร์ตเมนต์</string>
+    <string name="app_name">AptManage</string>
 
     <!-- ปุ่มนำทาง -->
     <string name="next">ถัดไป</string>
@@ -328,8 +328,8 @@
     <string name="bill_billing_period">รอบการเรียกเก็บ: [รอบการเรียกเก็บ]</string>
     <!-- รายละเอียดค่าใช้จ่าย -->
     <string name="bill_total_rent">ค่าเช่า: ฿0.00</string>
-    <string name="bill_total_electric">ค่าไฟรวม: ฿0.00 (การใช้: 0 หน่วย)</string>
-    <string name="bill_total_water">ค่าน้ำรวม: ฿0.00 (การใช้: 0 หน่วย)</string>
+    <string name="bill_total_electric">ค่าไฟรวม: ฿0.00</string>
+    <string name="bill_total_water">ค่าน้ำรวม: ฿0.00</string>
     <string name="bill_service_fee">ค่าบริการ: ฿0.00</string>
     <string name="bill_total_additional">ค่าเพิ่มเติมรวม: ฿0.00</string>
     <!-- ยอดรวม -->

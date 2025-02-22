@@ -35,34 +35,16 @@ public class BillUnitDetailsAdapter extends RecyclerView.Adapter<BillUnitDetails
         // Header: Unit and Tenant
         holder.tvUnitHeader.setText("Unit " + unitBill.getUnit() + " - " + unitBill.getTenantName());
 
-        // Electric readings
-        holder.tvPrevElectric.setText("Prev: " + unitBill.getPrevElectricReading());
-        holder.tvCurrentElectric.setText("Curr: " + (unitBill.getCurrentElectricReading() != null ? unitBill.getCurrentElectricReading() : "0"));
-
+        // Electric price calculation
         double currentElectric = (unitBill.getCurrentElectricReading() != null ? unitBill.getCurrentElectricReading() : 0);
-        double electricUsage = currentElectric - unitBill.getPrevElectricReading();
-        if (electricUsage < 0) {
-            electricUsage = 0;
-        }
-        double electricPrice = electricUsage * unitBill.getElectricityRate();
-        if (electricPrice < unitBill.getMinElectricPrice()) {
-            electricPrice = unitBill.getMinElectricPrice();
-        }
+        double electricUsage = Math.max(0, currentElectric - unitBill.getPrevElectricReading());
+        double electricPrice = Math.max(unitBill.getMinElectricPrice(), electricUsage * unitBill.getElectricityRate());
         holder.tvElectricPrice.setText("Price: ฿" + String.format("%.2f", electricPrice));
 
-        // Water readings
-        holder.tvPrevWater.setText("Prev: " + unitBill.getPrevWaterReading());
-        holder.tvCurrentWater.setText("Curr: " + (unitBill.getCurrentWaterReading() != null ? unitBill.getCurrentWaterReading() : "0"));
-
+        // Water price calculation
         double currentWater = (unitBill.getCurrentWaterReading() != null ? unitBill.getCurrentWaterReading() : 0);
-        double waterUsage = currentWater - unitBill.getPrevWaterReading();
-        if (waterUsage < 0) {
-            waterUsage = 0;
-        }
-        double waterPrice = waterUsage * unitBill.getWaterRate();
-        if (waterPrice < unitBill.getMinWaterPrice()) {
-            waterPrice = unitBill.getMinWaterPrice();
-        }
+        double waterUsage = Math.max(0, currentWater - unitBill.getPrevWaterReading());
+        double waterPrice = Math.max(unitBill.getMinWaterPrice(), waterUsage * unitBill.getWaterRate());
         holder.tvWaterPrice.setText("Price: ฿" + String.format("%.2f", waterPrice));
 
         // Additional Fee and Description
@@ -70,10 +52,11 @@ public class BillUnitDetailsAdapter extends RecyclerView.Adapter<BillUnitDetails
         holder.tvAdditionalFee.setText("฿" + String.format("%.2f", additionalFee));
         holder.tvAdditionalDesc.setText("Description: " + (unitBill.getAdditionalFeeDescription() != null ? unitBill.getAdditionalFeeDescription() : "None"));
 
-        // Total Price Calculation (assuming rentAmount is part of the unit bill)
+        // Total Price Calculation
         double totalPrice = unitBill.getRentAmount() + electricPrice + waterPrice + additionalFee;
         holder.tvTotalPrice.setText("Total Price: ฿" + String.format("%.2f", totalPrice));
     }
+
 
     @Override
     public int getItemCount() {
@@ -83,11 +66,7 @@ public class BillUnitDetailsAdapter extends RecyclerView.Adapter<BillUnitDetails
     public static class UnitBillViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvUnitHeader;
-        TextView tvPrevElectric;
-        TextView tvCurrentElectric;
         TextView tvElectricPrice;
-        TextView tvPrevWater;
-        TextView tvCurrentWater;
         TextView tvWaterPrice;
         TextView tvAdditionalFee;
         TextView tvAdditionalDesc;
@@ -96,11 +75,7 @@ public class BillUnitDetailsAdapter extends RecyclerView.Adapter<BillUnitDetails
         public UnitBillViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUnitHeader = itemView.findViewById(R.id.tv_unit_header);
-            tvPrevElectric = itemView.findViewById(R.id.tv_prev_electric);
-            tvCurrentElectric = itemView.findViewById(R.id.tv_current_electric);
             tvElectricPrice = itemView.findViewById(R.id.tv_electric_price);
-            tvPrevWater = itemView.findViewById(R.id.tv_prev_water);
-            tvCurrentWater = itemView.findViewById(R.id.tv_current_water);
             tvWaterPrice = itemView.findViewById(R.id.tv_water_price);
             tvAdditionalFee = itemView.findViewById(R.id.tv_additional_fee);
             tvAdditionalDesc = itemView.findViewById(R.id.tv_additional_desc);
