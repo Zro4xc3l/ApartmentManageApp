@@ -91,7 +91,9 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.SummaryV
             unitTenantSummary = itemView.findViewById(R.id.unit_tenant_summary);
             rentSummary = itemView.findViewById(R.id.rent_value);
             electricSummary = itemView.findViewById(R.id.electric_value);
+            electricUsage = itemView.findViewById(R.id.electric_usage);
             waterSummary = itemView.findViewById(R.id.water_value);
+            waterUsage = itemView.findViewById(R.id.water_usage);
             serviceFeeSummary = itemView.findViewById(R.id.service_fee_value);
             additionalSummary = itemView.findViewById(R.id.additional_value);
             additionalDescription = itemView.findViewById(R.id.additional_description);

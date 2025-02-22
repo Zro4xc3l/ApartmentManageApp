@@ -178,6 +178,7 @@ public class AddTenantActivity extends AppCompatActivity {
                 Log.d("Units", "Selected unit ID: " + selectedUnit);
                 fetchAmenities(selectedUnit);
                 fetchRentAmount(selectedUnit);
+                fetchMeterReadings(selectedUnit);
             }
 
             @Override
@@ -252,6 +253,42 @@ public class AddTenantActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Toast.makeText(AddTenantActivity.this, "Failed to load units", Toast.LENGTH_SHORT).show();
                     Log.e("Units", "Error fetching units: ", e);
+                });
+    }
+
+    private void fetchMeterReadings(String unitId) {
+        if (unitId == null || unitId.isEmpty() || unitId.equals("Select Unit")) {
+            Log.d("MeterReadings", "No valid unit selected, skipping meter reading fetch.");
+            return;
+        }
+
+        Log.d("MeterReadings", "Fetching meter readings for unit ID: " + unitId);
+
+        unitsRef.document(unitId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Fetch electric meter reading
+                        if (documentSnapshot.contains("electric_meter_reading")) {
+                            Long electricReading = documentSnapshot.getLong("electric_meter_reading");
+                            if (electricReading != null) {
+                                EditText electricMeterEditText = findViewById(R.id.edit_electric_meter_reading);
+                                electricMeterEditText.setText(String.valueOf(electricReading));
+                            }
+                        }
+
+                        // Fetch water meter reading
+                        if (documentSnapshot.contains("water_meter_reading")) {
+                            Long waterReading = documentSnapshot.getLong("water_meter_reading");
+                            if (waterReading != null) {
+                                EditText waterMeterEditText = findViewById(R.id.edit_water_meter_reading);
+                                waterMeterEditText.setText(String.valueOf(waterReading));
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("MeterReadings", "Error fetching meter readings: ", e);
+                    Toast.makeText(AddTenantActivity.this, "Failed to load meter readings", Toast.LENGTH_SHORT).show();
                 });
     }
 

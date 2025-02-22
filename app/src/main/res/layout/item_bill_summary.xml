@@ -92,6 +92,15 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
+            <TextView
+                android:id="@+id/electric_usage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/electricity_usage"
+                android:textSize="14sp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/black"
+                android:visibility="invisible"/>
 
             <!-- Water -->
             <LinearLayout
@@ -115,6 +124,15 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
+            <TextView
+                android:id="@+id/water_usage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/water_usage"
+                android:textSize="14sp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/black"
+                android:visibility="invisible"/>
 
             <!-- Service Fee -->
             <LinearLayout
