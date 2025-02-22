@@ -217,49 +217,54 @@
         </GridLayout>
 
         <!-- 🔹 SECTION: Quick Actions -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_tenant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_new_tenant"
-            android:backgroundTint="@color/teal_500"
+            style="@style/Widget.MaterialComponents.Button"
+            android:backgroundTint="@color/button_primary_color"
             android:textColor="@color/white"
             android:layout_marginTop="12dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_property"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_new_property"
-            android:backgroundTint="@color/gray_900"
+            style="@style/Widget.MaterialComponents.Button"
+            android:backgroundTint="@color/dark_gray_selector"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"/>
 
         <!-- 🔹 SECTION: Additional Actions -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_request_maintenance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/request_maintenance"
-            android:backgroundTint="@color/teal_500"
+            style="@style/Widget.MaterialComponents.Button"
+            android:backgroundTint="@color/button_primary_color"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_change_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/change_password"
-            android:backgroundTint="@color/gray_900"
+            style="@style/Widget.MaterialComponents.Button"
+            android:backgroundTint="@color/dark_gray_selector"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_out"
-            android:backgroundTint="@color/soft_red"
+            style="@style/Widget.MaterialComponents.Button"
+            android:backgroundTint="@color/sign_out_selector"
             android:textColor="@color/white"
             android:layout_marginTop="8dp"/>
     </LinearLayout>

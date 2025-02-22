@@ -254,7 +254,6 @@
     <string name="total_units">ยูนิตทั้งหมด</string>
 
     <!-- SECTION: Quick Actions -->
-    <string name="add_new_tenant">เพิ่มผู้เช่าใหม่</string>
     <string name="add_new_property">เพิ่มที่พักใหม่</string>
 
     <!-- SECTION: Additional Actions -->
@@ -268,7 +267,6 @@
     <string name="refresh_requests">รีเฟรชคำขอซ่อมบำรุง</string>
 
     <!-- Filter -->
-    <string name="filter_by">กรองโดย:</string>
 
     <!-- Floating Action Button -->
     <string name="add_maintenance_request">เพิ่มคำขอซ่อมบำรุง</string>
@@ -399,14 +397,10 @@
     <string name="step_3_lease_details">ขั้นตอนที่ 3: รายละเอียดสัญญาเช่า</string>
 
     <!-- Property Selection -->
-    <string name="select_property">กรุณาเลือกที่พัก</string>
-    <!-- Unit Selection -->
-    <string name="select_unit">กรุณาเลือกยูนิต</string>
 
     <!-- Move-In Information -->
     <string name="move_in_information">ข้อมูลวันเข้าอยู่</string>
     <!-- Move-In Date Hint -->
-    <string name="move_in_date">วันที่เข้าอยู่</string>
 
     <!-- Meter Readings -->
     <string name="meter_readings">การอ่านมิเตอร์</string>
@@ -418,11 +412,7 @@
     <!-- Lease Agreement Details -->
     <string name="lease_agreement_details">รายละเอียดสัญญาเช่า</string>
     <!-- Lease Start Date Hint -->
-    <string name="lease_start_date">วันที่เริ่มสัญญา</string>
-    <!-- Lease End Date Hint -->
-    <string name="lease_end_date">วันที่สิ้นสุดสัญญา</string>
-    <!-- Monthly Rent Hint -->
-    <string name="monthly_rent">ค่าเช่ารายเดือน</string>
+
     <!-- Deposit Amount Hint -->
     <string name="deposit_amount">จำนวนเงินมัดจำ</string>
     <!-- Key Amount Hint -->
@@ -433,6 +423,62 @@
     <!-- Amenities Text -->
     <string name="amenities">สิ่งอำนวยความสะดวกจะโหลดที่นี่...</string>
 
-    <string name="email_address">Email</string>
+    <string name="step_1_personal_info">ขั้นตอนที่ 1: ข้อมูลส่วนบุคคล</string>
+
+    <!-- Profile Picture Section -->
+    <string name="profile_picture_optional">รูปโปรไฟล์ (ไม่บังคับ)</string>
+    <string name="profile_picture">รูปโปรไฟล์</string>
+    <string name="tap_to_select_picture">แตะเพื่อเลือกภาพ</string>
+    <string name="upload_profile_picture">อัปโหลดรูปโปรไฟล์</string>
+
+    <!-- First Name, Last Name, Email, Phone (สามารถแก้ไขได้ตามที่มีอยู่) -->
+
+    <string name="email_address">ที่อยู่อีเมล</string>
+
+    <!-- Workplace Details -->
+    <string name="workplace_details">รายละเอียดที่ทำงาน</string>
+
+    <string name="unit_tenant_summary">ยูนิต 01 - John Doe</string>
+    <!-- Rent Summary -->
+    <string name="rent_label">ค่าเช่า:</string>
+    <!-- ค่าเริ่มต้น -->
+    <!-- Electricity -->
+    <string name="electricity_usage">การใช้: 0 หน่วย</string>
+    <!-- Water -->
+    <string name="water_usage">การใช้: 0 หน่วย</string>
+    <!-- Service Fee -->
+    <!-- Additional Fee -->
+    <string name="additional_label">เพิ่มเติม:</string>
+    <string name="additional_description_default">คำอธิบาย: -</string>
+    <!-- Grand Total -->
+    <string name="grand_total_label">ยอดรวม:</string>
+    <string name="additional_details">รายละเอียดเพิ่มเติม</string>
+    <string name="request_image_preview">ดูตัวอย่างรูปคำขอซ่อม</string>
+
+    <string-array name="relationship_list">
+        <item>พ่อแม่</item>
+        <item>พี่น้อง</item>
+        <item>เพื่อน</item>
+        <item>คู่สมรส</item>
+        <item>อื่น ๆ</item>
+    </string-array>
+
+    <!-- Header -->
+    <string name="add_new_unit_title">เพิ่มยูนิตใหม่</string>
+    <string name="add_new_unit_subtitle">กรอกข้อมูลยูนิตเพื่อเพิ่มห้องใหม่ให้กับโปรเจคนี้</string>
+
+    <!-- Section Headers -->
+    <string name="general_information">ข้อมูลทั่วไป</string>
+    <string name="initial_meter_readings">ค่าเริ่มต้นของมิเตอร์</string>
+
+    <!-- Hints -->
+    <string name="hint_unit_number">หมายเลขยูนิต</string>
+    <string name="hint_rent_rate">ค่าเช่า (บาท)</string>
+    <string name="hint_room_size">ขนาดห้อง (ตร.ม.)</string>
+    <string name="hint_floor_level">ชั้น</string>
+    <string name="hint_electric_meter">ค่าน้ำ-ไฟมิเตอร์</string>
+    <string name="hint_water_meter">ค่าน้ำมิเตอร์</string>
+    <string name="hint_amenities">เช่น เครื่องปรับอากาศ, เครื่องทำน้ำอุ่น</string>
+
 
 </resources>

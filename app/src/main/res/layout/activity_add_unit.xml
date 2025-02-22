@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/scrollview_background"
+    android:background="#F9F9F9"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -11,85 +11,147 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
-        <!-- หัวเรื่องพร้อมปุ่มยกเลิก -->
-        <LinearLayout
+        <!-- Page Header -->
+        <TextView
+            android:id="@+id/header_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp">
+            android:text="@string/add_new_unit_title"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/textPrimary"
+            android:paddingBottom="4dp"/>
 
-            <!-- ปุ่มยกเลิกด้านซ้ายบน -->
-            <ImageButton
-                android:id="@+id/btnCancel"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:contentDescription="@string/btn_cancel" />
-
-            <!-- ชื่อหัวข้อและคำอธิบาย -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-
-                <!-- ใช้ key add_new_tenant แทน title_add_tenant -->
-                <TextView
-                    android:id="@+id/header_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_new_tenant"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/textPrimary" />
-
-                <!-- ใช้ key personal_info สำหรับคำอธิบายในขั้นตอนแรก -->
-                <TextView
-                    android:id="@+id/header_subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/personal_info"
-                    android:textSize="14sp"
-                    android:textColor="@color/textSecondary" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- ส่วนแสดงขั้นตอน -->
-        <FrameLayout
-            android:id="@+id/steps_container"
+        <TextView
+            android:id="@+id/header_subtitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_unit_subtitle"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/textSecondary"
+            android:paddingBottom="16dp"/>
 
-            <!-- ขั้นตอนที่ 1: ข้อมูลส่วนตัว (แสดงเป็นค่าเริ่มต้น) -->
-            <include
-                android:id="@+id/step_personal_info"
-                layout="@layout/step_personal_info"/>
+        <!-- Section: General Information -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/general_information"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
 
-            <!-- ขั้นตอนที่ 2: เอกสาร (ซ่อนในตอนแรก) -->
-            <include
-                android:id="@+id/step_documentation"
-                layout="@layout/step_documentation"
-                android:visibility="gone"/>
+        <EditText
+            android:id="@+id/edit_unit_number"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_unit_number"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="text"/>
 
-            <!-- ขั้นตอนที่ 3: รายละเอียดสัญญาเช่า (ซ่อนในตอนแรก) -->
-            <include
-                android:id="@+id/step_lease_details"
-                layout="@layout/step_lease_details"
-                android:visibility="gone"/>
+        <EditText
+            android:id="@+id/edit_rent_rate"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_rent_rate"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="numberDecimal"/>
 
-            <!-- ขั้นตอนที่ 4: ผู้ติดต่อฉุกเฉิน (ซ่อนในตอนแรก) -->
-            <include
-                android:id="@+id/step_emergency_contact"
-                layout="@layout/step_emergency_contact"
-                android:visibility="gone"/>
-        </FrameLayout>
+        <EditText
+            android:id="@+id/edit_room_size"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_room_size"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="numberDecimal"/>
 
-        <!-- ปุ่มนำทาง (อยู่ใน activity_add_tenant.xml) -->
+        <EditText
+            android:id="@+id/edit_floor_level"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_floor_level"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="number"/>
+
+        <!-- Section: Utilities -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/initial_meter_readings"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <EditText
+            android:id="@+id/edit_electric_meter"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_electric_meter"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/edit_water_meter"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_water_meter"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="numberDecimal"/>
+
+        <!-- Section: Amenities -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/amenities"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/textPrimary"/>
+
+        <EditText
+            android:id="@+id/edit_amenities"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/hint_amenities"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:inputType="text"/>
+
+        <!-- Save and Cancel Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,45 +160,30 @@
             android:paddingTop="16dp">
 
             <Button
-                android:id="@+id/button_previous"
+                android:id="@+id/button_cancel"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/previous"
+                android:text="@string/cancel"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@android:color/darker_gray"
                 android:padding="12dp"
                 android:layout_marginEnd="8dp"
-                android:elevation="4dp"
-                android:visibility="gone"/> <!-- ซ่อนในขั้นตอนที่ 1 -->
+                android:elevation="4dp"/>
 
             <Button
-                android:id="@+id/button_next"
+                android:id="@+id/button_save"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/next"
+                android:text="@string/save"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary"
                 android:padding="12dp"
                 android:layout_marginStart="8dp"
                 android:elevation="4dp"/>
-
-            <Button
-                android:id="@+id/button_submit"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/submit"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/colorPrimary"
-                android:padding="12dp"
-                android:layout_marginStart="8dp"
-                android:elevation="4dp"
-                android:visibility="gone"/> <!-- แสดงเฉพาะในขั้นตอนที่ 4 -->
         </LinearLayout>
 
     </LinearLayout>

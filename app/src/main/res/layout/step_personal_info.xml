@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Step 1: Personal Info"
+        android:text="@string/step_1_personal_info"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile Picture (Optional)"
+        android:text="@string/profile_picture_optional"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
@@ -45,12 +45,12 @@
             android:layout_gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="Profile Picture"/>
+            android:contentDescription="@string/profile_picture"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap to select a picture"
+            android:text="@string/tap_to_select_picture"
             android:textSize="12sp"
             android:textColor="@color/textSecondary"
             android:layout_marginTop="4dp"/>
@@ -61,7 +61,7 @@
         android:id="@+id/button_upload_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload Profile Picture"
+        android:text="@string/upload_profile_picture"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:padding="10dp"
@@ -120,16 +120,17 @@
         android:textColorHint="@color/textSecondary"
         android:layout_marginBottom="12dp" />
 
-    <!-- Workplace Details -->
+    <!-- Workplace Details Header -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Workplace Details"
+        android:text="@string/workplace_details"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
         android:paddingBottom="4dp"/>
 
+    <!-- Workplace Name Input -->
     <EditText
         android:id="@+id/edit_workplace_name"
         android:layout_width="match_parent"
@@ -142,6 +143,7 @@
         android:textColorHint="@color/textSecondary"
         android:layout_marginBottom="8dp"/>
 
+    <!-- Workplace Address Input -->
     <EditText
         android:id="@+id/edit_workplace_address"
         android:layout_width="match_parent"
@@ -154,6 +156,7 @@
         android:textColorHint="@color/textSecondary"
         android:layout_marginBottom="8dp"/>
 
+    <!-- Workplace Phone Input -->
     <EditText
         android:id="@+id/edit_workplace_phone"
         android:layout_width="match_parent"

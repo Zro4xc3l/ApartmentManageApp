@@ -63,6 +63,16 @@
     <color name="accent">#D32F2F</color>
     <color name="background">#F5F5F5</color>
     <color name="light_gray">#F5F5F5</color>
+    <color name="scrollview_background">#F9F9F9</color>
+
+
+    <!-- Additional Colors -->
+    <color name="dark_gray">#424242</color>
+    <color name="sign_out_red">#E57373</color>
+    <color name="sign_out_pressed">#EF5350</color>
+
+    <!-- White -->
+
 
 
 </resources>

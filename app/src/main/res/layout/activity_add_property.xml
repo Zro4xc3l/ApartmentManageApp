@@ -145,6 +145,19 @@
             android:autofillHints="paymentAmount"
             android:inputType="numberDecimal" />
 
+        <EditText
+            android:id="@+id/edit_due_date"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/label_bill_due_date"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
+            android:autofillHints="paymentAmount"
+            android:inputType="number" />
+
         <!-- ปุ่มบันทึกและยกเลิก -->
         <LinearLayout
             android:layout_width="match_parent"
