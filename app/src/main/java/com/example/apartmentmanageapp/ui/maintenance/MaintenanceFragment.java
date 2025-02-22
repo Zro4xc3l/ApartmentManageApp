@@ -1,6 +1,7 @@
 package com.example.apartmentmanageapp.ui.maintenance;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -246,7 +247,9 @@ public class MaintenanceFragment extends Fragment {
                     .addOnFailureListener(e -> Log.w("MaintenanceFragment", "Error deleting " + id, e));
         }
 
-        maintenanceList.removeIf(m -> selectedIds.contains(m.getId()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            maintenanceList.removeIf(m -> selectedIds.contains(m.getId()));
+        }
         adapter.updateData(maintenanceList);
         Toast.makeText(getContext(), "Selected items removed", Toast.LENGTH_SHORT).show();
     }

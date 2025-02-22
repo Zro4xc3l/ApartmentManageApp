@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Step 4: Emergency Contact"
+        android:text="@string/step_4_emergency_contact"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"

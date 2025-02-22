@@ -13,12 +13,12 @@
         android:padding="20dp"
         android:gravity="center">
 
-        <!-- Page Header -->
+        <!-- หัวข้อ -->
         <TextView
             android:id="@+id/header_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="👤 Tenant Details"
+            android:text="@string/title_tenant_details"
             android:textSize="22sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -29,7 +29,7 @@
             android:id="@+id/header_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📋 View full details of this tenant."
+            android:text="@string/subtitle_tenant_details"
             android:textSize="14sp"
             android:gravity="center"
             android:textColor="@color/textSecondary"
@@ -41,11 +41,11 @@
             android:background="@android:color/darker_gray"
             android:layout_marginVertical="12dp"/>
 
-        <!-- Personal Information Section -->
+        <!-- ข้อมูลส่วนตัว -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="👤 Personal Information"
+            android:text="@string/section_personal_info"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp"
@@ -55,7 +55,7 @@
             android:id="@+id/text_tenant_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="👤 Full Name: -"
+            android:text="@string/detail_full_name"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -64,7 +64,7 @@
             android:id="@+id/text_citizen_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🆔 Citizen ID: -"
+            android:text="@string/detail_citizen_id"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -73,7 +73,7 @@
             android:id="@+id/text_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📞 Phone: -"
+            android:text="@string/detail_phone"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"
@@ -83,7 +83,7 @@
             android:id="@+id/text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📧 Email: -"
+            android:text="@string/detail_email"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -94,11 +94,11 @@
             android:background="@android:color/darker_gray"
             android:layout_marginVertical="12dp"/>
 
-        <!-- Property & Unit Details -->
+        <!-- ข้อมูลที่พัก -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🏠 Property &amp; Unit Details"
+            android:text="@string/section_property_info"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp"
@@ -108,7 +108,7 @@
             android:id="@+id/text_property_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🏢 Property: -"
+            android:text="@string/detail_property"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -117,16 +117,16 @@
             android:id="@+id/text_unit_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🚪 Unit: -"
+            android:text="@string/detail_unit"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
 
-        <!-- Lease Information -->
+        <!-- ข้อมูลสัญญาเช่า -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📜 Lease Information"
+            android:text="@string/section_lease_info"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp"
@@ -136,7 +136,7 @@
             android:id="@+id/text_move_in_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📅 Move-in Date: -"
+            android:text="@string/detail_move_in"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -145,7 +145,7 @@
             android:id="@+id/text_lease_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📆 Lease Start Date: -"
+            android:text="@string/detail_lease_start"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -154,7 +154,7 @@
             android:id="@+id/text_lease_end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="⏳ Lease End Date: -"
+            android:text="@string/detail_lease_end"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -163,7 +163,7 @@
             android:id="@+id/text_rent_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="💰 Rent Amount: -"
+            android:text="@string/detail_rent_amount"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@android:color/holo_red_dark"
@@ -173,7 +173,7 @@
             android:id="@+id/text_deposit_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="💵 Deposit: -"
+            android:text="@string/detail_deposit"
             android:textSize="16sp"
             android:textColor="@android:color/holo_blue_dark"
             android:paddingBottom="8dp"/>
@@ -182,7 +182,7 @@
             android:id="@+id/text_key_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🔑 Key Amount: -"
+            android:text="@string/detail_key_amount"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -191,16 +191,16 @@
             android:id="@+id/text_keycard_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="💳 Keycard Amount: -"
+            android:text="@string/detail_keycard_amount"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
 
-        <!-- Emergency Contact -->
+        <!-- ข้อมูลผู้ติดต่อฉุกเฉิน -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🚨 Emergency Contact"
+            android:text="@string/section_emergency_contact"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp"
@@ -210,7 +210,7 @@
             android:id="@+id/text_emergency_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="👤 Contact Name: -"
+            android:text="@string/detail_emergency_contact"
             android:textSize="16sp"
             android:paddingBottom="8dp"
             android:textColor="@color/textPrimary"/>
@@ -219,13 +219,13 @@
             android:id="@+id/text_emergency_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📞 Contact Phone: -"
+            android:text="@string/detail_emergency_phone"
             android:textSize="16sp"
             android:textColor="@color/primary"
             android:paddingBottom="12dp"
             android:autoLink="phone"/>
 
-        <!-- Action Buttons -->
+        <!-- ปุ่มการกระทำ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="✏️ Edit"
+                android:text="@string/btn_edit"
                 android:backgroundTint="@android:color/holo_blue_dark"/>
 
             <Button
@@ -246,7 +246,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="🗑 Delete"
+                android:text="@string/btn_delete"
                 android:backgroundTint="@android:color/holo_red_dark"/>
         </LinearLayout>
 

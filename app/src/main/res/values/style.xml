@@ -93,5 +93,22 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-
+    <string name="unit_tenant_summary">ยูนิต 01 - John Doe</string>
+    <!-- Rent Summary -->
+    <string name="rent_label">ค่าเช่า:</string>
+    <!-- ค่าเริ่มต้น -->
+    <string name="default_amount">฿0.00</string>
+    <!-- Electricity -->
+    <string name="electricity_label">ค่าไฟ:</string>
+    <string name="electricity_usage">การใช้: 0 หน่วย</string>
+    <!-- Water -->
+    <string name="water_label">ค่าน้ำ:</string>
+    <string name="water_usage">การใช้: 0 หน่วย</string>
+    <!-- Service Fee -->
+    <string name="service_fee_label">ค่าบริการ:</string>
+    <!-- Additional Fee -->
+    <string name="additional_label">เพิ่มเติม:</string>
+    <string name="additional_description_default">คำอธิบาย: -</string>
+    <!-- Grand Total -->
+    <string name="grand_total_label">ยอดรวม:</string>
 </resources>

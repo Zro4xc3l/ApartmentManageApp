@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     android:padding="24dp"
-    android:gravity="center">
+    android:background="#F5F5F5">
 
-    <!-- Email Field -->
+    <!-- ช่องกรอกอีเมล -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        app:endIconMode="clear_text">
+        android:hint="@string/hint_email"
+        app:endIconMode="clear_text"
+        android:layout_marginBottom="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextEmail"
@@ -21,13 +23,13 @@
             android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Full Name -->
+    <!-- ช่องกรอกชื่อเต็ม -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:hint="@string/hint_full_name"
         app:endIconMode="clear_text"
-        android:layout_marginTop="16dp">
+        android:layout_marginBottom="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextFullName"
@@ -36,13 +38,13 @@
             android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Phone Number -->
+    <!-- ช่องกรอกเบอร์โทรศัพท์ -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone Number"
+        android:hint="@string/hint_phone_number"
         app:endIconMode="clear_text"
-        android:layout_marginTop="16dp">
+        android:layout_marginBottom="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPhone"
@@ -51,13 +53,13 @@
             android:inputType="phone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Invite Code -->
+    <!-- ช่องกรอกรหัสเชิญ -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Invite Code"
+        android:hint="@string/hint_invite_code"
         app:endIconMode="clear_text"
-        android:layout_marginTop="16dp">
+        android:layout_marginBottom="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextInviteCode"
@@ -66,13 +68,13 @@
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Password -->
+    <!-- ช่องกรอกรหัสผ่าน -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/hint_password"
         app:endIconMode="password_toggle"
-        android:layout_marginTop="16dp">
+        android:layout_marginBottom="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPassword"
@@ -81,13 +83,13 @@
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Confirm Password -->
+    <!-- ช่องกรอกยืนยันรหัสผ่าน -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm Password"
+        android:hint="@string/hint_confirm_password"
         app:endIconMode="password_toggle"
-        android:layout_marginTop="16dp">
+        android:layout_marginBottom="24dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextConfirmPassword"
@@ -96,24 +98,23 @@
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Register Button -->
+    <!-- ปุ่มลงทะเบียน -->
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/btn_register"
         android:backgroundTint="@color/teal_500"
         android:textColor="@android:color/white"
         android:padding="12dp"
-        android:elevation="4dp"
-        android:layout_marginTop="24dp"/>
+        android:elevation="4dp"/>
 
-    <!-- Cancel Button -->
+    <!-- ปุ่มยกเลิก -->
     <Button
         android:id="@+id/buttonCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="@string/btn_cancel"
         android:backgroundTint="@color/gray"
         android:textColor="@android:color/white"
         android:padding="12dp"

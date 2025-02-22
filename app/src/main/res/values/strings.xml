@@ -1,160 +1,438 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- App Name -->
-    <string name="app_name">Apartment Manage App</string>
+    <!-- สำหรับหน้าจอทั่วไป -->
+    <string name="app_name">แอปจัดการอพาร์ตเมนต์</string>
 
-    <!-- Navigation Buttons -->
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="submit">Submit</string>
-    <string name="exit">Exit</string>
-    <string name="back">Back</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
+    <!-- ปุ่มนำทาง -->
+    <string name="next">ถัดไป</string>
+    <string name="previous">ย้อนกลับ</string>
+    <string name="submit">ยืนยัน</string>
+    <string name="exit">ออก</string>
+    <string name="back">ย้อนกลับ</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="save">บันทึก</string>
+    <string name="btn_cancel">ยกเลิก</string>
+    <string name="btn_save">บันทึก</string>
+    <string name="btn_previous">ย้อนกลับ</string>
+    <string name="btn_next">ถัดไป</string>
+    <string name="btn_submit">ยืนยัน</string>
 
-    <!-- Monthly Bill Wizard Strings -->
-    <string name="create_monthly_bill">Create Monthly Bill</string>
-    <string name="electric">Electric</string>
-    <string name="water">Water</string>
-    <string name="excess">Excess</string>
-    <string name="summary">Summary</string>
+    <!-- การสร้างบิลรายเดือน -->
+    <string name="create_monthly_bill">สร้างบิลรายเดือน</string>
+    <string name="electric">ค่าไฟฟ้า</string>
+    <string name="water">ค่าน้ำ</string>
+    <string name="excess">ค่าใช้จ่ายเพิ่มเติม</string>
+    <string name="summary">สรุป</string>
 
-    <!-- Step Indicator Numbers -->
+    <!-- หมายเลขขั้นตอน -->
     <string name="step_one_number">1</string>
     <string name="step_two_number">2</string>
     <string name="step_three_number">3</string>
     <string name="step_four_number">4</string>
 
-    <!-- Monthly Bill Step Titles -->
-    <string name="electric_meter_readings">Electric Meter Readings</string>
-    <string name="water_meter_readings">Water Meter Readings</string>
-    <string name="input_excess">Input Excess</string>
-    <string name="bill_summary">Bill Summary</string>
+    <!-- หัวข้อของขั้นตอน -->
+    <string name="electric_meter_readings">บันทึกค่ามิเตอร์ไฟฟ้า</string>
+    <string name="water_meter_readings">บันทึกค่ามิเตอร์น้ำ</string>
+    <string name="input_excess">ใส่ค่าใช้จ่ายเพิ่มเติม</string>
+    <string name="bill_summary">สรุปรายการบิล</string>
 
-    <!-- Labels and Hints for Meter Readings -->
-    <string name="prev_electric_reading">Previous: </string>
-    <string name="prev_water_reading">Previous: </string>
-    <string name="current">Current</string>
-    <string name="unit_101">Unit 101</string>
+    <!-- ป้ายกำกับและคำใบ้ -->
+    <string name="prev_electric_reading">ค่าก่อนหน้า: </string>
+    <string name="prev_water_reading">ค่าก่อนหน้า: </string>
+    <string name="current">ปัจจุบัน</string>
+    <string name="unit_101">ห้อง 101</string>
 
-    <!-- Excess Step -->
-    <string name="enter_excess_value">Enter Excess Value</string>
-    <string name="no_excess">No Excess</string>
-    <string name="summary_details_here">Summary details here...</string>
+    <!-- เพิ่มผู้เช่าใหม่ -->
+    <string name="add_new_tenant">เพิ่มผู้เช่าใหม่</string>
+    <string name="personal_info">ข้อมูลส่วนตัว</string>
+    <string name="documentation">เอกสาร</string>
+    <string name="lease_details">รายละเอียดสัญญาเช่า</string>
+    <string name="emergency_contact">ผู้ติดต่อฉุกเฉิน</string>
 
-    <!-- Add New Tenant Steps -->
-    <string name="add_new_tenant">Add New Tenant</string>
-    <string name="personal_info">Personal Info</string>
-    <string name="documentation">Documentation</string>
-    <string name="lease_details">Lease Details</string>
-    <string name="emergency_contact">Emergency Contact</string>
+    <!-- ช่องข้อมูล -->
+    <string name="first_name">ชื่อ*</string>
+    <string name="last_name">นามสกุล*</string>
+    <string name="email">อีเมล*</string>
+    <string name="phone_number">เบอร์โทรศัพท์*</string>
 
-    <!-- Step Indicators -->
-    <string name="step_one">Step 1</string>
-    <string name="step_two">Step 2</string>
-    <string name="step_three">Step 3</string>
-    <string name="step_four">Step 4</string>
+    <!-- รายละเอียดสัญญาเช่า -->
+    <string name="select_property">เลือกที่พัก*</string>
+    <string name="select_unit">เลือกห้อง*</string>
+    <string name="lease_start_date">วันที่เริ่มสัญญาเช่า*</string>
+    <string name="lease_end_date">วันที่สิ้นสุดสัญญาเช่า*</string>
+    <string name="monthly_rent">ค่าเช่ารายเดือน (บาท)*</string>
+    <string name="deposit">เงินประกัน (บาท)*</string>
 
-    <!-- Input Fields -->
-    <string name="first_name">First Name*</string>
-    <string name="last_name">Last Name*</string>
-    <string name="email">Email*</string>
-    <string name="phone_number">Phone Number*</string>
+    <!-- ข้อมูลสถานที่ทำงาน -->
+    <string name="workplace_name">ชื่อที่ทำงาน</string>
+    <string name="workplace_address">ที่อยู่ที่ทำงาน</string>
+    <string name="workplace_phone">เบอร์โทรศัพท์ที่ทำงาน</string>
 
-    <!-- Documentation Fields -->
-    <string name="citizen_id">Citizen ID*</string>
-    <string name="citizen_issued_date">Citizen Card Issued Date*</string>
-    <string name="citizen_expiry_date">Citizen Card Expiry Date*</string>
-    <string name="address_on_citizen_card">Address on Citizen Card*</string>
+    <!-- วันเข้าอยู่/ออก -->
+    <string name="move_in_date">วันที่เข้าอยู่*</string>
+    <string name="move_out_date">วันที่ย้ายออก</string>
 
-    <!-- Lease Details Fields -->
-    <string name="select_property">Select Property*</string>
-    <string name="select_unit">Select Unit*</string>
-    <string name="lease_start_date">Lease Start Date*</string>
-    <string name="lease_end_date">Lease End Date*</string>
-    <string name="monthly_rent">Monthly Rent (THB)*</string>
-    <string name="deposit">Security Deposit (THB)*</string>
-    <string name="electric_meter_start">Electric Meter Start*</string>
-    <string name="water_meter_start">Water Meter Start*</string>
-    <string name="keycard_amount">Number of Keycards*</string>
-    <string name="key_amount">Number of Keys*</string>
+    <!-- ผู้ติดต่อฉุกเฉิน -->
+    <string name="emergency_contact_name">ชื่อผู้ติดต่อฉุกเฉิน*</string>
+    <string name="emergency_contact_relationship">ความสัมพันธ์*</string>
+    <string name="emergency_contact_phone">เบอร์โทรผู้ติดต่อฉุกเฉิน*</string>
 
-    <!-- Workplace Details -->
-    <string name="workplace_name">Workplace Name</string>
-    <string name="workplace_address">Workplace Address</string>
-    <string name="workplace_phone">Workplace Phone</string>
+    <!-- รายการแจ้งซ่อม -->
+    <string name="title_maintenance">คำขอแจ้งซ่อม</string>
+    <string name="subtitle_maintenance">จัดการและติดตามปัญหาการซ่อม</string>
+    <string name="section_maintenance_list">รายการแจ้งซ่อมที่ยังไม่เสร็จ</string>
 
-    <!-- Move-In/Move-Out Dates -->
-    <string name="move_in_date">Move-In Date*</string>
-    <string name="move_out_date">Move-Out Date</string>
+    <!-- รายละเอียดคำขอแจ้งซ่อม -->
+    <string name="request_title">คำขอแจ้งซ่อม</string>
+    <string name="request_description">อธิบายปัญหา...</string>
+    <string name="status_pending">สถานะ: รอดำเนินการ</string>
+    <string name="created_date">สร้างเมื่อ: </string>
+    <string name="property_name">ที่พัก:</string>
+    <string name="unit_id">ห้อง:</string>
+    <string name="expand_request_details">ดูรายละเอียดคำขอ</string>
+    <string name="mark_as_complete">ทำเครื่องหมายว่าสำเร็จ</string>
 
-    <!-- Emergency Contact Fields -->
-    <string name="emergency_contact_name">Emergency Contact Name*</string>
-    <string name="emergency_contact_relationship">Relationship*</string>
-    <string name="emergency_contact_phone">Emergency Contact Phone*</string>
+    <!-- รายละเอียดที่พัก (สำหรับหน้ารายละเอียดบิล) -->
+    <string name="detail_property_name">ที่พัก: [ชื่อที่พัก]</string>
+    <string name="detail_property_address">ที่อยู่: [ที่อยู่ที่พัก]</string>
+    <string name="detail_billing_period">รอบบิล: [ช่วงเวลาที่เรียกเก็บเงิน]</string>
+    <string name="detail_total_rent">ค่าเช่ารวม: ฿0.00</string>
+    <string name="detail_total_electric">ค่าไฟฟ้ารวม: ฿0.00 (ใช้ไป 0 หน่วย)</string>
+    <string name="detail_total_water">ค่าน้ำรวม: ฿0.00 (ใช้ไป 0 หน่วย)</string>
+    <string name="detail_total_additional">ค่าใช้จ่ายเพิ่มเติม: ฿0.00</string>
+    <string name="detail_grand_total">ยอดรวมทั้งหมด: ฿0.00</string>
+    <string name="detail_bill_status">สถานะ: ค้างชำระ</string>
 
-    <!-- Profile Picture -->
-    <string name="upload_profile_picture">Upload Profile Picture</string>
+    <!-- สร้างบิล -->
+    <string name="title_create_bill">สร้างบิล</string>
+    <string name="subtitle_create_bill">ตรวจสอบและยืนยันรายละเอียดบิล</string>
+    <string name="label_billing_period">รอบบิล</string>
+    <string name="label_property">เลือกที่พัก</string>
+    <string name="label_bill_due_date">วันครบกำหนดชำระ</string>
+    <string name="label_units">ห้อง</string>
+    <string name="btn_mark_as_paid">ทำเครื่องหมายว่าชำระแล้ว</string>
+    <string name="btn_view_summary">ดูสรุป</string>
 
-    <!-- Placeholder for Fragments -->
-    <string name="hello_blank_fragment">Welcome to the Apartment Manager</string>
+    <!-- สำหรับหน้าผู้เช่า -->
+    <string name="title_add_tenant">เพิ่มผู้เช่า</string>
+    <string name="subtitle_add_tenant">รายละเอียดผู้เช่า</string>
 
-    <!-- Emergency Contact Relationship List -->
-    <string-array name="relationship_list">
-        <item>Parent</item>
-        <item>Sibling</item>
-        <item>Spouse</item>
-        <item>Friend</item>
-        <item>Other</item>
-    </string-array>
+    <!-- สำหรับหน้าจอเพิ่มที่พัก -->
+    <string name="title_add_property">เพิ่มที่พัก</string>
+    <string name="subtitle_add_property">รายละเอียดที่พัก</string>
+    <string name="section_general_info">ข้อมูลทั่วไป</string>
+    <string name="hint_property_name">ชื่อที่พัก</string>
+    <string name="hint_property_address">ที่อยู่ที่พัก</string>
+    <string name="section_utility_rates">ค่าบริการสาธารณูปโภค</string>
+    <string name="hint_electricity_rate">อัตราค่าไฟฟ้า</string>
+    <string name="hint_min_electricity_price">ขั้นต่ำค่าไฟฟ้า</string>
+    <string name="hint_water_rate">อัตราค่าน้ำ</string>
+    <string name="hint_min_water_price">ขั้นต่ำค่าน้ำ</string>
+    <string name="hint_service_fee">ค่าบริการ</string>
 
-    <!-- Add Property Headers -->
-    <string name="title_add_property">Add New Property</string>
-    <string name="subtitle_add_property">Fill in the details below to add a new property.</string>
+    <!-- สำหรับหน้าล็อกอิน -->
+    <string name="hint_email">อีเมล</string>
+    <string name="hint_password">รหัสผ่าน</string>
+    <string name="btn_login">เข้าสู่ระบบ</string>
+    <string name="btn_register">ลงทะเบียน</string>
+    <string name="btn_skip">ข้ามการเข้าสู่ระบบ</string>
+
+    <!-- สำหรับหน้าลงทะเบียน -->
+    <string name="hint_full_name">ชื่อเต็ม</string>
+    <string name="hint_phone_number">เบอร์โทรศัพท์</string>
+    <string name="hint_invite_code">รหัสเชิญ</string>
+    <string name="hint_confirm_password">ยืนยันรหัสผ่าน</string>
+
+    <!-- สำหรับหน้าจอรีเซ็ตรหัสผ่าน -->
+    <string name="title_reset_password">รีเซ็ตรหัสผ่าน</string>
+    <string name="hint_current_password">รหัสผ่านปัจจุบัน</string>
+    <string name="hint_new_password">รหัสผ่านใหม่</string>
+    <string name="hint_confirm_new_password">ยืนยันรหัสผ่านใหม่</string>
+    <string name="btn_reset_password">รีเซ็ตรหัสผ่าน</string>
+
+    <!-- สำหรับหน้าจอ Maintenance Request -->
+    <string name="btn_close">ปิด</string>
+    <string name="title_maintenance_request">คำขอแจ้งซ่อม</string>
+    <string name="subtitle_maintenance_request">รายละเอียดและติดตามการแจ้งซ่อม</string>
+    <string name="hint_issue_title">ชื่อปัญหา</string>
+    <string name="label_select_property">เลือกที่พัก</string>
+    <string name="label_select_unit">เลือกห้อง</string>
+    <string name="hint_issue_description">รายละเอียดปัญหา</string>
+    <string name="label_urgency">ระดับความเร่งด่วน</string>
+    <string name="error_select_urgency">กรุณาเลือกระดับความเร่งด่วน</string>
+    <string name="urgency_low">ต่ำ</string>
+    <string name="urgency_medium">กลาง</string>
+    <string name="urgency_high">สูง</string>
+    <string name="hint_expected_date">วันที่คาดว่าจะเสร็จ</string>
+    <string name="hint_cost">ต้นทุนโดยประมาณ</string>
+    <string name="btn_upload_photo">อัปโหลดรูปภาพ</string>
+    <string name="btn_submit_request">ส่งคำขอแจ้งซ่อม</string>
+
+    <!-- สำหรับหน้าจอสรุปบิล (Bill Summary) -->
+    <string name="title_bill_summary">สรุปบิล</string>
+    <string name="detail_property_info">รายละเอียดที่พัก</string>
+    <string name="btn_back">ย้อนกลับ</string>
+    <string name="btn_save_bill">บันทึกบิล</string>
+
+    <!-- เพิ่ม key ใหม่สำหรับหน้าจอจัดการยูนิต -->
+    <string name="title_manage_units">จัดการยูนิต</string>
+    <string name="btn_refresh">รีเฟรช</string>
+    <string name="msg_no_units_available">ไม่มียูนิตที่ใช้งาน</string>
+    <string name="btn_add_unit">เพิ่มยูนิต</string>
+
+    <!-- Header -->
+    <string name="title_tenant_details">รายละเอียดผู้เช่า</string>
+    <string name="subtitle_tenant_details">ข้อมูลผู้เช่าโดยละเอียด</string>
 
     <!-- Section Titles -->
-    <string name="section_general_info">General Information</string>
-    <string name="section_utility_rates">Utility Rates</string>
+    <string name="section_personal_info">ข้อมูลส่วนบุคคล</string>
+    <string name="section_property_info">ข้อมูลที่พัก</string>
+    <string name="section_lease_info">ข้อมูลสัญญาเช่า</string>
+    <string name="section_emergency_contact">ข้อมูลผู้ติดต่อฉุกเฉิน</string>
 
-    <!-- Property Input Fields -->
-    <string name="hint_property_name">Property Name*</string>
-    <string name="hint_property_address">Property Address*</string>
-    <string name="hint_electricity_rate">Electricity Rate (THB/unit)*</string>
-    <string name="hint_water_rate">Water Rate (THB/unit)*</string>
-    <string name="hint_min_electricity_price">Minimum Electricity Charge (THB)*</string>
-    <string name="hint_min_water_price">Minimum Water Charge (THB)*</string>
+    <!-- Personal Information -->
+    <string name="detail_full_name">ชื่อ-สกุล</string>
+    <string name="detail_citizen_id">เลขบัตรประจำตัวประชาชน</string>
+    <string name="detail_phone">หมายเลขโทรศัพท์</string>
+    <string name="detail_email">อีเมล</string>
 
-    <!-- Buttons -->
-    <string name="btn_save">Save</string>
-    <string name="btn_cancel">Cancel</string>
+    <!-- Property Information -->
+    <string name="detail_property">ชื่อที่พัก</string>
+    <string name="detail_unit">หมายเลขห้อง</string>
 
-    <!-- Fix for missing string resources -->
-    <string name="hint_service_fee">Service Fee (THB)</string>
-    <string name="electric_meter_reading">Electric Meter Reading*</string>
-    <string name="water_meter_reading">Water Meter Reading*</string>
-    <string name="deposit_amount">Security Deposit Amount*</string>
-    <string name="email_address">Email Address*</string>
+    <!-- Lease Information -->
+    <string name="detail_move_in">วันเข้าอยู่</string>
+    <string name="detail_lease_start">วันเริ่มสัญญา</string>
+    <string name="detail_lease_end">วันสิ้นสุดสัญญา</string>
+    <string name="detail_rent_amount">ค่าเช่า</string>
+    <string name="detail_deposit">จำนวนเงินมัดจำ</string>
+    <string name="detail_key_amount">จำนวนกุญแจ</string>
+    <string name="detail_keycard_amount">จำนวนบัตรคีย์การ์ด</string>
 
-    <!-- Maintenance Requests -->
-    <string name="title_maintenance">Maintenance Requests</string>
-    <string name="subtitle_maintenance">Manage and track maintenance issues</string>
-    <string name="section_maintenance_list">Active Maintenance Requests</string>
+    <!-- Emergency Contact -->
+    <string name="detail_emergency_contact">ชื่อผู้ติดต่อฉุกเฉิน</string>
+    <string name="detail_emergency_phone">หมายเลขโทรศัพท์ฉุกเฉิน</string>
 
-    <!-- Maintenance Request Fields -->
-    <string name="request_title">Maintenance Request</string>
-    <string name="request_description">Describe the issue...</string>
-    <string name="status_pending">Status: Pending</string>
-    <string name="created_date">Created on: </string>
-    <string name="property_name">Property:</string>
-    <string name="unit_id">Unit:</string>
-    <string name="expand_request_details">Expand Request Details</string>
-    <string name="mark_as_complete">Mark as Complete</string>
-    <string name="request_image_preview">Maintenance Request Image</string>
-    <!-- Additional Details String -->
-    <string name="additional_details">Additional Details</string>
+    <!-- Action Buttons -->
+    <string name="btn_edit">แก้ไข</string>
+    <string name="btn_delete">ลบ</string>
 
-    <string name="hint_due_date">Enter Bill due date</string>
-    <string name="section_due_date">Bill Due Date</string>
+    <!-- Header -->
+    <string name="bills_payments_title">บิลและการชำระเงิน</string>
+    <string name="refresh_bills">รีเฟรชบิล</string>
+
+    <!-- Bills Summary -->
+    <string name="bills_summary_default">สรุปบิลเริ่มต้น</string>
+
+    <!-- Filter -->
+    <string name="filter_by">กรองโดย</string>
+
+    <!-- Export PDF -->
+    <string name="export_pdf">ส่งออก PDF</string>
+
+    <!-- Create New Bill -->
+    <string name="create_new_bill">สร้างบิลใหม่</string>
+
+    <string name="apartment_manager">ผู้จัดการอพาร์ทเมนต์</string>
+    <string name="profile_icon">ไอคอนโปรไฟล์</string>
+
+    <!-- SECTION: Dashboard Overview -->
+    <string name="dashboard_overview">ภาพรวมแดชบอร์ด</string>
+
+    <!-- SECTION: Stats Cards -->
+    <string name="unpaid_units_value">0</string>
+    <string name="unpaid_tenants">ผู้เช่าที่ค้างชำระ</string>
+
+    <string name="occupancy_rate_value">0%</string>
+    <string name="occupancy_rate">อัตราการเข้าพัก</string>
+
+    <string name="vacancy_rate_value">0%</string>
+    <string name="vacancy_rate">อัตราความว่าง</string>
+
+    <string name="total_units_value">0</string>
+    <string name="total_units">ยูนิตทั้งหมด</string>
+
+    <!-- SECTION: Quick Actions -->
+    <string name="add_new_tenant">เพิ่มผู้เช่าใหม่</string>
+    <string name="add_new_property">เพิ่มที่พักใหม่</string>
+
+    <!-- SECTION: Additional Actions -->
+    <string name="request_maintenance">แจ้งซ่อมบำรุง</string>
+    <string name="change_password">เปลี่ยนรหัสผ่าน</string>
+    <string name="sign_out">ออกจากระบบ</string>
+
+    <!-- Header Container -->
+    <string name="remove_request">ลบคำขอซ่อมบำรุง</string>
+    <string name="maintenance_requests">คำขอซ่อมบำรุง</string>
+    <string name="refresh_requests">รีเฟรชคำขอซ่อมบำรุง</string>
+
+    <!-- Filter -->
+    <string name="filter_by">กรองโดย:</string>
+
+    <!-- Floating Action Button -->
+    <string name="add_maintenance_request">เพิ่มคำขอซ่อมบำรุง</string>
+
+    <string name="manage_properties">จัดการที่พัก</string>
+    <string name="refresh">รีเฟรช</string>
+
+    <!-- Empty State Message -->
+    <string name="empty_state">ไม่มีที่พักให้แสดง\nแตะปุ่ม + เพื่อเพิ่มที่พักใหม่!</string>
+
+    <!-- Floating Action Button -->
+    <string name="add_property">เพิ่มที่พัก</string>
+
+    <string name="manage_tenants">จัดการผู้เช่า</string>
+    <string name="remove_tenant">ลบผู้เช่า</string>
+
+    <!-- Empty State Message -->
+    <string name="empty_state_tenants">ไม่มีผู้เช่าให้แสดง
+แตะปุ่ม + เพื่อเพิ่มผู้เช่าใหม่!</string>
+
+    <!-- Floating Action Button -->
+    <string name="add_tenant">เพิ่มผู้เช่า</string>
+
+        <!-- ส่วนยูนิต/ผู้เช่า -->
+        <string name="unit_tenant_label">ยูนิต/ผู้เช่า</string>
+
+        <!-- ส่วนไฟฟ้า -->
+        <string name="electric_section">ไฟฟ้า</string>
+        <string name="prev_electric_label">ก่อนหน้า: </string>
+        <string name="current_electric_label">ปัจจุบัน: </string>
+        <string name="current_electric_hint">กรอกค่าไฟปัจจุบัน</string>
+        <string name="electric_price_label">ค่าไฟ: </string>
+        <string name="electric_price_default">฿0.00</string>
+
+        <!-- ส่วนน้ำ -->
+        <string name="water_section">น้ำ</string>
+        <string name="prev_water_label">ก่อนหน้า: </string>
+        <string name="current_water_label">ปัจจุบัน: </string>
+        <string name="current_water_hint">กรอกค่าน้ำปัจจุบัน</string>
+        <string name="water_price_label">ค่าน้ำ: </string>
+        <string name="water_price_default">฿0.00</string>
+
+        <!-- ค่าบริการ -->
+        <string name="service_fee_label">ค่าบริการ</string>
+        <string name="service_fee_hint">กรอกค่าบริการ</string>
+
+        <!-- ส่วนค่าบริการเพิ่มเติม -->
+        <string name="additional_fee_label">เพิ่มเติม</string>
+        <string name="additional_fee_hint">กรอกจำนวนเพิ่มเติม</string>
+        <string name="additional_fee_desc_hint">กรอกรายละเอียดค่าบริการเพิ่มเติม</string>
+
+        <!-- ค่าเช่าและยอดรวมสุดท้าย -->
+        <string name="rent_price_default">ค่าเช่า: ฿0.00</string>
+        <string name="final_total_default">ยอดรวม: ฿0.00</string>
+
+    <!-- Header: ชื่อที่พัก -->
+    <string name="bill_property_header">ที่พัก: [ชื่อที่พัก]</string>
+    <!-- รอบการเรียกเก็บ -->
+    <string name="bill_billing_period">รอบการเรียกเก็บ: [รอบการเรียกเก็บ]</string>
+    <!-- รายละเอียดค่าใช้จ่าย -->
+    <string name="bill_total_rent">ค่าเช่า: ฿0.00</string>
+    <string name="bill_total_electric">ค่าไฟรวม: ฿0.00 (การใช้: 0 หน่วย)</string>
+    <string name="bill_total_water">ค่าน้ำรวม: ฿0.00 (การใช้: 0 หน่วย)</string>
+    <string name="bill_service_fee">ค่าบริการ: ฿0.00</string>
+    <string name="bill_total_additional">ค่าเพิ่มเติมรวม: ฿0.00</string>
+    <!-- ยอดรวม -->
+    <string name="bill_grand_total">ยอดรวม: ฿0.00</string>
+    <!-- สถานะบิล -->
+    <string name="bill_status">สถานะ: ค้างชำระ</string>
+    <string name="property_address">ที่อยู่ที่พัก</string>
+    <!-- จำนวนยูนิต -->
+    <string name="property_units">10 ยูนิต</string>
+    <!-- อัตราค่าไฟ -->
+    <string name="property_electricity_rate">อัตราค่าไฟ: 0.00 บาท</string>
+    <!-- อัตราค่าน้ำ -->
+    <string name="property_water_rate">อัตราค่าน้ำ: 0.00 บาท</string>
+
+    <string name="unit_number">ยูนิต 101</string>
+    <!-- Occupancy Status -->
+    <string name="occupied_status">มีผู้เช่า</string>
+    <!-- Rent Rate -->
+    <string name="rent_rate">ค่าเช่า: 5,000 บาท</string>
+    <!-- Floor Level -->
+    <string name="floor_level">ชั้น: 2</string>
+    <!-- Amenities -->
+    <string name="unit_amenities">สิ่งอำนวยความสะดวก: แอร์, WiFi</string>
+    <!-- Tenant Name -->
+    <string name="tenant_name">ผู้เช่า: John Doe</string>
+
+    <!-- Header: Unit and Tenant -->
+    <string name="unit_tenant_header">ยูนิต 01 - John Doe</string>
+    <!-- Electricity Column -->
+    <string name="electricity_label">⚡ ค่าไฟ</string>
+    <string name="prev_electric">ก่อนหน้า: 100</string>
+    <string name="current_electric">ปัจจุบัน: 120</string>
+    <string name="electric_price">ราคา: ฿0.00</string>
+    <!-- Water Column -->
+    <string name="water_label">💧 ค่าน้ำ</string>
+    <string name="prev_water">ก่อนหน้า: 50</string>
+    <string name="current_water">ปัจจุบัน: 60</string>
+    <string name="water_price">ราคา: ฿0.00</string>
+    <!-- Service Fee -->
+    <!-- Additional Fee -->
+    <string name="additional_desc">คำอธิบาย: ไม่มี</string>
+    <!-- Bill Status -->
+    <!-- Total Price -->
+    <string name="total_price">ราคารวม: ฿0.00</string>
+    <!-- Default Amount -->
+    <string name="default_amount">฿0.00</string>
+
+    <string name="step_2_documentation">ขั้นตอนที่ 2: เอกสารประกอบ</string>
+
+    <!-- Citizen ID -->
+    <string name="citizen_id">เลขบัตรประชาชน</string>
+
+    <!-- Citizen Card Issued Date -->
+    <string name="citizen_issued_date">วันที่ออกบัตรประชาชน</string>
+
+    <!-- Citizen Card Expiry Date -->
+    <string name="citizen_expiry_date">วันที่บัตรหมดอายุ</string>
+
+    <!-- Address on Citizen Card -->
+    <string name="address_on_citizen_card">ที่อยู่บนบัตรประชาชน</string>
+
+    <string name="step_4_emergency_contact">ขั้นตอนที่ 4: ติดต่อฉุกเฉิน</string>
+
+    <!-- Section Header -->
+    <string name="step_3_lease_details">ขั้นตอนที่ 3: รายละเอียดสัญญาเช่า</string>
+
+    <!-- Property Selection -->
+    <string name="select_property">กรุณาเลือกที่พัก</string>
+    <!-- Unit Selection -->
+    <string name="select_unit">กรุณาเลือกยูนิต</string>
+
+    <!-- Move-In Information -->
+    <string name="move_in_information">ข้อมูลวันเข้าอยู่</string>
+    <!-- Move-In Date Hint -->
+    <string name="move_in_date">วันที่เข้าอยู่</string>
+
+    <!-- Meter Readings -->
+    <string name="meter_readings">การอ่านมิเตอร์</string>
+    <!-- Electric Meter Reading Hint -->
+    <string name="electric_meter_reading">กรอกค่ามิเตอร์ไฟ</string>
+    <!-- Water Meter Reading Hint -->
+    <string name="water_meter_reading">กรอกค่ามิเตอร์น้ำ</string>
+
+    <!-- Lease Agreement Details -->
+    <string name="lease_agreement_details">รายละเอียดสัญญาเช่า</string>
+    <!-- Lease Start Date Hint -->
+    <string name="lease_start_date">วันที่เริ่มสัญญา</string>
+    <!-- Lease End Date Hint -->
+    <string name="lease_end_date">วันที่สิ้นสุดสัญญา</string>
+    <!-- Monthly Rent Hint -->
+    <string name="monthly_rent">ค่าเช่ารายเดือน</string>
+    <!-- Deposit Amount Hint -->
+    <string name="deposit_amount">จำนวนเงินมัดจำ</string>
+    <!-- Key Amount Hint -->
+    <string name="key_amount">จำนวนกุญแจ</string>
+    <!-- Keycard Amount Hint -->
+    <string name="keycard_amount">จำนวนบัตรคีย์การ์ด</string>
+
+    <!-- Amenities Text -->
+    <string name="amenities">สิ่งอำนวยความสะดวกจะโหลดที่นี่...</string>
+
+    <string name="email_address">Email</string>
 
 </resources>

@@ -14,8 +14,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.apartmentmanageapp.R;
 import com.example.apartmentmanageapp.adapters.PropertySpinnerAdapter;
 import com.example.apartmentmanageapp.adapters.UnitSpinnerAdapter;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -81,7 +84,6 @@ public class AddTenantActivity extends AppCompatActivity {
         buttonPrevious = findViewById(R.id.button_previous);
         buttonNext = findViewById(R.id.button_next);
         buttonSubmit = findViewById(R.id.button_submit);
-
         ImageButton btnCancel = findViewById(R.id.btnCancel);
 
         // Set button click listeners
@@ -140,15 +142,13 @@ public class AddTenantActivity extends AppCompatActivity {
         fetchProperties(propertySpinner);
 
         // When a property is selected, fetch its available units.
-        // If the property selection is default ("Select Property"), update the unit spinner with "Select Unit".
         propertySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (propertyIds == null || propertyIds.size() <= position || propertyIds.get(position) == null) {
                     ArrayList<String> defaultUnitList = new ArrayList<>();
                     defaultUnitList.add("Select Unit");
-                    UnitSpinnerAdapter adapter = new UnitSpinnerAdapter(AddTenantActivity.this, defaultUnitList);
-                    unitSpinner.setAdapter(adapter);
+                    unitSpinner.setAdapter(new UnitSpinnerAdapter(AddTenantActivity.this, defaultUnitList));
                     return;
                 }
                 String selectedPropertyId = propertyIds.get(position);
@@ -214,8 +214,7 @@ public class AddTenantActivity extends AppCompatActivity {
                             Log.d("Properties", "Fetched property: " + propertyName + " (ID: " + propertyId + ")");
                         }
                     }
-                    PropertySpinnerAdapter adapter = new PropertySpinnerAdapter(AddTenantActivity.this, propertyNames);
-                    propertySpinner.setAdapter(adapter);
+                    propertySpinner.setAdapter(new PropertySpinnerAdapter(AddTenantActivity.this, propertyNames));
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(AddTenantActivity.this, "Failed to load properties", Toast.LENGTH_SHORT).show();
@@ -248,8 +247,7 @@ public class AddTenantActivity extends AppCompatActivity {
                     if (unitIds.size() == 1) {
                         Toast.makeText(AddTenantActivity.this, "No available units for this property", Toast.LENGTH_SHORT).show();
                     }
-                    UnitSpinnerAdapter unitAdapter = new UnitSpinnerAdapter(AddTenantActivity.this, unitIds);
-                    unitSpinner.setAdapter(unitAdapter);
+                    unitSpinner.setAdapter(new UnitSpinnerAdapter(AddTenantActivity.this, unitIds));
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(AddTenantActivity.this, "Failed to load units", Toast.LENGTH_SHORT).show();
@@ -310,16 +308,6 @@ public class AddTenantActivity extends AppCompatActivity {
     // -----------------------------
     // Navigation and Validation Methods
     // -----------------------------
-
-    private void navigateSteps(boolean isNext) {
-        if (isNext) {
-            if (!validateCurrentStep()) return;
-            currentStep++;
-        } else {
-            currentStep--;
-        }
-        updateStepVisibility();
-    }
 
     private void updateStepVisibility() {
         stepPersonalInfo.setVisibility(currentStep == 1 ? View.VISIBLE : View.GONE);
@@ -440,7 +428,6 @@ public class AddTenantActivity extends AppCompatActivity {
             waterMeterReading.setError("Water meter reading is required");
             valid = false;
         }
-        // New required fields:
         if (depositAmount.getText().toString().trim().isEmpty()) {
             depositAmount.setError("Security deposit is required");
             valid = false;
@@ -494,12 +481,12 @@ public class AddTenantActivity extends AppCompatActivity {
         String moveInDate = ((EditText) findViewById(R.id.edit_move_in_date)).getText().toString().trim();
         String leaseStartDate = ((EditText) findViewById(R.id.edit_lease_start_date)).getText().toString().trim();
         String leaseEndDate = ((EditText) findViewById(R.id.edit_lease_end_date)).getText().toString().trim();
-        String electricMeterReading = ((EditText) findViewById(R.id.edit_electric_meter_reading)).getText().toString().trim();
-        String waterMeterReading = ((EditText) findViewById(R.id.edit_water_meter_reading)).getText().toString().trim();
-        String monthlyRent = ((EditText) findViewById(R.id.edit_monthly_rent)).getText().toString().trim();
-        String depositAmount = ((EditText) findViewById(R.id.edit_deposit_amount)).getText().toString().trim();
-        String keyAmount = ((EditText) findViewById(R.id.edit_key_amount)).getText().toString().trim();
-        String keycardAmount = ((EditText) findViewById(R.id.edit_keycard_amount)).getText().toString().trim();
+        String electricMeterReadingStr = ((EditText) findViewById(R.id.edit_electric_meter_reading)).getText().toString().trim();
+        String waterMeterReadingStr = ((EditText) findViewById(R.id.edit_water_meter_reading)).getText().toString().trim();
+        String monthlyRentStr = ((EditText) findViewById(R.id.edit_monthly_rent)).getText().toString().trim();
+        String depositAmountStr = ((EditText) findViewById(R.id.edit_deposit_amount)).getText().toString().trim();
+        String keyAmountStr = ((EditText) findViewById(R.id.edit_key_amount)).getText().toString().trim();
+        String keycardAmountStr = ((EditText) findViewById(R.id.edit_keycard_amount)).getText().toString().trim();
 
         // Emergency Contact
         String emergencyContact = ((EditText) findViewById(R.id.edit_emergency_contact_name)).getText().toString().trim();
@@ -514,7 +501,7 @@ public class AddTenantActivity extends AppCompatActivity {
         int selectedUnitPosition = unitSpinner.getSelectedItemPosition();
         String unitId = unitIds.get(selectedUnitPosition);
 
-        // Prepare tenant data map
+        // Prepare tenant data map with safe conversions
         Map<String, Object> tenantData = new HashMap<>();
         tenantData.put("first_name", firstName);
         tenantData.put("last_name", lastName);
@@ -524,8 +511,8 @@ public class AddTenantActivity extends AppCompatActivity {
         tenantData.put("citizen_issued_date", citizenIssuedDate);
         tenantData.put("citizen_expiry_date", citizenExpiryDate);
         tenantData.put("address", address);
-        tenantData.put("electric_meter_reading", electricMeterReading);
-        tenantData.put("water_meter_reading", waterMeterReading);
+        tenantData.put("electric_meter_reading", safeDouble(electricMeterReadingStr));
+        tenantData.put("water_meter_reading", safeDouble(waterMeterReadingStr));
         tenantData.put("property", propertyId);
         tenantData.put("unit", unitId);
         tenantData.put("move_in_date", moveInDate);
@@ -533,10 +520,10 @@ public class AddTenantActivity extends AppCompatActivity {
         tenantData.put("lease_end_date", leaseEndDate);
         tenantData.put("emergency_contact_name", emergencyContact);
         tenantData.put("emergency_contact_phone", emergencyPhone);
-        tenantData.put("rentAmount", monthlyRent);
-        tenantData.put("dopost", depositAmount);
-        tenantData.put("keyAmount", keyAmount);
-        tenantData.put("keycardAmount", keycardAmount);
+        tenantData.put("rentAmount", safeDouble(monthlyRentStr));
+        tenantData.put("dopost", safeDouble(depositAmountStr));
+        tenantData.put("keyAmount", safeInt(keyAmountStr));
+        tenantData.put("keycardAmount", safeInt(keycardAmountStr));
 
         tenantsRef.add(tenantData)
                 .addOnSuccessListener(documentReference -> {
@@ -579,13 +566,11 @@ public class AddTenantActivity extends AppCompatActivity {
                     (DatePicker view, int selectedYear, int selectedMonth, int selectedDay) -> {
                         String formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
                         editText.setText(formattedDate);
-                        // Clear the error once a date is selected.
                         editText.setError(null);
                     }, year, month, day);
             datePicker.show();
         });
     }
-
 
     private void updateAmenitiesUI(List<String> amenities) {
         TextView amenitiesTextView = findViewById(R.id.text_amenities);
@@ -603,5 +588,28 @@ public class AddTenantActivity extends AppCompatActivity {
     private void updateRentUI(Long rentAmount) {
         EditText rentEditText = findViewById(R.id.edit_monthly_rent);
         rentEditText.setText(String.valueOf(rentAmount));
+    }
+
+    // -----------------------------
+    // Helper Methods
+    // -----------------------------
+    private String getEditTextValue(int id) {
+        return ((EditText) findViewById(id)).getText().toString().trim();
+    }
+
+    private double safeDouble(String value) {
+        try {
+            return value.isEmpty() ? 0.0 : Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
+    private int safeInt(String value) {
+        try {
+            return value.isEmpty() ? 0 : Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

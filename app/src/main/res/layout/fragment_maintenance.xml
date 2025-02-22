@@ -23,19 +23,19 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_remove"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Remove Request"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/remove_request"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" />
 
         <!-- Header Title (Center) -->
         <TextView
             android:id="@+id/header_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Maintenance Requests"
+            android:text="@string/maintenance_requests"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/teal_700"
@@ -51,12 +51,12 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_refresh"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Refresh Requests"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/refresh_requests"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Filter Title -->
@@ -64,7 +64,7 @@
         android:id="@+id/filter_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filter by:"
+        android:text="@string/filter_by"
         android:textSize="16sp"
         android:textColor="#333333"
         android:layout_marginTop="8dp"
@@ -100,10 +100,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
-    android:contentDescription="Add Maintenance Request"
-    app:backgroundTint="@color/teal_700"
-    android:layout_margin="16dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+        android:contentDescription="@string/add_maintenance_request"
+        app:backgroundTint="@color/teal_700"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

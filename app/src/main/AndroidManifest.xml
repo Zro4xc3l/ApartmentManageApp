@@ -19,14 +19,14 @@
         android:theme="@style/Theme.ApartmentManageApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.bills.ElectricityActivity"
-            android:exported="true" />
+            android:name=".ResetPassword"
+            android:exported="false" />
         <activity
-            android:name=".ui.bills.WaterActivity"
-            android:exported="true" />
+            android:name=".ui.bills.BillsDetailActivity"
+            android:exported="false" />
         <activity
-            android:name=".ui.bills.AdditionalChargeActivity"
-            android:exported="true" />
+            android:name=".ui.bills.SummaryActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.bills.CreateBillActivity"
             android:exported="false" />

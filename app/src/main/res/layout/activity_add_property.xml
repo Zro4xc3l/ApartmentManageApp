@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9"
+    android:background="@color/scrollview_background"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -12,7 +12,7 @@
         android:padding="20dp"
         android:gravity="center">
 
-        <!-- Reusable Header -->
+        <!-- หัวเรื่อง -->
         <TextView
             android:id="@+id/header_title"
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="@color/textPrimary"
-            android:paddingBottom="4dp"/>
+            android:paddingBottom="4dp" />
 
         <TextView
             android:id="@+id/header_subtitle"
@@ -32,9 +32,9 @@
             android:textSize="14sp"
             android:gravity="center"
             android:textColor="@color/textSecondary"
-            android:paddingBottom="16dp"/>
+            android:paddingBottom="16dp" />
 
-        <!-- Section: General Information -->
+        <!-- ส่วน: ข้อมูลทั่วไป -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp"
-            android:textColor="@color/textPrimary"/>
+            android:textColor="@color/textPrimary" />
 
         <EditText
             android:id="@+id/edit_property_name"
@@ -55,7 +55,7 @@
             android:textColor="@color/textPrimary"
             android:textColorHint="@color/textSecondary"
             android:autofillHints="name"
-            android:inputType="text"/>
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/edit_property_address"
@@ -68,9 +68,9 @@
             android:textColor="@color/textPrimary"
             android:textColorHint="@color/textSecondary"
             android:autofillHints="postalAddress"
-            android:inputType="textMultiLine"/>
+            android:inputType="textMultiLine" />
 
-        <!-- Section: Utility Rates -->
+        <!-- ส่วน: ค่าบริการสาธารณูปโภค -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp"
-            android:textColor="@color/textPrimary"/>
+            android:textColor="@color/textPrimary" />
 
         <EditText
             android:id="@+id/edit_electricity_rate"
@@ -91,7 +91,7 @@
             android:textColor="@color/textPrimary"
             android:textColorHint="@color/textSecondary"
             android:autofillHints="electricityBill"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/edit_min_electricity_price"
@@ -117,7 +117,7 @@
             android:textColor="@color/textPrimary"
             android:textColorHint="@color/textSecondary"
             android:autofillHints="waterBill"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/edit_min_water_price"
@@ -143,31 +143,9 @@
             android:textColor="@color/textPrimary"
             android:textColorHint="@color/textSecondary"
             android:autofillHints="paymentAmount"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal" />
 
-        <!-- Section: Due Date -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/section_due_date"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp"
-            android:textColor="@color/textPrimary"/>
-
-        <EditText
-            android:id="@+id/edit_due_date"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="@string/hint_due_date"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:background="@drawable/edittext_background"
-            android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textSecondary"
-            android:inputType="number"/>
-
-        <!-- Save and Cancel Buttons -->
+        <!-- ปุ่มบันทึกและยกเลิก -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -185,9 +163,9 @@
                 android:backgroundTint="@android:color/darker_gray"
                 android:padding="12dp"
                 android:layout_marginEnd="8dp"
-                android:elevation="4dp"/>
+                android:elevation="4dp" />
 
-            <!-- Save Button -->
+            <!-- ปุ่มบันทึก -->
             <Button
                 android:id="@+id/button_save"
                 style="@style/Widget.MaterialComponents.Button"
@@ -199,7 +177,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:padding="12dp"
                 android:layout_marginStart="8dp"
-                android:elevation="4dp"/>
+                android:elevation="4dp" />
         </LinearLayout>
 
     </LinearLayout>

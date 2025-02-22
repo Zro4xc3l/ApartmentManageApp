@@ -62,5 +62,7 @@
     <color name="primaryDark">#1565C0</color>
     <color name="accent">#D32F2F</color>
     <color name="background">#F5F5F5</color>
+    <color name="light_gray">#F5F5F5</color>
+
 
 </resources>

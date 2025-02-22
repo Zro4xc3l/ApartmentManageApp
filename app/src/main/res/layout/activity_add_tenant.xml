@@ -13,7 +13,7 @@
         android:padding="20dp"
         android:gravity="center_horizontal">
 
-        <!-- Header with Cancel Button and Title -->
+        <!-- หัวเรื่องพร้อมปุ่มยกเลิก -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,16 +21,16 @@
             android:gravity="center_vertical"
             android:paddingBottom="8dp">
 
-            <!-- Cancel Button on Top Left -->
+            <!-- ปุ่มยกเลิกด้านซ้ายบน -->
             <ImageButton
                 android:id="@+id/btnCancel"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:contentDescription="Cancel" />
+                android:contentDescription="@string/btn_cancel" />
 
-            <!-- Title and Subtitle Container -->
+            <!-- ชื่อหัวข้อและคำอธิบาย -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                     android:id="@+id/header_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add New Tenant"
+                    android:text="@string/title_add_tenant"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/textPrimary" />
@@ -51,43 +51,43 @@
                     android:id="@+id/header_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enter tenant details using the steps below."
+                    android:text="@string/subtitle_add_tenant"
                     android:textSize="14sp"
                     android:textColor="@color/textSecondary" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Steps Container -->
+        <!-- ส่วนแสดงขั้นตอน -->
         <FrameLayout
             android:id="@+id/steps_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Step 1: Personal Info (visible by default) -->
+            <!-- ขั้นตอนที่ 1: ข้อมูลส่วนตัว (แสดงเป็นค่าเริ่มต้น) -->
             <include
                 android:id="@+id/step_personal_info"
                 layout="@layout/step_personal_info"/>
 
-            <!-- Step 2: Documentation (hidden initially) -->
+            <!-- ขั้นตอนที่ 2: เอกสาร (ซ่อนในตอนแรก) -->
             <include
                 android:id="@+id/step_documentation"
                 layout="@layout/step_documentation"
                 android:visibility="gone"/>
 
-            <!-- Step 3: Lease Details (hidden initially) -->
+            <!-- ขั้นตอนที่ 3: รายละเอียดสัญญาเช่า (ซ่อนในตอนแรก) -->
             <include
                 android:id="@+id/step_lease_details"
                 layout="@layout/step_lease_details"
                 android:visibility="gone"/>
 
-            <!-- Step 4: Emergency Contact (hidden initially) -->
+            <!-- ขั้นตอนที่ 4: ผู้ติดต่อฉุกเฉิน (ซ่อนในตอนแรก) -->
             <include
                 android:id="@+id/step_emergency_contact"
                 layout="@layout/step_emergency_contact"
                 android:visibility="gone"/>
         </FrameLayout>
 
-        <!-- Navigation Buttons (Placed in activity_add_tenant.xml) -->
+        <!-- ปุ่มนำทาง (อยู่ใน activity_add_tenant.xml) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,13 +101,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Previous"
+                android:text="@string/btn_previous"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@android:color/darker_gray"
                 android:padding="12dp"
                 android:layout_marginEnd="8dp"
                 android:elevation="4dp"
-                android:visibility="gone"/> <!-- Hidden on Step 1 -->
+                android:visibility="gone"/> <!-- ซ่อนในขั้นตอนที่ 1 -->
 
             <Button
                 android:id="@+id/button_next"
@@ -115,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Next"
+                android:text="@string/btn_next"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary"
                 android:padding="12dp"
@@ -128,15 +128,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Submit"
+                android:text="@string/btn_submit"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary"
                 android:padding="12dp"
                 android:layout_marginStart="8dp"
                 android:elevation="4dp"
-                android:visibility="gone"/> <!-- Only visible in Step 4 -->
+                android:visibility="gone"/> <!-- แสดงเฉพาะในขั้นตอนที่ 4 -->
         </LinearLayout>
-
 
     </LinearLayout>
 </ScrollView>

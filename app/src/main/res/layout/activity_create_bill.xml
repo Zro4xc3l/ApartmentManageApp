@@ -3,15 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:fitsSystemWindows="true">
 
-    <!-- Main Scrollable Content -->
+    <!-- เนื้อหาหลักที่สามารถเลื่อนลงได้ -->
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#F9F9F9"
-        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/button_container"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +24,12 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Header -->
+            <!-- หัวเรื่อง -->
             <TextView
                 android:id="@+id/header_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create Bill"
+                android:text="@string/title_create_bill"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -39,18 +40,47 @@
                 android:id="@+id/header_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Review and finalize billing details"
+                android:text="@string/subtitle_create_bill"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:textColor="@color/textSecondary"
                 android:paddingBottom="16dp"/>
 
-            <!-- Section: Property Selection -->
+            <!-- รอบบิล -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/label_billing_period"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_billing_period"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary"/>
+
+                <TextView
+                    android:id="@+id/bill_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="August 2025"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary"
+                    android:gravity="end"/>
+            </LinearLayout>
+
+            <!-- เลือกที่พัก -->
             <TextView
                 android:id="@+id/label_property"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Property"
+                android:text="@string/label_property"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp"
@@ -63,7 +93,7 @@
                 android:background="@drawable/edittext_background"
                 android:padding="12dp"/>
 
-            <!-- Bill Due Date Row -->
+            <!-- วันครบกำหนดชำระ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +106,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Bill Due Date"
+                    android:text="@string/label_bill_due_date"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/textPrimary"/>
@@ -92,18 +122,18 @@
                     android:gravity="end"/>
             </LinearLayout>
 
-            <!-- Section: Units -->
+            <!-- ส่วน: ห้อง -->
             <TextView
                 android:id="@+id/label_units"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Units"
+                android:text="@string/label_units"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp"
                 android:textColor="@color/textPrimary"/>
 
-            <!-- RecyclerView for Unit Bills -->
+            <!-- รายการบิลของห้อง -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_unit_bills"
                 android:layout_width="match_parent"
@@ -112,7 +142,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Fixed Bottom Button Container -->
+    <!-- ปุ่มด้านล่าง -->
     <LinearLayout
         android:id="@+id/button_container"
         android:layout_width="0dp"
@@ -130,7 +160,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel"
+            android:text="@string/btn_cancel"
             android:textColor="@android:color/white"
             android:backgroundTint="@android:color/darker_gray"
             android:padding="12dp"
@@ -143,7 +173,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="View Summary"
+            android:text="@string/btn_view_summary"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/colorPrimary"
             android:padding="12dp"

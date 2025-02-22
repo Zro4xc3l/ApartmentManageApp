@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Header Section with Close Button -->
+        <!-- หัวเรื่องพร้อมปุ่มปิด -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:contentDescription="Close"
+                android:contentDescription="@string/btn_close"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="4dp"
@@ -33,7 +33,7 @@
                 android:id="@+id/header_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Maintenance Request"
+                android:text="@string/title_maintenance_request"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -44,18 +44,18 @@
             android:id="@+id/header_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log a new maintenance issue"
+            android:text="@string/subtitle_maintenance_request"
             android:textSize="14sp"
             android:gravity="center"
             android:textColor="#666666"
             android:paddingBottom="20dp" />
 
-        <!-- Issue Title -->
+        <!-- ชื่อปัญหา -->
         <EditText
             android:id="@+id/edit_issue_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Issue Title"
+            android:hint="@string/hint_issue_title"
             android:textSize="16sp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"
@@ -64,11 +64,11 @@
             android:inputType="text"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Property Selection -->
+        <!-- เลือกที่พัก -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Property"
+            android:text="@string/label_select_property"
             android:textSize="14sp"
             android:textColor="#000000"
             android:paddingTop="4dp"
@@ -81,11 +81,11 @@
             android:background="@drawable/edittext_background"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Unit Selection -->
+        <!-- เลือกห้อง -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Unit"
+            android:text="@string/label_select_unit"
             android:textSize="14sp"
             android:textColor="#000000"
             android:paddingTop="4dp"
@@ -98,12 +98,12 @@
             android:background="@drawable/edittext_background"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Issue Description -->
+        <!-- คำอธิบายปัญหา -->
         <EditText
             android:id="@+id/edit_issue_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Describe the issue (e.g., 'Leaking pipe in Unit 203')"
+            android:hint="@string/hint_issue_description"
             android:textSize="16sp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"
@@ -114,22 +114,22 @@
             android:maxLines="6"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Urgency Selection (NEW) -->
+        <!-- ระดับความเร่งด่วน -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Urgency Level"
+            android:text="@string/label_urgency"
             android:textSize="14sp"
             android:textColor="#000000"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"/>
 
-        <!-- Urgency Error Message (initially hidden) -->
+        <!-- ข้อความแสดงข้อผิดพลาด -->
         <TextView
             android:id="@+id/text_urgency_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please select an urgency level"
+            android:text="@string/error_select_urgency"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone"
             android:textSize="14sp"
@@ -146,27 +146,27 @@
                 android:id="@+id/radio_low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Low"/>
+                android:text="@string/urgency_low"/>
 
             <RadioButton
                 android:id="@+id/radio_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium"/>
+                android:text="@string/urgency_medium"/>
 
             <RadioButton
                 android:id="@+id/radio_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High"/>
+                android:text="@string/urgency_high"/>
         </RadioGroup>
 
-        <!-- Expected Completion Date -->
+        <!-- วันที่คาดว่าจะเสร็จ -->
         <EditText
             android:id="@+id/edit_expected_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Expected Completion Date (YYYY-MM-DD)"
+            android:hint="@string/hint_expected_date"
             android:textSize="16sp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"
@@ -177,12 +177,12 @@
             android:focusable="false"
             android:clickable="true"/>
 
-        <!-- Cost Tracking -->
+        <!-- ต้นทุนโดยประมาณ -->
         <EditText
             android:id="@+id/edit_cost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Estimated Maintenance Cost (Optional)"
+            android:hint="@string/hint_cost"
             android:textSize="16sp"
             android:padding="12dp"
             android:background="@drawable/edittext_background"
@@ -191,19 +191,19 @@
             android:inputType="numberDecimal"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Upload Photo Button -->
+        <!-- ปุ่มอัปโหลดรูปภาพ -->
         <Button
             android:id="@+id/button_upload_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Photo (Optional)"
+            android:text="@string/btn_upload_photo"
             android:layout_marginTop="16dp"
             android:padding="12dp"
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="@android:color/white"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Image Preview -->
+        <!-- แสดงตัวอย่างรูปภาพ -->
         <ImageView
             android:id="@+id/image_preview"
             android:layout_width="match_parent"
@@ -212,12 +212,12 @@
             android:visibility="gone"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Submit Request Button -->
+        <!-- ปุ่มส่งคำขอซ่อม -->
         <Button
             android:id="@+id/button_save_request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit Request"
+            android:text="@string/btn_submit_request"
             android:layout_marginTop="12dp"
             android:padding="12dp"
             android:backgroundTint="?attr/colorPrimary"

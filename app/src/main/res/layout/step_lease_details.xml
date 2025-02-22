@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Step 3: Lease Details"
+        android:text="@string/step_3_lease_details"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
@@ -55,7 +55,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Move-In Information"
+        android:text="@string/move_in_information"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
@@ -75,11 +75,11 @@
         android:textColorHint="@color/textSecondary"
         android:layout_marginBottom="12dp"/>
 
-
+    <!-- Meter Readings Section -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Meter Readings"
+        android:text="@string/meter_readings"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
@@ -113,7 +113,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lease Agreement Details"
+        android:text="@string/lease_agreement_details"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
@@ -197,11 +197,12 @@
         android:textColorHint="@color/textSecondary"
         android:layout_marginBottom="12dp"/>
 
+    <!-- Amenities Text -->
     <TextView
         android:id="@+id/text_amenities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Amenities will load here..."
+        android:text="@string/amenities"
         android:clickable="false"
         android:focusable="false"
         android:textSize="14sp"
@@ -209,8 +210,5 @@
         android:padding="12dp"
         android:background="@drawable/edittext_background"
         android:layout_marginBottom="12dp"/>
-
-
-
 
 </LinearLayout>

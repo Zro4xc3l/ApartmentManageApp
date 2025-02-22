@@ -22,8 +22,8 @@
         android:title="Maintenance" />
 
     <item
-        android:id="@+id/nav_finance"
+        android:id="@+id/nav_bills"
         android:icon="@drawable/ic_finance"
-        android:title="Finance" />
+        android:title="Bills" />
 
 </menu>

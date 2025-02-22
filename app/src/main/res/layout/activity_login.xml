@@ -6,40 +6,40 @@
     android:padding="24dp"
     android:background="#F5F5F5">
 
-    <!-- App Title -->
+    <!-- ชื่อแอป -->
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AptManage"
+        android:text="@string/app_name"
         android:textSize="32sp"
         android:textStyle="bold"
         android:textColor="#333333"
         android:layout_marginBottom="32dp"/>
 
-    <!-- Email Input -->
+    <!-- ช่องกรอกอีเมล -->
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         android:padding="12dp"
         android:background="@drawable/edittext_background"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Password Input -->
+    <!-- ช่องกรอกรหัสผ่าน -->
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/hint_password"
         android:inputType="textPassword"
         android:padding="12dp"
         android:background="@drawable/edittext_background"
         android:layout_marginBottom="24dp"/>
 
-    <!-- Progress Bar (Hidden Initially) -->
+    <!-- แถบโหลด (ซ่อนค่าเริ่มต้น) -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -48,34 +48,34 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Login Button -->
+    <!-- ปุ่มเข้าสู่ระบบ -->
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/btn_login"
         android:textColor="#FFFFFF"
         android:backgroundTint="#3F51B5"
         android:padding="12dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Register Button -->
+    <!-- ปุ่มลงทะเบียน -->
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/btn_register"
         android:textColor="#FFFFFF"
         android:backgroundTint="#4CAF50"
         android:padding="12dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Skip Login Button -->
+    <!-- ปุ่มข้ามการเข้าสู่ระบบ -->
     <Button
         android:id="@+id/buttonSkip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Skip Login"
+        android:text="@string/btn_skip"
         android:textColor="#3F51B5"
         android:backgroundTint="#E0E0E0"
         android:padding="12dp"/>

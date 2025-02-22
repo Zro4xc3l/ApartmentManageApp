@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.units.UnitsActivity">
 
-    <!-- Header Section -->
+    <!-- ส่วนหัว -->
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
@@ -19,40 +19,40 @@
         android:gravity="center_vertical"
         android:padding="12dp">
 
-        <!-- Back Button -->
+        <!-- ปุ่มย้อนกลับ -->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
+            android:contentDescription="@string/btn_back"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="12dp"/>
 
-        <!-- Header Title -->
+        <!-- ชื่อหัวข้อ -->
         <TextView
             android:id="@+id/header_units"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Manage Units"
+            android:text="@string/title_manage_units"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/teal_700"
             android:gravity="center"
             android:layout_weight="1"/>
 
-        <!-- Refresh Button -->
+        <!-- ปุ่มรีเฟรช -->
         <ImageButton
             android:id="@+id/btnRefresh"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_refresh"
-            android:contentDescription="Refresh"
+            android:contentDescription="@string/btn_refresh"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="12dp"/>
     </LinearLayout>
 
-    <!-- RecyclerView for displaying units -->
+    <!-- รายการยูนิต (RecyclerView) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/unit_recycler_view"
         android:layout_width="match_parent"
@@ -64,12 +64,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Empty State Message -->
+    <!-- ข้อความเมื่อไม่มีรายการยูนิต -->
     <TextView
         android:id="@+id/empty_state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No units available.\nTap the + button to add a new unit!"
+        android:text="@string/msg_no_units_available"
         android:textSize="16sp"
         android:textColor="#666666"
         android:gravity="center"
@@ -80,13 +80,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Floating Action Button to Add Unit -->
+    <!-- ปุ่มเพิ่มยูนิต (Floating Action Button) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_unit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
-        android:contentDescription="Add Unit"
+        android:contentDescription="@string/btn_add_unit"
         app:backgroundTint="@color/teal_700"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -28,7 +28,7 @@
                 android:id="@+id/unit_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Unit 101"
+                android:text="@string/unit_number"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/textPrimary"
@@ -39,7 +39,7 @@
                 android:id="@+id/unit_availability_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Occupied"
+                android:text="@string/occupied_status"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:paddingHorizontal="8dp"
@@ -53,7 +53,7 @@
             android:id="@+id/unit_rent_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rent: 5,000 THB"
+            android:text="@string/rent_rate"
             android:textSize="14sp"
             android:textColor="@color/textPrimary"
             android:paddingBottom="4dp"/>
@@ -72,7 +72,7 @@
                 android:id="@+id/unit_floor_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Floor: 2"
+                android:text="@string/floor_level"
                 android:textSize="14sp"
                 android:textColor="@color/textSecondary"
                 android:paddingBottom="4dp"/>
@@ -82,7 +82,7 @@
                 android:id="@+id/unit_amenities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amenities: Aircon, WiFi"
+                android:text="@string/unit_amenities"
                 android:textSize="14sp"
                 android:textColor="@color/textSecondary"
                 android:paddingBottom="4dp"/>
@@ -92,10 +92,11 @@
                 android:id="@+id/unit_tenant_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tenant: John Doe"
+                android:text="@string/tenant_name"
                 android:textSize="14sp"
                 android:textColor="@color/textSecondary"/>
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

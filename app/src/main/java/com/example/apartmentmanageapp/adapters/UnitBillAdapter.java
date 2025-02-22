@@ -9,17 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.apartmentmanageapp.R;
 import com.example.apartmentmanageapp.model.UnitBill;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class UnitBillAdapter extends RecyclerView.Adapter<UnitBillAdapter.UnitBillViewHolder> {
 
     private static final String TAG = "UnitBillAdapter";
-    private Context context;
-    private List<UnitBill> unitBillList;
+    private final Context context;
+    private final List<UnitBill> unitBillList;
+    private boolean showValidationErrors = false;
 
     public UnitBillAdapter(Context context, List<UnitBill> unitBillList) {
         this.context = context;
@@ -37,102 +42,116 @@ public class UnitBillAdapter extends RecyclerView.Adapter<UnitBillAdapter.UnitBi
     public void onBindViewHolder(@NonNull UnitBillViewHolder holder, int position) {
         UnitBill unitBill = unitBillList.get(position);
 
-        // Set Unit/Tenant information
         holder.unitTenantTextView.setText(unitBill.getUnit() + " - " + unitBill.getTenantName());
-
-        // Set previous readings loaded from DB
         holder.prevElectricReadingTextView.setText(String.valueOf(unitBill.getPrevElectricReading()));
         holder.prevWaterReadingTextView.setText(String.valueOf(unitBill.getPrevWaterReading()));
+        holder.rentPriceTextView.setText("Rent: ฿" + String.format("%.2f", unitBill.getRentAmount()));
 
-        // Remove any existing TextWatcher to avoid duplicate triggers
-        if (holder.billTextWatcher != null) {
-            holder.currentElectricReadingEditText.removeTextChangedListener(holder.billTextWatcher);
-            holder.currentWaterReadingEditText.removeTextChangedListener(holder.billTextWatcher);
-            holder.additionalFeeAmountEditText.removeTextChangedListener(holder.billTextWatcher);
+        // ✅ Fetch Service Fee from Firestore (Read-Only)
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (unitBill.getPropertyId() != null) {
+            db.collection("properties")
+                    .document(unitBill.getPropertyId())
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists() && documentSnapshot.contains("serviceFee")) {
+                            double serviceFee = documentSnapshot.getDouble("serviceFee");
+                            unitBill.setServiceFee(serviceFee);
+                            holder.serviceFeeEditText.setText(String.format("%.2f", serviceFee));
+                        } else {
+                            holder.serviceFeeEditText.setText(""); // ✅ Leave Blank if Not Found
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Failed to fetch service fee", e);
+                        holder.serviceFeeEditText.setText(""); // ✅ Leave Blank
+                    });
+        } else {
+            holder.serviceFeeEditText.setText(""); // ✅ Leave Blank
         }
 
-        // Set initial calculated prices
+        // ✅ Current input fields are blank (User must enter values)
+        holder.currentElectricReadingEditText.setText("");
+        holder.currentWaterReadingEditText.setText("");
+
+        // Set Service Fee as **Read-Only**
+        holder.serviceFeeEditText.setFocusable(false);
+        holder.serviceFeeEditText.setFocusableInTouchMode(false);
+        holder.serviceFeeEditText.setClickable(false);
+
+        // Calculate the total price initially
         updateTotalPrice(unitBill, holder);
 
-        // Add a new TextWatcher so that any input change updates the calculated prices dynamically
+        // Attach TextWatcher
         BillTextWatcher watcher = new BillTextWatcher(unitBill, holder);
         holder.currentElectricReadingEditText.addTextChangedListener(watcher);
         holder.currentWaterReadingEditText.addTextChangedListener(watcher);
-        holder.additionalFeeAmountEditText.addTextChangedListener(watcher);
         holder.billTextWatcher = watcher;
     }
 
     @Override
     public int getItemCount() {
-        return unitBillList.size();
+        return unitBillList != null ? unitBillList.size() : 0;
     }
 
-    // Method to calculate and update the price values with THB currency symbol.
-    // If the current reading field is blank, the cost is 0.
+    /**
+     * ✅ Validates that ONLY Current Electric & Water Readings Are Required.
+     * Service Fee & Additional Fee Can Be Empty.
+     */
+    public boolean validateAllFields() {
+        boolean valid = true;
+        for (UnitBill unitBill : unitBillList) {
+            if (isEmpty(unitBill.getCurrentElectricReading())) {
+                valid = false;
+                break;
+            }
+            if (isEmpty(unitBill.getCurrentWaterReading())) {
+                valid = false;
+                break;
+            }
+        }
+        showValidationErrors = !valid;
+        notifyDataSetChanged();
+        return valid;
+    }
+
+
     private void updateTotalPrice(UnitBill unitBill, UnitBillViewHolder holder) {
-        String electricStr = holder.currentElectricReadingEditText.getText().toString().trim();
-        String waterStr = holder.currentWaterReadingEditText.getText().toString().trim();
-        String additionalFeeStr = holder.additionalFeeAmountEditText.getText().toString().trim();
+        double currentElectric = parseOrDefault(holder.currentElectricReadingEditText, 0.0); // ✅ Defaults to 0 if empty
+        double currentWater = parseOrDefault(holder.currentWaterReadingEditText, 0.0); // ✅ Defaults to 0 if empty
 
-        double currentElectric = electricStr.isEmpty() ? 0 : parseDouble(electricStr);
-        double currentWater = waterStr.isEmpty() ? 0 : parseDouble(waterStr);
-        double additionalFee = additionalFeeStr.isEmpty() ? 0 : parseDouble(additionalFeeStr);
+        double electricUsage = Math.max(0, currentElectric - unitBill.getPrevElectricReading());
+        double electricCost = Math.max(electricUsage * unitBill.getElectricityRate(), unitBill.getMinElectricPrice());
 
-        Log.d(TAG, "Current Electric Reading: " + currentElectric);
-        Log.d(TAG, "Current Water Reading: " + currentWater);
-        Log.d(TAG, "Additional Fee: " + additionalFee);
+        double waterUsage = Math.max(0, currentWater - unitBill.getPrevWaterReading());
+        double waterCost = Math.max(waterUsage * unitBill.getWaterRate(), unitBill.getMinWaterPrice());
 
-        // Calculate electric cost only if user has input something; else 0.
-        double electricCost = 0;
-        if (!electricStr.isEmpty()) {
-            double electricUsage = currentElectric - unitBill.getPrevElectricReading();
-            if (electricUsage < 0) {
-                electricUsage = 0;
-            }
-            electricCost = electricUsage * unitBill.getElectricityRate();
-            if (electricCost < unitBill.getMinElectricPrice()) {
-                electricCost = unitBill.getMinElectricPrice();
-            }
-        }
-        Log.d(TAG, "Calculated Electric Cost: " + electricCost);
+        double serviceFee = parseOrDefault(holder.serviceFeeEditText, 0.0); // ✅ Defaults to 0 if empty
 
-        // Calculate water cost only if user has input something; else 0.
-        double waterCost = 0;
-        if (!waterStr.isEmpty()) {
-            double waterUsage = currentWater - unitBill.getPrevWaterReading();
-            if (waterUsage < 0) {
-                waterUsage = 0;
-            }
-            waterCost = waterUsage * unitBill.getWaterRate();
-            if (waterCost < unitBill.getMinWaterPrice()) {
-                waterCost = unitBill.getMinWaterPrice();
-            }
-        }
-        Log.d(TAG, "Calculated Water Cost: " + waterCost);
+        double total = unitBill.getRentAmount() + electricCost + waterCost + serviceFee;
 
-        // Update individual calculated price TextViews with THB currency symbol
         holder.electricPriceTextView.setText("฿" + String.format("%.2f", electricCost));
         holder.waterPriceTextView.setText("฿" + String.format("%.2f", waterCost));
-
-        // Calculate final total: Rent + Electric + Water + Additional Fee
-        double total = unitBill.getRentAmount() + electricCost + waterCost + additionalFee;
-        Log.d(TAG, "Calculated Total Price: " + total);
         holder.finalTotalPriceTextView.setText("฿" + String.format("%.2f", total));
     }
 
-    // Utility method to safely parse a double from a string
-    private double parseDouble(String s) {
+    private double parseOrDefault(EditText editText, double defaultValue) {
+        String s = editText.getText().toString().trim();
+        if (s.isEmpty()) return defaultValue; // ✅ If empty, use default value (0.00 for service fee)
         try {
             return Double.parseDouble(s);
         } catch (NumberFormatException e) {
-            return 0;
+            return defaultValue;
         }
     }
 
-    // TextWatcher to update calculated prices when input changes
+    private boolean isEmpty(Double value) {
+        return value == null || value == 0.0;
+    }
+
     private class BillTextWatcher implements TextWatcher {
-        private UnitBill unitBill;
-        private UnitBillViewHolder holder;
+        private final UnitBill unitBill;
+        private final UnitBillViewHolder holder;
 
         public BillTextWatcher(UnitBill unitBill, UnitBillViewHolder holder) {
             this.unitBill = unitBill;
@@ -140,29 +159,21 @@ public class UnitBillAdapter extends RecyclerView.Adapter<UnitBillAdapter.UnitBi
         }
 
         @Override
+        public void afterTextChanged(Editable s) {
+            updateTotalPrice(unitBill, holder);
+        }
+
+        @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            updateTotalPrice(unitBill, holder);
-        }
     }
 
-    public class UnitBillViewHolder extends RecyclerView.ViewHolder {
-        TextView unitTenantTextView;
-        TextView prevElectricReadingTextView;
-        EditText currentElectricReadingEditText;
-        TextView prevWaterReadingTextView;
-        EditText currentWaterReadingEditText;
-        EditText additionalFeeAmountEditText;
-        EditText additionalFeeDescriptionEditText;
-        // Calculated price fields
-        TextView electricPriceTextView;
-        TextView waterPriceTextView;
-        TextView finalTotalPriceTextView;
+    public static class UnitBillViewHolder extends RecyclerView.ViewHolder {
+        TextView unitTenantTextView, prevElectricReadingTextView, prevWaterReadingTextView,
+                electricPriceTextView, waterPriceTextView, finalTotalPriceTextView, rentPriceTextView;
+        EditText currentElectricReadingEditText, currentWaterReadingEditText, serviceFeeEditText;
         BillTextWatcher billTextWatcher;
 
         public UnitBillViewHolder(@NonNull View itemView) {
@@ -172,12 +183,11 @@ public class UnitBillAdapter extends RecyclerView.Adapter<UnitBillAdapter.UnitBi
             currentElectricReadingEditText = itemView.findViewById(R.id.current_electric_reading_edit_text);
             prevWaterReadingTextView = itemView.findViewById(R.id.prev_water_reading_text_view);
             currentWaterReadingEditText = itemView.findViewById(R.id.current_water_reading_edit_text);
-            additionalFeeAmountEditText = itemView.findViewById(R.id.additional_fee_amount_edit_text);
-            additionalFeeDescriptionEditText = itemView.findViewById(R.id.additional_fee_description_edit_text);
-            // These IDs must match your updated card layout
             electricPriceTextView = itemView.findViewById(R.id.electric_price_text_view);
             waterPriceTextView = itemView.findViewById(R.id.water_price_text_view);
             finalTotalPriceTextView = itemView.findViewById(R.id.final_total_price_text_view);
+            rentPriceTextView = itemView.findViewById(R.id.rent_price_text_view);
+            serviceFeeEditText = itemView.findViewById(R.id.service_fee_edit_text);
         }
     }
 }

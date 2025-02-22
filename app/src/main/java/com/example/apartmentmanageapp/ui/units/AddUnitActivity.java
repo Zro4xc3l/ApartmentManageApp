@@ -75,14 +75,35 @@ public class AddUnitActivity extends AppCompatActivity {
         String electricMeterStr = electricMeterInput.getText().toString().trim();
         String waterMeterStr = waterMeterInput.getText().toString().trim();
 
-        // Validate required fields (all fields are required except amenities)
-        if (unitNumber.isEmpty() ||
-                rentAmountStr.isEmpty() ||
-                roomSize.isEmpty() ||
-                floorLevel.isEmpty() ||
-                electricMeterStr.isEmpty() ||
-                waterMeterStr.isEmpty()) {
-            Toast.makeText(this, "All fields are required except amenities!", Toast.LENGTH_SHORT).show();
+        // Validate required fields and set error if empty
+        boolean valid = true;
+        if (unitNumber.isEmpty()) {
+            unitNumberInput.setError("Required");
+            valid = false;
+        }
+        if (rentAmountStr.isEmpty()) {
+            rentAmountInput.setError("Required");
+            valid = false;
+        }
+        if (roomSize.isEmpty()) {
+            roomSizeInput.setError("Required");
+            valid = false;
+        }
+        if (floorLevel.isEmpty()) {
+            floorLevelInput.setError("Required");
+            valid = false;
+        }
+        if (electricMeterStr.isEmpty()) {
+            electricMeterInput.setError("Required");
+            valid = false;
+        }
+        if (waterMeterStr.isEmpty()) {
+            waterMeterInput.setError("Required");
+            valid = false;
+        }
+
+        if (!valid) {
+            Toast.makeText(this, "Please fill in all required fields!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -97,14 +118,13 @@ public class AddUnitActivity extends AppCompatActivity {
         }
 
         if (rentAmount <= 0) {
-            Toast.makeText(this, "Rent amount must be positive.", Toast.LENGTH_SHORT).show();
+            rentAmountInput.setError("Rent must be positive");
             return;
         }
 
         // Convert amenities input into a List<String> (amenities is optional)
         List<String> amenitiesList = amenitiesStr.isEmpty() ? new ArrayList<>() : Arrays.asList(amenitiesStr.split("\\s*,\\s*")); // Trim spaces
 
-        // Debugging log before saving to Firestore
         Log.d("AddUnitActivity", "Preparing to save unit: " + unitNumber);
 
         // Create the Unit object

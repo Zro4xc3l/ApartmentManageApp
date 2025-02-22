@@ -24,7 +24,7 @@
             android:id="@+id/header_properties"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Manage Properties"
+            android:text="@string/manage_properties"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/teal_700"
@@ -37,7 +37,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_refresh"
-            android:contentDescription="Refresh"
+            android:contentDescription="@string/refresh"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="12dp"/>
     </LinearLayout>
@@ -59,7 +59,7 @@
         android:id="@+id/empty_state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No properties available.\nTap the + button to add a new property!"
+        android:text="@string/empty_state"
         android:textSize="16sp"
         android:textColor="#666666"
         android:gravity="center"
@@ -81,17 +81,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
     <!-- Floating Action Button to Add Property -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_property_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
-        android:contentDescription="Add Property"
+        android:contentDescription="@string/add_property"
         app:backgroundTint="@color/teal_700"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

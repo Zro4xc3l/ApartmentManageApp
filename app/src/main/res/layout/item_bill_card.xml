@@ -7,9 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="0dp"
-    app:cardUseCompatPadding="false"
-    app:cardPreventCornerOverlap="false"
+    app:cardElevation="4dp"
     android:padding="16dp">
 
     <LinearLayout
@@ -22,27 +20,27 @@
             android:id="@+id/unit_tenant_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Unit/Tenant"
+            android:text="@string/unit_tenant_label"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp" />
 
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E0E0E0"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
         <!-- Electric Section -->
         <TextView
             android:id="@+id/electric_section_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electric"
+            android:text="@string/electric_section"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingBottom="4dp"/>
+            android:paddingBottom="4dp" />
 
         <!-- Electric Reading Row -->
         <LinearLayout
@@ -56,8 +54,8 @@
                 android:id="@+id/prev_electric_reading_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Previous: "
-                android:textSize="14sp"/>
+                android:text="@string/prev_electric_label"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/prev_electric_reading_text_view"
@@ -66,26 +64,26 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="14sp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp" />
 
             <!-- Current Electric Reading (Input) -->
             <TextView
                 android:id="@+id/current_electric_reading_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current: "
+                android:text="@string/current_electric_label"
                 android:textSize="14sp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp" />
 
             <EditText
                 android:id="@+id/current_electric_reading_edit_text"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Enter current"
+                android:hint="@string/current_electric_hint"
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <!-- Electric Calculated Price Row -->
@@ -97,21 +95,21 @@
             android:paddingBottom="12dp">
 
             <TextView
-                android:id="@+id/electric_calculated_price_label"
+                android:id="@+id/electric_price_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Electric Price: "
+                android:text="@string/electric_price_label"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/electric_price_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0.00 THB"
+                android:text="@string/electric_price_default"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="4dp" />
         </LinearLayout>
 
         <!-- Divider -->
@@ -119,17 +117,17 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E0E0E0"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
         <!-- Water Section -->
         <TextView
             android:id="@+id/water_section_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Water"
+            android:text="@string/water_section"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingBottom="4dp"/>
+            android:paddingBottom="4dp" />
 
         <!-- Water Reading Row -->
         <LinearLayout
@@ -143,8 +141,8 @@
                 android:id="@+id/prev_water_reading_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Previous: "
-                android:textSize="14sp"/>
+                android:text="@string/prev_water_label"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/prev_water_reading_text_view"
@@ -153,26 +151,26 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="14sp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp" />
 
             <!-- Current Water Reading (Input) -->
             <TextView
                 android:id="@+id/current_water_reading_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current: "
+                android:text="@string/current_water_label"
                 android:textSize="14sp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp" />
 
             <EditText
                 android:id="@+id/current_water_reading_edit_text"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="Enter current"
+                android:hint="@string/current_water_hint"
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <!-- Water Calculated Price Row -->
@@ -184,21 +182,21 @@
             android:paddingBottom="12dp">
 
             <TextView
-                android:id="@+id/water_calculated_price_label"
+                android:id="@+id/water_price_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Water Price: "
+                android:text="@string/water_price_label"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/water_price_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0.00 THB"
+                android:text="@string/water_price_default"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="4dp" />
         </LinearLayout>
 
         <!-- Divider -->
@@ -206,7 +204,34 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E0E0E0"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
+
+        <!-- Service Fee Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/service_fee_label"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/service_fee_label"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/service_fee_edit_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/service_fee_hint"
+                android:inputType="numberDecimal"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
 
         <!-- Additional Fee Section -->
         <LinearLayout
@@ -227,19 +252,19 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Additional"
+                    android:text="@string/additional_fee_label"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/additional_fee_amount_edit_text"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="96dp"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Additional"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/additional_fee_hint"
                     android:inputType="numberDecimal"
-                    android:textSize="14sp"
-                    android:layout_marginStart="8dp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Fee Description Row -->
@@ -247,10 +272,10 @@
                 android:id="@+id/additional_fee_description_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter description of additional charge"
+                android:hint="@string/additional_fee_desc_hint"
                 android:inputType="text"
                 android:textSize="14sp"
-                android:padding="8dp"/>
+                android:padding="8dp" />
         </LinearLayout>
 
         <!-- Divider -->
@@ -258,32 +283,36 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#E0E0E0"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
-        <!-- Final Total Price Section (Optional) -->
+        <!-- Rent and Final Total Price Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:orientation="horizontal"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:gravity="center_vertical">
 
+            <!-- Rent Price on left -->
             <TextView
-                android:id="@+id/final_total_price_label"
-                android:layout_width="wrap_content"
+                android:id="@+id/rent_price_text_view"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Final Total: "
+                android:text="@string/rent_price_default"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
+            <!-- Final Total on right -->
             <TextView
                 android:id="@+id/final_total_price_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="0.00 THB"
-                android:textSize="18sp"
+                android:text="@string/final_total_default"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginStart="4dp"/>
+                android:gravity="end" />
         </LinearLayout>
 
     </LinearLayout>
