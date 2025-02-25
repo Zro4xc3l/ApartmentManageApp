@@ -98,8 +98,9 @@
     <string name="detail_property_address">ที่อยู่: [ที่อยู่ที่พัก]</string>
     <string name="detail_billing_period">รอบบิล: [ช่วงเวลาที่เรียกเก็บเงิน]</string>
     <string name="detail_total_rent">ค่าเช่ารวม: ฿0.00</string>
-    <string name="detail_total_electric">ค่าไฟฟ้ารวม: ฿0.00 (ใช้ไป 0 หน่วย)</string>
-    <string name="detail_total_water">ค่าน้ำรวม: ฿0.00 (ใช้ไป 0 หน่วย)</string>
+    <string name="detail_total_electric">ค่าไฟฟ้ารวม: ฿0.00</string>
+    <string name="detail_total_water">ค่าน้ำรวม: ฿0.00</string>
+    <string name="detail_total_service_fee">ค่าบริการรวม: ฿0.00</string>
     <string name="detail_total_additional">ค่าใช้จ่ายเพิ่มเติม: ฿0.00</string>
     <string name="detail_grand_total">ยอดรวมทั้งหมด: ฿0.00</string>
     <string name="detail_bill_status">สถานะ: ค้างชำระ</string>

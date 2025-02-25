@@ -30,7 +30,7 @@ public class BillsDetailActivity extends AppCompatActivity {
     private ImageButton btnBackTop;
     private TextView tvDetailPropertyName, tvDetailPropertyAddress, tvDetailBillingPeriod;
     private TextView tvDetailTotalRent, tvDetailTotalElectric, tvDetailTotalWater;
-    private TextView tvDetailTotalAdditional, tvDetailGrandTotal, tvDetailBillStatus;
+    private TextView tvDetailTotalAdditional, tvDetailTotalServiceFee, tvDetailGrandTotal, tvDetailBillStatus;
     private RecyclerView rvUnitDetails;
     private Button btnMarkAsPaid;
 
@@ -54,6 +54,7 @@ public class BillsDetailActivity extends AppCompatActivity {
         tvDetailTotalElectric = findViewById(R.id.tv_detail_total_electric);
         tvDetailTotalWater = findViewById(R.id.tv_detail_total_water);
         tvDetailTotalAdditional = findViewById(R.id.tv_detail_total_additional);
+        tvDetailTotalServiceFee = findViewById(R.id.tv_detail_total_service_fee); // Added service fee
         tvDetailGrandTotal = findViewById(R.id.tv_detail_grand_total);
         tvDetailBillStatus = findViewById(R.id.tv_detail_bill_status);
         rvUnitDetails = findViewById(R.id.rv_unit_details);
@@ -102,11 +103,13 @@ public class BillsDetailActivity extends AppCompatActivity {
         tvDetailPropertyAddress.setText("Address: " + bill.getPropertyAddress());
         tvDetailBillingPeriod.setText("Billing Period: " + bill.getBillingPeriod());
         tvDetailTotalRent.setText("Total Rent: ฿" + String.format("%.2f", bill.getTotalRent()));
-        tvDetailTotalElectric.setText("Total Electric: ฿" + String.format("%.2f", bill.getTotalElectric())
-                + " (Usage: " + bill.getTotalElectricUsage() + " units)");
-        tvDetailTotalWater.setText("Total Water: ฿" + String.format("%.2f", bill.getTotalWater())
-                + " (Usage: " + bill.getTotalWaterUsage() + " units)");
+        tvDetailTotalElectric.setText("Total Electric: ฿" + String.format("%.2f", bill.getTotalElectric()));
+        tvDetailTotalWater.setText("Total Water: ฿" + String.format("%.2f", bill.getTotalWater()));
         tvDetailTotalAdditional.setText("Total Additional: ฿" + String.format("%.2f", bill.getTotalAdditional()));
+
+        // Display service fee
+        tvDetailTotalServiceFee.setText("Service Fee: ฿" + String.format("%.2f", bill.getServiceFee()));
+
         tvDetailGrandTotal.setText("Grand Total: ฿" + String.format("%.2f", bill.getGrandTotal()));
         tvDetailBillStatus.setText("Status: " + bill.getBillStatus());
 

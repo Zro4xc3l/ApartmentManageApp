@@ -107,6 +107,16 @@
                         android:textColor="#333333" />
 
                     <TextView
+                        android:id="@+id/tv_detail_total_service_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_total_service_fee"
+                        android:textSize="16sp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="#333333" />
+
+
+                    <TextView
                         android:id="@+id/tv_detail_total_additional"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

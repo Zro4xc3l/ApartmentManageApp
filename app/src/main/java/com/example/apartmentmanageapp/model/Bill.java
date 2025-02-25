@@ -20,6 +20,7 @@ public class Bill implements Serializable {
     private String billStatus;
     private long timestamp;
     private List<UnitBill> unitBills;
+    private double totalserviceFee;
 
     // Default constructor required for Firebase
     public Bill() {
@@ -31,9 +32,7 @@ public class Bill implements Serializable {
                 String billingPeriod,
                 double totalRent,
                 double totalElectric,
-                double totalElectricUsage,
                 double totalWater,
-                double totalWaterUsage,
                 double serviceFee,  // SETTING SERVICE FEE
                 double totalAdditional,
                 double grandTotal,
@@ -47,9 +46,7 @@ public class Bill implements Serializable {
         this.billingPeriod = billingPeriod;
         this.totalRent = totalRent;
         this.totalElectric = totalElectric;
-        this.totalElectricUsage = totalElectricUsage;
         this.totalWater = totalWater;
-        this.totalWaterUsage = totalWaterUsage;
         this.serviceFee = serviceFee;
         this.totalAdditional = totalAdditional;
         this.grandTotal = grandTotal;
@@ -110,14 +107,6 @@ public class Bill implements Serializable {
         this.totalElectric = totalElectric;
     }
 
-    public double getTotalElectricUsage() {
-        return totalElectricUsage;
-    }
-
-    public void setTotalElectricUsage(double totalElectricUsage) {
-        this.totalElectricUsage = totalElectricUsage;
-    }
-
     /**
      * Getter for totalWater.
      */
@@ -131,26 +120,17 @@ public class Bill implements Serializable {
      */
     @PropertyName("totalWater")
     public void setTotalWater(Object value) {
-        if (value instanceof Number) {
-            this.totalWater = ((Number) value).doubleValue();
-        } else if (value instanceof String) {
+        if (value != null) {
             try {
-                this.totalWater = Double.parseDouble((String) value);
+                this.totalWater = Double.parseDouble(value.toString());
             } catch (NumberFormatException e) {
-                this.totalWater = 0.0;
+                this.totalWater = 0.0; // Default to 0 if parsing fails
             }
         } else {
             this.totalWater = 0.0;
         }
     }
 
-    public double getTotalWaterUsage() {
-        return totalWaterUsage;
-    }
-
-    public void setTotalWaterUsage(double totalWaterUsage) {
-        this.totalWaterUsage = totalWaterUsage;
-    }
 
     // Update: Map the Firestore field "totalServiceFee" to the serviceFee property
     @PropertyName("totalServiceFee")
@@ -159,9 +139,18 @@ public class Bill implements Serializable {
     }
 
     @PropertyName("totalServiceFee")
-    public void setServiceFee(double serviceFee) {
-        this.serviceFee = serviceFee;
+    public void setServiceFee(Object value) {
+        if (value != null) {
+            try {
+                this.serviceFee = Double.parseDouble(value.toString());
+            } catch (NumberFormatException e) {
+                this.serviceFee = 0.0;
+            }
+        } else {
+            this.serviceFee = 0.0;
+        }
     }
+
 
     public double getTotalAdditional() {
         return totalAdditional;

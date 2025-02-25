@@ -47,10 +47,8 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillViewHold
         holder.tvPropertyName.setText(bill.getPropertyName());
         holder.tvBillingPeriod.setText("Billing Period: " + bill.getBillingPeriod());
         holder.tvRent.setText("Total Rent: ฿" + formatCurrency(bill.getTotalRent()));
-        holder.tvElectric.setText("Total Electric: ฿" + formatCurrency(bill.getTotalElectric()) +
-                " (Usage: " + formatUnits(bill.getTotalElectricUsage()) + ")");
-        holder.tvWater.setText("Total Water: ฿" + formatCurrency(bill.getTotalWater()) +
-                " (Usage: " + formatUnits(bill.getTotalWaterUsage()) + ")");
+        holder.tvElectric.setText("Total Electric: ฿" + formatCurrency(bill.getTotalElectric()));
+        holder.tvWater.setText("Total Water: ฿" + formatCurrency(bill.getTotalWater()));
         holder.tvServiceFee.setText("Service Fee: ฿" + formatCurrency(bill.getServiceFee()));
         holder.tvAdditional.setText("Total Additional: ฿" + formatCurrency(bill.getTotalAdditional()));
         holder.tvGrandTotal.setText("Grand Total: ฿" + formatCurrency(bill.getGrandTotal()));
